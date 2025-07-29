@@ -1,7 +1,8 @@
-// js/main.js (Final Version with Advanced Search Logic)
+// js/main.js (Final Version with View Switcher Fix)
 
 document.addEventListener('DOMContentLoaded', () => {
     // --- Element Selectors ---
+    const resultsWrapper = document.getElementById('results-wrapper');
     const resultsGrid = document.getElementById('results-grid');
     const paginationContainer = document.getElementById('pagination');
     const searchInput = document.getElementById('search-input');
@@ -9,8 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const subTypeFilter = document.getElementById('sub-type-filter');
     const statusFilterButtons = document.querySelectorAll('.status-filter-btn');
     const mainSearchBtn = document.getElementById('main-search-btn');
-    const advancedSearchToggle = document.getElementById('advanced-search-toggle');
+    const advancedSearchToggle = document.getElementById('advanced-search-btn');
     const searchFilterSection = document.getElementById('search-section');
+    const resultsMeta = document.getElementById('results-meta');
 
     // --- State Variables ---
     let currentPage = 1;
@@ -18,8 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentStatusFilter = '';
 
     // --- Functions ---
-    // populateFilters, getStatusInfo, displayItems, setupPagination (These remain the same)
-    
     function populateFilters() {
         const types = [...new Set(eNumbersData.map(item => item.type))].sort();
         const subTypes = [...new Set(eNumbersData.map(item => item.subType).filter(Boolean))].sort();
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
             default: return { text: 'ไม่ระบุ', className: 'unidentified' };
         }
     }
-    
+
     function displayItems(page, data) {
         resultsGrid.innerHTML = '';
         page--;
@@ -63,10 +63,10 @@ document.addEventListener('DOMContentLoaded', () => {
         for (const item of paginatedItems) {
             const statusInfo = getStatusInfo(item.status);
             const card = document.createElement('div');
-            card.className = `card ${statusInfo.className}`; 
+            card.className = `card ${statusInfo.className}`;
             const distributorQueryString = `?distributors=${item.usedBy.join(',')}&eNumberId=${item.id}`;
             card.innerHTML = `
-                <div class="status-ribbon"></div> 
+                <div class="status-ribbon"></div>
                 <div class="card-header">
                     <h2>${item.id}</h2>
                     <span class="status ${statusInfo.className}">${statusInfo.text}</span>
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="card-footer">
                         <a href="distributors.html${distributorQueryString}" class="distributor-link-compact">
                             <span class="icon">🏢</span>
-                            <span>ผู้จัดจำหน่าย: ${item.usedBy.length}</span>
+                            <span>Distr. ${item.usedBy.length}</span>
                         </a>
                         <a href="e-number-single.html#${item.id}" class="btn-read-more">อ่านเพิ่มเติม</a>
                     </div>
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="card-view-new-footer">
                         <div class="new-footer-distributors">
                              <a href="distributors.html${distributorQueryString}">
-                                <span class="icon">🏢</span> ผู้จัดจำหน่าย: ${item.usedBy.length}
+                                <span class="icon">🏢</span> Distr. : ${item.usedBy.length}
                              </a>
                         </div>
                         <div class="new-footer-readmore">
@@ -135,8 +135,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-
     function performSearch(isNewFilter = true) {
+        if (isNewFilter) { currentPage = 1; }
+
         const searchTerm = searchInput.value.toLowerCase();
         const selectedType = typeFilter.value;
         const selectedSubType = subTypeFilter.value;
@@ -148,15 +149,18 @@ document.addEventListener('DOMContentLoaded', () => {
             const matchesStatus = currentStatusFilter === '' || item.status.startsWith(currentStatusFilter);
             return matchesSearch && matchesType && matchesSubType && matchesStatus;
         });
+        
+        resultsMeta.textContent = `พบผลลัพธ์ทั้งหมด ${filteredData.length} รายการ`;
 
-        if (isNewFilter) { currentPage = 1; }
         displayItems(currentPage, filteredData);
         setupPagination(filteredData, itemsPerPage);
     }
     
     function triggerSearchWithLoader() {
+        resultsWrapper.style.display = 'block';
         resultsGrid.innerHTML = '<div class="loader"></div>';
         paginationContainer.innerHTML = '';
+        resultsMeta.textContent = '';
         setTimeout(() => {
             performSearch(true);
         }, 500);
@@ -164,51 +168,50 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // --- Event Listeners ---
     
-    // 1. Main Search/Clear Button Click
     mainSearchBtn?.addEventListener('click', () => {
-        if (searchInput.value.length > 0) {
+        if (mainSearchBtn.innerHTML.includes('fa-xmark')) {
             searchInput.value = '';
-            mainSearchBtn.innerHTML = '🔍';
-            mainSearchBtn.setAttribute('title', 'ค้นหา');
-            // Optionally, trigger a search for everything after clearing
-            triggerSearchWithLoader();
+            searchInput.dispatchEvent(new Event('input'));
+            resultsWrapper.style.display = 'none';
+            searchFilterSection.classList.remove('show');
         } else {
             triggerSearchWithLoader();
         }
     });
 
-    // 2. Typing in Search Input
     searchInput?.addEventListener('input', () => {
-        if (searchInput.value.length > 0) {
-            mainSearchBtn.innerHTML = '❌';
+        const hasText = searchInput.value.length > 0;
+        advancedSearchToggle.disabled = !hasText;
+
+        if (hasText) {
+            mainSearchBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
             mainSearchBtn.setAttribute('title', 'ล้างข้อมูล');
         } else {
-            mainSearchBtn.innerHTML = '🔍';
+            mainSearchBtn.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i>';
             mainSearchBtn.setAttribute('title', 'ค้นหา');
         }
     });
 
-    // 3. Pressing Enter in Search Box
     searchInput?.addEventListener('keyup', (event) => {
         if (event.key === 'Enter') {
             triggerSearchWithLoader();
         }
     });
 
-    // 4. Advanced Search Toggle Button
     advancedSearchToggle?.addEventListener('click', () => {
-        searchFilterSection.classList.toggle('show');
+        if (!advancedSearchToggle.disabled) {
+            searchFilterSection.classList.toggle('show');
+        }
     });
 
-    // 5. Advanced Filters (auto-search on change)
-    typeFilter?.addEventListener('change', () => triggerSearchWithLoader());
-    subTypeFilter?.addEventListener('change', () => triggerSearchWithLoader());
+    typeFilter?.addEventListener('change', triggerSearchWithLoader);
+    subTypeFilter?.addEventListener('change', triggerSearchWithLoader);
     statusFilterButtons.forEach(button => {
         button.addEventListener('click', () => {
             statusFilterButtons.forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
             currentStatusFilter = button.dataset.status;
-            triggerSearchWithLoader(); // Auto-search when status changes
+            triggerSearchWithLoader();
         });
     });
 
@@ -223,9 +226,18 @@ document.addEventListener('DOMContentLoaded', () => {
         activeBtn?.classList.add('active');
     }
     
-    viewGridBtn?.addEventListener('click', () => { resultsGrid.className = 'results-grid'; updateActiveButton(viewGridBtn); });
-    viewListBtn?.addEventListener('click', () => { resultsGrid.className = 'results-grid list-view'; updateActiveButton(viewListBtn); });
-    viewNewBtn?.addEventListener('click', () => { resultsGrid.className = 'results-grid new-card-view'; updateActiveButton(viewNewBtn); });
+    viewGridBtn?.addEventListener('click', () => { 
+        resultsGrid.className = 'results-grid'; 
+        updateActiveButton(viewGridBtn); 
+    });
+    viewListBtn?.addEventListener('click', () => { 
+        resultsGrid.className = 'results-grid list-view'; 
+        updateActiveButton(viewListBtn); 
+    });
+    viewNewBtn?.addEventListener('click', () => { 
+        resultsGrid.className = 'results-grid new-card-view'; 
+        updateActiveButton(viewNewBtn); 
+    });
 
     // --- Initial Load ---
     if(resultsGrid) {

@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>H4E Halal Checker - ตรวจสอบสถานะฮาลาลของวัตถุเจือปนอาหาร</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="assets/images/h4e-logo.png" type="image/x-icon">
-   
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
+
 </head>
+
 <body>
 
     <header class="top-bar">
@@ -32,23 +34,23 @@
             <div class="hero-google-content">
                 <h1>ฐานข้อมูลฮาลาลสำหรับวัตถุเจือปนอาหาร</h1>
                 <p>ค้นหา ตรวจสอบ และทำความเข้าใจสถานะฮาลาลของส่วนผสม (E-Numbers) ที่คุณบริโภค</p>
-              <div class="search-container-hero">
+                <div class="search-container-hero">
                     <input type="text" id="search-input" placeholder="ค้นหาด้วย E-number หรือชื่อวัตถุเจือปน...">
                     <div class="search-buttons">
-
-                              <button id="main-search-btn" class="search-icon-btn" title="ค้นหา"><i class="fa-solid fa-magnifying-glass"></i></button>
-                    <button id="advanced-search-btn" class="search-icon-btn" title="ค้นหาขั้นสูง"><i class="fas fa-filter"></i></button>
+                        <button id="advanced-search-btn" class="search-icon-btn" title="ค้นหาขั้นสูง"><i
+                                class="fas fa-filter"></i></button>
+                        <button id="main-search-btn" class="search-icon-btn" title="ค้นหา"><i
+                                class="fa-solid fa-magnifying-glass"></i></button>
                     </div>
-              
-                    
                 </div>
-            </div>
-        </section>
-
-        <section id="search-section" class="search-filter-section">
+                     <section id="search-section" class="search-filter-section">
             <div class="filter-row">
-                <select id="type-filter"><option value="">-- เลือกประเภท --</option></select>
-                <select id="sub-type-filter"><option value="">-- เลือกประเภทย่อย --</option></select>
+                <select id="type-filter">
+                    <option value="">-- เลือกประเภท --</option>
+                </select>
+                <select id="sub-type-filter">
+                    <option value="">-- เลือกประเภทย่อย --</option>
+                </select>
             </div>
             <div class="filter-buttons">
                 <button class="status-filter-btn" data-status="">ทั้งหมด</button>
@@ -62,14 +64,19 @@
                 </div>
             </div>
         </section>
+            </div>
+        </section>
 
-        <main id="results-grid" class="results-grid">
-            <p class="initial-message">กรุณาใช้ช่องค้นหาเพื่อแสดงข้อมูล</p>
-        </main>
+   
 
-        <nav class="pagination-container" aria-label="Pagination">
-            <ul id="pagination" class="pagination"></ul>
-        </nav>
+        <div id="results-wrapper" class="results-wrapper">
+             <div id="results-meta" class="results-meta"></div>
+            <main id="results-grid" class="results-grid"></main>
+            <nav class="pagination-container" aria-label="Pagination">
+                <ul id="pagination" class="pagination"></ul>
+            </nav>
+        </div>
+
 
         <section class="explanation-section">
             <h2>ทำความเข้าใจสถานะฮาลาล</h2>
@@ -86,7 +93,7 @@
                     <span class="status mashbooh">มัชบูฮ์</span>
                     <p>วัตถุที่ยังมีความคลุมเครือหรือน่าสงสัยเกี่ยวกับที่มาหรือกระบวนการผลิต</p>
                 </div>
-                 <div class="explanation-item">
+                <div class="explanation-item">
                     <span class="status haram">ฮารอม</span>
                     <p>วัตถุต้องห้ามตามหลักศาสนาอิสลาม ไม่สามารถบริโภคได้</p>
                 </div>
@@ -114,4 +121,5 @@
     <script src="js/mock-data.js"></script>
     <script src="js/main.js"></script>
 </body>
+
 </html>

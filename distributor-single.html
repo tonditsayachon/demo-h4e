@@ -9,7 +9,7 @@
 </head>
 <body>
 
-       <header class="top-bar">
+    <header class="top-bar">
         <div class="container top-bar-container">
             <a href="index.html" class="logo">
                 <img src="assets/images/h4e-logo.png" alt="H4E Logo">
@@ -20,15 +20,15 @@
                 <button id="lang-switcher-btn" class="icon-btn" title="เปลี่ยนภาษา">
                     <img src="assets/images/th-flag.svg" alt="Thai Language">
                 </button>
-                </nav>
+            </nav>
         </div>
     </header>
 
     <div class="container single-content">
-            <nav class="breadcrumbs">
+        <nav class="breadcrumbs">
             <a href="index.html">หน้าหลัก</a>
             <span>/</span>
-            <a href="distributors.html">โรงงานและผู้จัดจำหน่าย</a>
+            <a href="distributors.html">ผู้จัดจำหน่าย</a>
             <span>/</span>
             <strong id="breadcrumb-current-page">...</strong>
         </nav>
@@ -60,103 +60,74 @@
     </div>
     
     <footer class="site-footer">
-        <div class="container footer-container">
-            <div class="footer-about">
-                <h4>เกี่ยวกับ H4E Halal Checker</h4>
-                <p>โครงการนี้เป็น Demo เพื่อสาธิตการสร้างฐานข้อมูลวัตถุเจือปนอาหารฮาลาลที่เข้าถึงง่ายสำหรับทุกคน</p>
-            </div>
-            <div class="footer-contact">
-                <h4>ติดต่อ ศูนย์วิทยาศาสตร์ฮาลาล จุฬาลงกรณ์มหาวิทยาลัย</h4>
-                <p>ชั้น 11-12 อาคารวิจัยจุฬาลงกรณ์มหาวิทยาลัย<br>
-                ถนนพญาไท แขวงวังใหม่ เขตปทุมวัน กรุงเทพฯ 10330</p>
-                <p>โทร: 0-2218-1054 | อีเมล: info@halalscience.org</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 H4E Halal Checker Demo. All Rights Reserved.</p>
-        </div>
-    </footer>
+        </footer>
 
     <script src="js/mock-data.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // ... Dark Mode Logic ...
-            const darkModeToggle = document.getElementById('dark-mode-toggle');
-            if (darkModeToggle) {
-                if (localStorage.getItem('darkMode') === 'enabled') {
-                    document.body.classList.add('dark-mode');
-                    darkModeToggle.textContent = '🌙';
-                }
-                darkModeToggle.addEventListener('click', () => {
-                    document.body.classList.toggle('dark-mode');
-                    const isDarkMode = document.body.classList.contains('dark-mode');
-                    localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
-                    darkModeToggle.textContent = isDarkMode ? '🌙' : '☀️';
-                });
-            }
-
             const distributorId = parseInt(window.location.hash.substring(1));
             if (!distributorId) {
-                document.getElementById('distributor-name').innerText = "ไม่พบข้อมูลบริษัท";
+                // Handle error
                 return;
             }
 
             const distributor = distributorsData.find(d => d.id === distributorId);
             if (!distributor) {
-                document.getElementById('distributor-name').innerText = `ไม่พบข้อมูลบริษัท ID: ${distributorId}`;
+                // Handle error
                 return;
             }
 
             // --- Populate Distributor Details ---
             document.title = distributor.name;
+            document.getElementById('breadcrumb-current-page').textContent = distributor.name;
             document.getElementById('distributor-logo').src = distributor.logo;
-            document.getElementById('distributor-logo').alt = distributor.name + " Logo";
-            document.getElementById('distributor-name').innerText = distributor.name;
-            document.getElementById('distributor-description').innerText = distributor.description;
+            document.getElementById('distributor-name').textContent = distributor.name;
+            document.getElementById('distributor-description').textContent = distributor.description;
             
-            //  👇 ส่วน JavaScript ที่แก้ไขใหม่ทั้งหมด 👇
-            // Logic to display location information clearly
-            document.getElementById('distributor-country').innerText = distributor.location.country;
-            
+            document.getElementById('distributor-country').textContent = distributor.location.country;
+            const provinceRow = document.getElementById('province-row');
             if (distributor.location.country === 'Thailand') {
-                document.getElementById('province-row').style.display = 'list-item'; // Show province row
-                document.getElementById('distributor-province').innerText = distributor.location.province;
+                provinceRow.style.display = 'list-item';
+                document.getElementById('distributor-province').textContent = distributor.location.province;
             } else {
-                document.getElementById('province-row').style.display = 'none'; // Hide province row for international
+                provinceRow.style.display = 'none';
             }
-            //  👆 สิ้นสุดส่วนที่แก้ไข 👆
 
-            document.getElementById('distributor-phone').innerText = distributor.phone;
-            document.getElementById('distributor-email').innerText = distributor.email;
+            document.getElementById('distributor-phone').textContent = distributor.phone;
+            document.getElementById('distributor-email').textContent = distributor.email;
             
             // --- Populate E-Number List ---
             const usedENumbers = eNumbersData.filter(e => e.usedBy.includes(distributorId));
             const eNumberListEl = document.getElementById('e-number-list');
-            document.getElementById('e-number-count').innerText = usedENumbers.length;
+            document.getElementById('e-number-count').textContent = usedENumbers.length;
             
-            if (usedENumbers.length === 0) {
-                eNumberListEl.innerHTML = '<li>ไม่พบข้อมูลการใช้งานสารในรายการของผู้จัดจำหน่ายนี้</li>';
-            } else {
+            if (usedENumbers.length > 0) {
                 const getStatusInfo = (statusKey) => {
+                    // This function should be reused from main.js or defined here
                     switch (statusKey) {
                         case 'halal-cert': return { text: 'ฮาลาล (รับรอง)', className: 'halal-cert' };
                         case 'halal-fatwa': return { text: 'ฮาลาล (ฟัตวา)', className: 'halal-fatwa' };
                         case 'mashbooh': return { text: 'มัชบูฮ์', className: 'mashbooh' };
+                        case 'haram': return { text: 'ฮารอม', className: 'haram' };
+                        case 'unidentified': return { text: 'ไม่ระบุ', className: 'unidentified' };
                         default: return { text: 'ไม่ระบุ', className: 'unidentified' };
                     }
                 };
+
                 usedENumbers.forEach(eNumber => {
                     const statusInfo = getStatusInfo(eNumber.status);
                     const li = document.createElement('li');
                     li.className = 'e-number-item';
                     li.innerHTML = `
                         <a href="e-number-single.html#${eNumber.id}">
-                            <span class="e-number-item-info">${eNumber.id} - ${eNumber.name}</span>
+                            <span class="e-number-item-info"><strong>${eNumber.id}</strong> - ${eNumber.name}</span>
                             <span class="status ${statusInfo.className}">${statusInfo.text}</span>
                         </a>
                     `;
                     eNumberListEl.appendChild(li);
                 });
+            } else {
+                eNumberListEl.innerHTML = '<li>ไม่พบข้อมูลการใช้งานสารในรายการของผู้จัดจำหน่ายนี้</li>';
             }
         });
     </script>
