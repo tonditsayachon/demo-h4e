@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>รายชื่อผู้จัดจำหน่าย</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="assets/images/h4e-logo.png" type="image/png">
+</head>
+<body>
+    <header class="top-bar">
+        <div class="container top-bar-container">
+            <a href="index.html" class="logo">
+                <img src="assets/images/h4e-logo.png" alt="H4E Logo">
+            </a>
+            <nav class="top-nav">
+                <a href="distributors.html" class="nav-link">ผู้จัดจำหน่าย</a>
+                <button id="lang-switcher-btn" class="icon-btn" title="เปลี่ยนภาษา">TH/EN</button>
+                <button id="dark-mode-toggle" class="icon-btn" title="โหมดกลางวัน/กลางคืน">☀️</button>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>ผู้จัดจำหน่าย</h1>
+            <p>รายชื่อบริษัทคู่ค้าในฐานข้อมูลของเรา</p>
+        </div>
+
+        <div id="active-filter-info"></div>
+
+        <section class="distributor-filters">
+            <input type="text" id="name-search" placeholder="ค้นหาตามชื่อบริษัท...">
+            <select id="location-filter">
+                <option value="">ทุกพื้นที่</option>
+                <option value="Thailand">ในประเทศ</option>
+                <option value="International">ต่างประเทศ</option>
+            </select>
+            <select id="province-filter">
+                <option value="">ทุกจังหวัด</option>
+                </select>
+        </section>
+
+        <div id="distributor-grid" class="distributor-grid">
+            </div>
+    </div>
+
+    <footer class="site-footer">
+        </footer>
+
+    <script src="js/mock-data.js"></script>
+    <script src="js/distributors.js"></script> 
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - H4E Admin</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="assets/images/h4e-logo.png" type="image/x-icon">
+</head>
+<body class="admin-page">
+    <header class="top-bar">
+        <div class="container top-bar-container">
+            <a href="index.html" class="logo"><img src="assets/images/h4e-logo.png" alt="H4E Logo"></a>
+            <nav class="top-nav">
+                <a href="index.html" class="nav-link">ออกจากระบบ</a>
+            </nav>
+        </div>
+    </header>
+    
+    <nav class="admin-nav">
+        <div class="container">
+            <div class="admin-nav-links">
+                <a href="admin-dashboard.html" class="active">ภาพรวม (Dashboard)</a>
+                <a href="admin-manage-enumbers.html">จัดการสาร E-Numbers</a>
+                <a href="admin-manage-distributors.html">จัดการผู้จัดจำหน่าย</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>ภาพรวมข้อมูล</h1>
+        <div class="stat-grid">
+            <div class="stat-card">
+                <h3>จำนวนสารทั้งหมด</h3>
+                <p class="stat-number" id="total-enumbers">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>จำนวนผู้จัดจำหน่าย</h3>
+                <p class="stat-number" id="total-distributors">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>สารที่ต้องตรวจสอบ (Mashbooh)</h3>
+                <p class="stat-number" id="total-mashbooh">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>สารที่ไม่ระบุสถานะ</h3>
+                <p class="stat-number" id="total-unidentified">0</p>
+            </div>
+        </div>
+
+        <div class="admin-section">
+            <h3>รายการที่แนะนำให้ตรวจสอบ</h3>
+            <p>รายการสาร E-Number ที่มีสถานะ "มัชบูฮ์" หรือ "ไม่ระบุ" ซึ่งควรได้รับการตรวจสอบและอัปเดตข้อมูล</p>
+            <table class="admin-table">
+                <thead>
+                    <tr><th>ID</th><th>ชื่อสาร</th><th>สถานะ</th></tr>
+                </thead>
+                <tbody id="review-table-body"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="js/mock-data.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Calculate stats
+            const totalENumbers = eNumbersData.length;
+            const totalDistributors = distributorsData.length;
+            const mashboohCount = eNumbersData.filter(e => e.status === 'mashbooh').length;
+            const unidentifiedCount = eNumbersData.filter(e => e.status === 'unidentified').length;
+
+            // Populate stat cards
+            document.getElementById('total-enumbers').textContent = totalENumbers;
+            document.getElementById('total-distributors').textContent = totalDistributors;
+            document.getElementById('total-mashbooh').textContent = mashboohCount;
+            document.getElementById('total-unidentified').textContent = unidentifiedCount;
+
+            // Populate recommended review table
+            const reviewItems = eNumbersData.filter(e => e.status === 'mashbooh' || e.status === 'unidentified');
+            const reviewTableBody = document.getElementById('review-table-body');
+            reviewItems.forEach(item => {
+                const row = `<tr>
+                    <td>${item.id}</td>
+                    <td>${item.name}</td>
+                    <td><span class="status ${item.status}">${item.status}</span></td>
+                </tr>`;
+                reviewTableBody.innerHTML += row;
+            });
+        });
+    </script>
+</body>
+</html>

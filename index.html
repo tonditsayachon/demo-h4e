@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H4E Halal Checker - ตรวจสอบสถานะฮาลาลของวัตถุเจือปนอาหาร</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="assets/images/h4e-logo.png" type="image/x-icon">
+</head>
+<body>
+
+    <header class="top-bar">
+        <div class="container top-bar-container">
+            <a href="index.html" class="logo">
+                <img src="assets/images/h4e-logo.png" alt="H4E Logo">
+            </a>
+            <nav class="top-nav">
+                <a href="distributors.html" class="nav-link">ผู้จัดจำหน่าย</a>
+                <a href="login.html" class="nav-link login-btn">เข้าสู่ระบบ</a>
+                <button id="lang-switcher-btn" class="icon-btn" title="เปลี่ยนภาษา">
+                    <img src="assets/images/th-flag.svg" alt="Thai Language">
+                </button>
+                </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="hero-google">
+            <div class="hero-google-content">
+                <h1>ฐานข้อมูลฮาลาลสำหรับวัตถุเจือปนอาหาร</h1>
+                <p>ค้นหา ตรวจสอบ และทำความเข้าใจสถานะฮาลาลของส่วนผสม (E-Numbers) ที่คุณบริโภค</p>
+                <div class="search-container-hero">
+                    <input type="text" id="search-input" placeholder="ค้นหาด้วย E-number หรือชื่อวัตถุเจือปน...">
+                    <button>ค้นหา</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="search-section" class="search-filter-section">
+            <div class="filter-row">
+                <select id="type-filter"><option value="">-- เลือกประเภท --</option></select>
+                <select id="sub-type-filter"><option value="">-- เลือกประเภทย่อย --</option></select>
+            </div>
+            <div class="filter-buttons">
+                <button class="status-filter-btn" data-status="">ทั้งหมด</button>
+                <button class="status-filter-btn" data-status="halal">ฮาลาล</button>
+                <button class="status-filter-btn" data-status="mashbooh">มัชบูฮ์</button>
+                <button class="status-filter-btn" data-status="haram">ฮารอม</button>
+                <div class="view-switcher" style="margin-left: auto;">
+                    <button id="view-grid-btn" class="icon-btn" title="Grid View">Grid</button>
+                    <button id="view-list-btn" class="icon-btn" title="List View">List</button>
+                    <button id="view-new-btn" class="icon-btn" title="Compact View">Compact</button>
+                </div>
+            </div>
+        </section>
+
+        <main id="results-grid" class="results-grid"></main>
+
+        <nav class="pagination-container" aria-label="Pagination">
+            <ul id="pagination" class="pagination"></ul>
+        </nav>
+
+        <section class="explanation-section">
+            <h2>ทำความเข้าใจสถานะฮาลาล</h2>
+            <div class="explanation-grid">
+                <div class="explanation-item">
+                    <span class="status halal-cert">ฮาลาล (รับรอง)</span>
+                    <p>วัตถุที่ผ่านการตรวจสอบและรับรองจากองค์กรศาสนาอิสลามที่เชื่อถือได้</p>
+                </div>
+                <div class="explanation-item">
+                    <span class="status halal-fatwa">ฮาลาล (ฟัตวา)</span>
+                    <p>วัตถุที่ถูกวินิจฉัยตามหลักศาสนาว่าฮาลาล แต่ยังไม่ผ่านการรับรองอย่างเป็นทางการ</p>
+                </div>
+                <div class="explanation-item">
+                    <span class="status mashbooh">มัชบูฮ์</span>
+                    <p>วัตถุที่ยังมีความคลุมเครือหรือน่าสงสัยเกี่ยวกับที่มาหรือกระบวนการผลิต</p>
+                </div>
+                 <div class="explanation-item">
+                    <span class="status haram">ฮารอม</span>
+                    <p>วัตถุต้องห้ามตามหลักศาสนาอิสลาม ไม่สามารถบริโภคได้</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer class="site-footer">
+        <div class="container footer-container">
+            <div class="footer-about">
+                <h4>เกี่ยวกับ H4E Halal Checker</h4>
+                <p>โครงการนี้เป็น Demo เพื่อสาธิตการสร้างฐานข้อมูลวัตถุเจือปนอาหารฮาลาล</p>
+            </div>
+            <div class="footer-contact">
+                <h4>ติดต่อ ศูนย์วิทยาศาสตร์ฮาลาล จุฬาฯ</h4>
+                <p>ชั้น 11-12 อาคารวิจัยจุฬาฯ ถนนพญาไท ปทุมวัน กรุงเทพฯ 10330</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 H4E Halal Checker Demo. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/mock-data.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

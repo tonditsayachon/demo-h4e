@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>จัดการผู้จัดจำหน่าย - H4E Admin</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="assets/images/h4e-logo.png" type="image/x-icon">
+</head>
+<body class="admin-page">
+    <header class="top-bar">
+        <div class="container top-bar-container">
+            <a href="index.html" class="logo"><img src="assets/images/h4e-logo.png" alt="H4E Logo"></a>
+            <nav class="top-nav"><a href="index.html" class="nav-link">ออกจากระบบ</a></nav>
+        </div>
+    </header>
+    
+    <nav class="admin-nav">
+        <div class="container">
+            <div class="admin-nav-links">
+                <a href="admin-dashboard.html">ภาพรวม (Dashboard)</a>
+                <a href="admin-manage-enumbers.html">จัดการสาร E-Numbers</a>
+                <a href="admin-manage-distributors.html" class="active">จัดการผู้จัดจำหน่าย</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="admin-header">
+            <h1>จัดการผู้จัดจำหน่าย</h1>
+            <button class="btn-read-more" style="background-color: var(--primary-color);">+ เพิ่มผู้จัดจำหน่ายใหม่</button>
+        </div>
+        
+        <div class="admin-section">
+            <table class="admin-table">
+                <thead>
+                    <tr><th>ID</th><th>ชื่อบริษัท</th><th>ที่ตั้ง</th><th>จำนวนสารที่ใช้</th><th>การกระทำ</th></tr>
+                </thead>
+                <tbody id="distributors-table-body">
+                    </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="js/mock-data.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tableBody = document.getElementById('distributors-table-body');
+            distributorsData.forEach(item => {
+                const usedENumberCount = eNumbersData.filter(e => e.usedBy.includes(item.id)).length;
+                const location = item.location.country === 'Thailand' ? item.location.province : item.location.country;
+                const row = `
+                    <tr>
+                        <td>${item.id}</td>
+                        <td>${item.name}</td>
+                        <td>${location}</td>
+                        <td>${usedENumberCount}</td>
+                        <td>
+                            <button class="btn-sm btn-edit">แก้ไข</button>
+                            <button class="btn-sm btn-delete">ลบ</button>
+                        </td>
+                    </tr>
+                `;
+                tableBody.innerHTML += row;
+            });
+        });
+    </script>
+</body>
+</html>
