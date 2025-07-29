@@ -171,11 +171,11 @@ a:hover {
 
 .search-container-hero {
     display: flex;
+    gap: 10px;
 }
 
 .search-container-hero input {
-    background-color: var(--card-bg-color);
-    border-radius: 50px 0 0 50px;
+    border-radius: 50px;
     border: 1px solid transparent;
     width: 100%;
     padding: 15px 25px;
@@ -183,14 +183,11 @@ a:hover {
     color: var(--text-color);
 }
 
-.search-container-hero input:focus {
-    outline: none;
-    border-color: var(--navbar-end-color);
-}
-
-.search-container-hero button {
+.search-container-hero button#main-search-btn {
     border-radius: 0 50px 50px 0;
-    padding: 0 30px;
+    margin-left: -60px; /* Overlap with the input field */
+    padding: 0 40px;
+    z-index: 2;
     border: none;
     background-color: var(--navbar-end-color);
     color: white;
@@ -200,25 +197,77 @@ a:hover {
     transition: background-color 0.2s;
 }
 
-.search-container-hero button:hover {
+.search-container-hero button#main-search-btn:hover {
     background-color: var(--primary-color-dark);
 }
 
-/* --- Search, Filter & Main Content --- */
-.search-filter-section {
-    padding: 30px;
-    background-color: var(--card-bg-color);
-    border-radius: 12px;
-    border: 1px solid var(--border-color);
-    margin-bottom: 40px;
+.advanced-search-btn {
+    border-radius: 50px;
+    border: 1px solid #fff;
+    background-color: transparent;
+    color: #fff;
+    padding: 0 30px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s;
+    white-space: nowrap; /* Prevent button text from wrapping */
 }
 
+.advanced-search-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+
+/* --- Advanced Search Box Toggle --- */
+.search-filter-section {
+    display: none;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.4s ease-out;
+    margin-top: -20px; /* Pull it up closer to the hero */
+}
+
+.search-filter-section.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+    margin: 16px 0px;
+    padding: 16px;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+
+/* --- Loading Spinner & Initial Message --- */
+.loader {
+    width: 50px;
+    height: 50px;
+    border: 5px solid var(--border-color);
+    border-top-color: var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 100px auto; /* Center the loader */
+}
+.initial-message {
+    text-align: center;
+    color: var(--light-text-color);
+    margin: 100px auto;
+    font-size: 1.1em;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* --- Search, Filter & Main Content (Existing) --- */
 .filter-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
 }
-
 .filter-row select {
     border-radius: 6px;
     background-color: var(--bg-color);
@@ -228,7 +277,6 @@ a:hover {
     color: var(--text-color);
     font-size: 1em;
 }
-
 .filter-buttons {
     border-top: 1px solid var(--border-color);
     padding-top: 20px;
@@ -238,7 +286,6 @@ a:hover {
     gap: 10px;
     align-items: center;
 }
-
 .status-filter-btn,
 .view-switcher .icon-btn {
     background-color: var(--card-bg-color);
@@ -251,27 +298,23 @@ a:hover {
     font-size: 0.9em;
     transition: all 0.2s ease-in-out;
 }
-
 .status-filter-btn:hover,
 .view-switcher .icon-btn:hover {
     background-color: var(--bg-color);
     border-color: #ccc;
 }
-
 .status-filter-btn.active,
 .view-switcher .icon-btn.active {
     background-color: var(--primary-color);
     color: white;
     border-color: var(--primary-color);
 }
-
 .results-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 25px;
-    min-height: 500px;
+    min-height: 200px;
 }
-
 .card {
     background-color: var(--card-bg-color);
     border-radius: 12px;
@@ -282,11 +325,12 @@ a:hover {
     position: relative;
     overflow: hidden;
 }
-
 .card:hover {
     transform: translateY(-4px);
     border-color: #cccccc;
 }
+
+/* ... (rest of the file is identical to your latest version) */
 
 /* --- Card Styles --- */
 .card-header {
@@ -528,7 +572,7 @@ body.dark-mode .status.unidentified {
 }
 
 .explanation-section {
-    padding: 60px 0;
+    padding: 40px 0;
     text-align: center;
 }
 
@@ -557,7 +601,7 @@ body.dark-mode .status.unidentified {
 }
 
 .explanation-item p {
-    margin: 0;
+  padding: 5px 0;
     font-size: 0.95em;
 }
 

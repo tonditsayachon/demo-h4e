@@ -1,32 +1,32 @@
-// js/main.js (Final Version - July 2025)
+// js/main.js (Final Version with Click-to-Search and Loading)
 
 document.addEventListener('DOMContentLoaded', () => {
     // --- Element Selectors ---
-    const body = document.body;
     const resultsGrid = document.getElementById('results-grid');
     const paginationContainer = document.getElementById('pagination');
     const searchInput = document.getElementById('search-input');
     const typeFilter = document.getElementById('type-filter');
     const subTypeFilter = document.getElementById('sub-type-filter');
     const statusFilterButtons = document.querySelectorAll('.status-filter-btn');
+    const mainSearchBtn = document.getElementById('main-search-btn');
+    const advancedSearchToggle = document.getElementById('advanced-search-toggle');
+    const searchFilterSection = document.getElementById('search-section');
 
     // --- State Variables ---
     let currentPage = 1;
     const itemsPerPage = 10;
     let currentStatusFilter = '';
 
-    // --- Functions ---
+    // --- Functions (These remain the same as your latest version) ---
     function populateFilters() {
         const types = [...new Set(eNumbersData.map(item => item.type))].sort();
         const subTypes = [...new Set(eNumbersData.map(item => item.subType).filter(Boolean))].sort();
-
         types.forEach(type => {
             const option = document.createElement('option');
             option.value = type;
             option.textContent = type;
             typeFilter.appendChild(option);
         });
-
         subTypes.forEach(subType => {
             const option = document.createElement('option');
             option.value = subType;
@@ -46,11 +46,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-    // UPDATED displayItems with new icons and distributor link format
     function displayItems(page, data) {
         resultsGrid.innerHTML = '';
         page--;
-
         const start = itemsPerPage * page;
         const end = start + itemsPerPage;
         const paginatedItems = data.slice(start, end);
@@ -64,9 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const statusInfo = getStatusInfo(item.status);
             const card = document.createElement('div');
             card.className = `card ${statusInfo.className}`; 
-            // Pass eNumber ID to distributor page for better context
             const distributorQueryString = `?distributors=${item.usedBy.join(',')}&eNumberId=${item.id}`;
-
             card.innerHTML = `
                 <div class="status-ribbon"></div> 
                 <div class="card-header">
@@ -129,18 +125,20 @@ document.addEventListener('DOMContentLoaded', () => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
                 currentPage = i;
-                filterAndRender(false);
-                document.getElementById('search-section')?.scrollIntoView({ behavior: 'smooth' });
+                performSearch(false);
+                document.getElementById('results-grid')?.scrollIntoView({ behavior: 'smooth' });
             });
             li.appendChild(link);
             paginationContainer.appendChild(li);
         }
     }
 
-    function filterAndRender(isNewFilter = true) {
+    // This function now only gets values and renders, it's triggered by the search button
+    function performSearch(isNewFilter = true) {
         const searchTerm = searchInput.value.toLowerCase();
         const selectedType = typeFilter.value;
         const selectedSubType = subTypeFilter.value;
+
         const filteredData = eNumbersData.filter(item => {
             const matchesSearch = searchTerm === '' || item.id.toLowerCase().includes(searchTerm) || item.name.toLowerCase().includes(searchTerm);
             const matchesType = selectedType === '' || item.type === selectedType;
@@ -150,24 +148,45 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         if (isNewFilter) { currentPage = 1; }
+
+        // Hide loader and display results
         displayItems(currentPage, filteredData);
         setupPagination(filteredData, itemsPerPage);
     }
-
-    // --- Event Listeners ---
-    searchInput?.addEventListener('input', () => filterAndRender(true));
-    typeFilter?.addEventListener('change', () => filterAndRender(true));
-    subTypeFilter?.addEventListener('change', () => filterAndRender(true));
     
+    // --- Event Listeners ---
+    
+    // 1. Main Search Button Click
+    mainSearchBtn?.addEventListener('click', () => {
+        resultsGrid.innerHTML = '<div class="loader"></div>';
+        paginationContainer.innerHTML = ''; // Clear old pagination
+        setTimeout(() => {
+            performSearch(true);
+        }, 500); // Simulate a network delay
+    });
+
+    // Also allow pressing Enter in the search box to trigger search
+    searchInput?.addEventListener('keyup', (event) => {
+        if (event.key === 'Enter') {
+            mainSearchBtn.click();
+        }
+    });
+
+    // 2. Advanced Search Toggle Button
+    advancedSearchToggle?.addEventListener('click', () => {
+        searchFilterSection.classList.toggle('show');
+    });
+
+    // 3. Status filter buttons just update the state
     statusFilterButtons.forEach(button => {
         button.addEventListener('click', () => {
             statusFilterButtons.forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
             currentStatusFilter = button.dataset.status;
-            filterAndRender(true);
         });
     });
 
+    // View Switcher Logic
     const viewGridBtn = document.getElementById('view-grid-btn');
     const viewListBtn = document.getElementById('view-list-btn');
     const viewNewBtn = document.getElementById('view-new-btn');
@@ -185,7 +204,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Initial Load ---
     if(resultsGrid) {
         populateFilters();
-        filterAndRender(true);
         updateActiveButton(viewGridBtn);
         document.querySelector('.status-filter-btn[data-status=""]')?.classList.add('active');
     }

@@ -20,7 +20,7 @@
                 <button id="lang-switcher-btn" class="icon-btn" title="เปลี่ยนภาษา">
                     <img src="assets/images/th-flag.svg" alt="Thai Language">
                 </button>
-                </nav>
+            </nav>
         </div>
     </header>
 
@@ -31,7 +31,8 @@
                 <p>ค้นหา ตรวจสอบ และทำความเข้าใจสถานะฮาลาลของส่วนผสม (E-Numbers) ที่คุณบริโภค</p>
                 <div class="search-container-hero">
                     <input type="text" id="search-input" placeholder="ค้นหาด้วย E-number หรือชื่อวัตถุเจือปน...">
-                    <button>ค้นหา</button>
+                    <button id="main-search-btn">ค้นหา</button>
+                    <button id="advanced-search-toggle" class="advanced-search-btn">ค้นหาขั้นสูง</button>
                 </div>
             </div>
         </section>
@@ -54,7 +55,9 @@
             </div>
         </section>
 
-        <main id="results-grid" class="results-grid"></main>
+        <main id="results-grid" class="results-grid">
+            <p class="initial-message">กรุณาใช้ช่องค้นหาเพื่อแสดงข้อมูล</p>
+        </main>
 
         <nav class="pagination-container" aria-label="Pagination">
             <ul id="pagination" class="pagination"></ul>
