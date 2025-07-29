@@ -2,7 +2,6 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     // --- Element Selectors ---
-    // const darkModeToggle = document.getElementById('dark-mode-toggle');
     const body = document.body;
     const resultsGrid = document.getElementById('results-grid');
     const paginationContainer = document.getElementById('pagination');
@@ -16,26 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const itemsPerPage = 10;
     let currentStatusFilter = '';
 
-    // --- Dark Mode Logic (Commented Out) ---
-    /*
-    if (localStorage.getItem('darkMode') === 'enabled') {
-        body.classList.add('dark-mode');
-        // darkModeToggle.textContent = '🌙';
-    }
-    if(darkModeToggle) {
-        darkModeToggle.addEventListener('click', () => {
-            body.classList.toggle('dark-mode');
-            if (body.classList.contains('dark-mode')) {
-                localStorage.setItem('darkMode', 'enabled');
-                // darkModeToggle.textContent = '🌙';
-            } else {
-                localStorage.setItem('darkMode', 'disabled');
-                // darkModeToggle.textContent = '☀️';
-            }
-        });
-    }
-    */
-    
     // --- Functions ---
     function populateFilters() {
         const types = [...new Set(eNumbersData.map(item => item.type))].sort();
@@ -67,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-    // UPDATED displayItems with new distributor link format
+    // UPDATED displayItems with new icons and distributor link format
     function displayItems(page, data) {
         resultsGrid.innerHTML = '';
         page--;
@@ -85,11 +64,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const statusInfo = getStatusInfo(item.status);
             const card = document.createElement('div');
             card.className = `card ${statusInfo.className}`; 
-            const distributorQueryString = `?distributors=${item.usedBy.join(',')}`;
+            // Pass eNumber ID to distributor page for better context
+            const distributorQueryString = `?distributors=${item.usedBy.join(',')}&eNumberId=${item.id}`;
 
             card.innerHTML = `
                 <div class="status-ribbon"></div> 
-
                 <div class="card-header">
                     <h2>${item.id}</h2>
                     <span class="status ${statusInfo.className}">${statusInfo.text}</span>
@@ -98,20 +77,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="card-body">
                         <p class="name">${item.name}</p>
                         <div class="additive-details">
-                            <p><span>ประเภท:</span> ${item.type}</p>
-                            <p><span>ประเภทย่อย:</span> ${item.subType || '-'}</p>
+                            <p><span class="detail-icon">🧪</span><span>ประเภท:</span> ${item.type}</p>
+                            <p><span class="detail-icon">🧬</span><span>ประเภทย่อย:</span> ${item.subType || '-'}</p>
                         </div>
-                        <p class="description">${item.description}</p>
+                        <p class="description"><span class="detail-icon">📖</span>${item.description}</p>
                     </div>
                     <div class="card-footer">
                         <a href="distributors.html${distributorQueryString}" class="distributor-link-compact">
                             <span class="icon">🏢</span>
-                            <span>Distr : ${item.usedBy.length}</span>
+                            <span>ผู้จัดจำหน่าย: ${item.usedBy.length}</span>
                         </a>
                         <a href="e-number-single.html#${item.id}" class="btn-read-more">อ่านเพิ่มเติม</a>
                     </div>
                 </div>
-
                 <div class="card-view-new-wrapper">
                     <div class="card-view-new-header">
                         <span class="status ${statusInfo.className}">${statusInfo.text}</span>
@@ -119,13 +97,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                     <div class="card-view-new-body">
                         <p class="name">${item.name}</p>
-                        <p class="type">${item.type}</p>
-                        <p class="description-new">${item.description}</p>
+                        <p class="type"><span class="detail-icon">🧪</span>${item.type}</p>
+                        <p class="description-new"><span class="detail-icon">📖</span>${item.description}</p>
                     </div>
                     <div class="card-view-new-footer">
                         <div class="new-footer-distributors">
                              <a href="distributors.html${distributorQueryString}">
-                                <span class="icon">🏢</span> Distr : ${item.usedBy.length}
+                                <span class="icon">🏢</span> ผู้จัดจำหน่าย: ${item.usedBy.length}
                              </a>
                         </div>
                         <div class="new-footer-readmore">
@@ -141,12 +119,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function setupPagination(data, itemsPerPage) {
         paginationContainer.innerHTML = '';
         const pageCount = Math.ceil(data.length / itemsPerPage);
-
         for (let i = 1; i <= pageCount; i++) {
             const li = document.createElement('li');
             li.className = 'page-item';
             if (i === currentPage) li.classList.add('active');
-
             const link = document.createElement('a');
             link.href = '#search-section';
             link.innerText = i;
@@ -154,8 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.preventDefault();
                 currentPage = i;
                 filterAndRender(false);
-                const target = document.getElementById('search-section');
-                if (target) target.scrollIntoView({ behavior: 'smooth' });
+                document.getElementById('search-section')?.scrollIntoView({ behavior: 'smooth' });
             });
             li.appendChild(link);
             paginationContainer.appendChild(li);
@@ -166,30 +141,23 @@ document.addEventListener('DOMContentLoaded', () => {
         const searchTerm = searchInput.value.toLowerCase();
         const selectedType = typeFilter.value;
         const selectedSubType = subTypeFilter.value;
-
         const filteredData = eNumbersData.filter(item => {
-            const matchesSearch = searchTerm === '' ||
-                item.id.toLowerCase().includes(searchTerm) ||
-                item.name.toLowerCase().includes(searchTerm);
+            const matchesSearch = searchTerm === '' || item.id.toLowerCase().includes(searchTerm) || item.name.toLowerCase().includes(searchTerm);
             const matchesType = selectedType === '' || item.type === selectedType;
             const matchesSubType = selectedSubType === '' || item.subType === selectedSubType;
             const matchesStatus = currentStatusFilter === '' || item.status.startsWith(currentStatusFilter);
-            
             return matchesSearch && matchesType && matchesSubType && matchesStatus;
         });
 
-        if (isNewFilter) {
-            currentPage = 1;
-        }
-
+        if (isNewFilter) { currentPage = 1; }
         displayItems(currentPage, filteredData);
         setupPagination(filteredData, itemsPerPage);
     }
 
     // --- Event Listeners ---
-    searchInput.addEventListener('input', () => filterAndRender(true));
-    typeFilter.addEventListener('change', () => filterAndRender(true));
-    subTypeFilter.addEventListener('change', () => filterAndRender(true));
+    searchInput?.addEventListener('input', () => filterAndRender(true));
+    typeFilter?.addEventListener('change', () => filterAndRender(true));
+    subTypeFilter?.addEventListener('change', () => filterAndRender(true));
     
     statusFilterButtons.forEach(button => {
         button.addEventListener('click', () => {
@@ -205,28 +173,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const viewNewBtn = document.getElementById('view-new-btn');
     const viewButtons = [viewGridBtn, viewListBtn, viewNewBtn];
 
-    viewGridBtn?.addEventListener('click', () => {
-        resultsGrid.classList.remove('list-view', 'new-card-view');
-        updateActiveButton(viewGridBtn);
-    });
-    viewListBtn?.addEventListener('click', () => {
-        resultsGrid.classList.remove('new-card-view');
-        resultsGrid.classList.add('list-view');
-        updateActiveButton(viewListBtn);
-    });
-    viewNewBtn?.addEventListener('click', () => {
-        resultsGrid.classList.remove('list-view');
-        resultsGrid.classList.add('new-card-view');
-        updateActiveButton(viewNewBtn);
-    });
-
     function updateActiveButton(activeBtn) {
         viewButtons.forEach(btn => btn?.classList.remove('active'));
         activeBtn?.classList.add('active');
     }
+    
+    viewGridBtn?.addEventListener('click', () => { resultsGrid.className = 'results-grid'; updateActiveButton(viewGridBtn); });
+    viewListBtn?.addEventListener('click', () => { resultsGrid.className = 'results-grid list-view'; updateActiveButton(viewListBtn); });
+    viewNewBtn?.addEventListener('click', () => { resultsGrid.className = 'results-grid new-card-view'; updateActiveButton(viewNewBtn); });
 
     // --- Initial Load ---
-    if(document.getElementById('results-grid')) {
+    if(resultsGrid) {
         populateFilters();
         filterAndRender(true);
         updateActiveButton(viewGridBtn);

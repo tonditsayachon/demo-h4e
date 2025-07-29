@@ -13,12 +13,12 @@
     --card-bg-color: #ffffff;
     --border-color: #e8e8e8;
     --font-family: 'Sarabun', sans-serif;
-
+    
     /* Navbar & Accent Colors */
     --navbar-start-color: #6a11cb;
     --navbar-end-color: #2575fc;
-    --button-accent-color: #357ef3;
-    --button-accent-dark-color: #b225d9;
+    --button-accent-color: #ff7e5f;
+    --button-accent-dark-color: #feb47b;
     --admin-bg-color: #f4f7fc;
 
     /* Status Colors */
@@ -27,7 +27,7 @@
     --status-mashbooh-text: #d4a017;
     --status-haram-text: #c62828;
     --status-unidentified-text: #757575;
-
+    
     --status-cert-bg: #eaf3ff;
     --status-fatwa-bg: #f3e8ff;
     --status-mashbooh-bg: #fff8e1;
@@ -125,7 +125,7 @@ a:hover {
     width: 24px;
     object-fit: cover;
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255,255,255,0.2);
 }
 
 .login-btn {
@@ -141,10 +141,11 @@ a:hover {
     color: white;
 }
 
+
 /* --- Hero Section --- */
 .hero-google {
     padding: 80px 20px;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.85)), url('../assets/images/hero-bg.jpg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../assets/images/hero-bg.jpg');
     background-size: cover;
     background-position: center;
     border-radius: 12px;
@@ -331,6 +332,8 @@ a:hover {
 .additive-details p {
     margin: 4px 0;
     font-size: 0.95em;
+    display: flex;
+    align-items: flex-start;
 }
 
 .additive-details p span {
@@ -340,10 +343,8 @@ a:hover {
 .description {
     font-size: 0.9em;
     color: var(--light-text-color);
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    display: flex;
+    align-items: flex-start;
 }
 
 .card-footer {
@@ -359,15 +360,14 @@ a:hover {
     background-color: var(--button-accent-color);
     border: none;
     color: white;
-    border-radius: 20px;
-    padding: 8px 16px;
+    border-radius: 6px;
+    padding: 10px 20px;
     font-weight: 500;
     font-size: 0.95em;
     transition: background-color 0.2s;
 }
 
 .btn-read-more:hover {
-    color: #fff;
     background-color: var(--button-accent-dark-color);
 }
 
@@ -388,6 +388,20 @@ a:hover {
 .distributor-link-compact:hover {
     color: var(--primary-color);
 }
+
+/* --- Card Detail Icons --- */
+.detail-icon {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+
+.description .detail-icon {
+    vertical-align: top;
+    margin-top: 0.2em;
+}
+
 
 /* --- Status Tag & Ribbon --- */
 .status {
@@ -543,7 +557,7 @@ body.dark-mode .status.unidentified {
 }
 
 .explanation-item p {
-    padding: 5px 12px;
+    margin: 0;
     font-size: 0.95em;
 }
 
@@ -643,11 +657,11 @@ body.dark-mode .site-footer {
 }
 
 .card-view-new-header .status {
-    margin-bottom: 10px;
-    display: block;
-    width: fit-content;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    font-size: 0.8em;
 }
-
 
 .card-view-new-body {
     flex-grow: 1;
@@ -665,6 +679,9 @@ body.dark-mode .site-footer {
     color: var(--light-text-color);
     margin-bottom: 15px;
     font-size: 0.95em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .card-view-new-body .description-new {
@@ -675,6 +692,9 @@ body.dark-mode .site-footer {
     -webkit-box-orient: vertical;
     overflow: hidden;
     min-height: 38px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
 }
 
 .card-view-new-footer {
@@ -717,6 +737,115 @@ body.dark-mode .site-footer {
 
 .new-footer-readmore a:hover {
     color: var(--button-accent-dark-color);
+}
+
+
+/* === NEW DISTRIBUTOR PAGE STYLES === */
+.page-header {
+    text-align: center;
+    padding: 20px 0;
+    margin-bottom: 30px;
+}
+
+.page-header h1 {
+    font-size: 2.5em;
+    margin-bottom: 5px;
+}
+
+.distributor-filters {
+    padding: 30px;
+    background-color: var(--card-bg-color);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    margin-bottom: 40px;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 20px;
+}
+
+.distributor-filters input,
+.distributor-filters select {
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 6px;
+    background-color: var(--bg-color);
+    padding: 12px;
+    font-family: var(--font-family);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    font-size: 1em;
+}
+
+.distributor-grid.card-style-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.distributor-card-item {
+    background-color: var(--card-bg-color);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    transition: all 0.2s ease-in-out;
+}
+
+.distributor-card-item:hover {
+    transform: translateY(-4px);
+    border-color: #cccccc;
+}
+
+.dist-card-header {
+    padding: 20px;
+}
+
+.dist-card-header img {
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    object-fit: contain;
+    background-color: #fff;
+    padding: 5px;
+    border: 1px solid var(--border-color);
+}
+
+.dist-card-body {
+    padding: 0 20px;
+    flex-grow: 1;
+}
+
+.dist-card-body h3 {
+    margin: 0 0 10px 0;
+    font-size: 1.2em;
+    color: var(--secondary-color);
+}
+
+.dist-card-body .location {
+    color: var(--light-text-color);
+    font-size: 0.95em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dist-card-footer {
+    padding: 20px;
+    margin-top: 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+.active-filter-banner {
+    padding: 15px 20px;
+    border: 1px solid var(--border-color);
+    background-color: var(--card-bg-color);
+    border-radius: 8px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
 }
 
 /* --- LOGIN PAGE --- */
@@ -882,7 +1011,7 @@ body.admin-page {
 
 /* --- Responsive --- */
 @media (max-width: 992px) {
-    .results-grid.list-view {
+    .results-grid.list-view, .distributor-grid.card-style-grid {
         grid-template-columns: 1fr;
     }
 }
@@ -892,7 +1021,7 @@ body.admin-page {
         font-size: 2em;
     }
 
-    .filter-row {
+    .filter-row, .distributor-filters {
         grid-template-columns: 1fr;
         gap: 15px;
     }
