@@ -1,4 +1,4 @@
-// js/main.js (Final Version with Click-to-Search and Loading)
+// js/main.js (Final Version with Advanced Search Logic)
 
 document.addEventListener('DOMContentLoaded', () => {
     // --- Element Selectors ---
@@ -17,7 +17,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const itemsPerPage = 10;
     let currentStatusFilter = '';
 
-    // --- Functions (These remain the same as your latest version) ---
+    // --- Functions ---
+    // populateFilters, getStatusInfo, displayItems, setupPagination (These remain the same)
+    
     function populateFilters() {
         const types = [...new Set(eNumbersData.map(item => item.type))].sort();
         const subTypes = [...new Set(eNumbersData.map(item => item.subType).filter(Boolean))].sort();
@@ -133,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // This function now only gets values and renders, it's triggered by the search button
+
     function performSearch(isNewFilter = true) {
         const searchTerm = searchInput.value.toLowerCase();
         const selectedType = typeFilter.value;
@@ -148,41 +150,65 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         if (isNewFilter) { currentPage = 1; }
-
-        // Hide loader and display results
         displayItems(currentPage, filteredData);
         setupPagination(filteredData, itemsPerPage);
     }
     
-    // --- Event Listeners ---
-    
-    // 1. Main Search Button Click
-    mainSearchBtn?.addEventListener('click', () => {
+    function triggerSearchWithLoader() {
         resultsGrid.innerHTML = '<div class="loader"></div>';
-        paginationContainer.innerHTML = ''; // Clear old pagination
+        paginationContainer.innerHTML = '';
         setTimeout(() => {
             performSearch(true);
-        }, 500); // Simulate a network delay
-    });
-
-    // Also allow pressing Enter in the search box to trigger search
-    searchInput?.addEventListener('keyup', (event) => {
-        if (event.key === 'Enter') {
-            mainSearchBtn.click();
+        }, 500);
+    }
+    
+    // --- Event Listeners ---
+    
+    // 1. Main Search/Clear Button Click
+    mainSearchBtn?.addEventListener('click', () => {
+        if (searchInput.value.length > 0) {
+            searchInput.value = '';
+            mainSearchBtn.innerHTML = '🔍';
+            mainSearchBtn.setAttribute('title', 'ค้นหา');
+            // Optionally, trigger a search for everything after clearing
+            triggerSearchWithLoader();
+        } else {
+            triggerSearchWithLoader();
         }
     });
 
-    // 2. Advanced Search Toggle Button
+    // 2. Typing in Search Input
+    searchInput?.addEventListener('input', () => {
+        if (searchInput.value.length > 0) {
+            mainSearchBtn.innerHTML = '❌';
+            mainSearchBtn.setAttribute('title', 'ล้างข้อมูล');
+        } else {
+            mainSearchBtn.innerHTML = '🔍';
+            mainSearchBtn.setAttribute('title', 'ค้นหา');
+        }
+    });
+
+    // 3. Pressing Enter in Search Box
+    searchInput?.addEventListener('keyup', (event) => {
+        if (event.key === 'Enter') {
+            triggerSearchWithLoader();
+        }
+    });
+
+    // 4. Advanced Search Toggle Button
     advancedSearchToggle?.addEventListener('click', () => {
         searchFilterSection.classList.toggle('show');
     });
 
-    // 3. Status filter buttons just update the state
+    // 5. Advanced Filters (auto-search on change)
+    typeFilter?.addEventListener('change', () => triggerSearchWithLoader());
+    subTypeFilter?.addEventListener('change', () => triggerSearchWithLoader());
     statusFilterButtons.forEach(button => {
         button.addEventListener('click', () => {
             statusFilterButtons.forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
             currentStatusFilter = button.dataset.status;
+            triggerSearchWithLoader(); // Auto-search when status changes
         });
     });
 
