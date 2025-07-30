@@ -1,6 +1,13 @@
 // js/main.js (Final Version with View Switcher Fix)
 
 document.addEventListener('DOMContentLoaded', () => {
+    const allContainers = document.querySelectorAll('.container');
+    const fullWidthToggle = document.getElementById('full-width-toggle');
+    const heroWrapper = document.getElementById('hero-wrapper');
+    const heroSwitchBtns = document.querySelectorAll('.hero-switch-btn');
+    const searchInputs = document.querySelectorAll('.main-search-input');
+    const mainSearchBtns = document.querySelectorAll('.main-search-btn');
+    const advancedSearchBtns = document.querySelectorAll('.advanced-search-btn');
     // --- Element Selectors ---
     const resultsWrapper = document.getElementById('results-wrapper');
     const resultsGrid = document.getElementById('results-grid');
@@ -76,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <p class="name">${item.name}</p>
                         <div class="additive-details">
                             <p><span class="detail-icon">🧪</span><span>ประเภท: </span> ${item.type}</p>
-                            <p><span class="detail-icon">🧬</span><span>ประเภทย่อย: </span> ${item.subType || '-'}</p>
+                            <p><span class="detail-icon">🧬</span><span>ประเภทย่อย:</span> ${item.subType || '-'}</p>
                         </div>
                         <p class="description"><span class="detail-icon">📖</span>${item.description}</p>
                     </div>
@@ -167,7 +174,42 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     // --- Event Listeners ---
-    
+     fullWidthToggle?.addEventListener('click', () => {
+        allContainers.forEach(container => container.classList.toggle('full-width'));
+    });
+
+    // 2. Hero Switcher
+    heroSwitchBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            heroSwitchBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const heroToShow = btn.dataset.hero;
+            heroWrapper.className = `hero-wrapper show-${heroToShow}`;
+        });
+    });
+    searchInputs.forEach(input => {
+        input.addEventListener('input', (e) => {
+            const searchTerm = e.target.value;
+            currentSearchTerm = searchTerm.toLowerCase();
+            // Sync both search inputs
+            searchInputs.forEach(si => si.value = searchTerm);
+
+            const hasText = searchTerm.length > 0;
+            advancedSearchBtns.forEach(btn => btn.disabled = !hasText);
+            
+            mainSearchBtns.forEach(btn => {
+                btn.innerHTML = hasText ? '<i class="fa-solid fa-xmark"></i>' : '<i class="fa-solid fa-magnifying-glass"></i>';
+                btn.setAttribute('title', hasText ? 'ล้างข้อมูล' : 'ค้นหา');
+            });
+        });
+        
+        input.addEventListener('keyup', (event) => {
+            if (event.key === 'Enter') {
+                triggerSearchWithLoader();
+            }
+        });
+    });
+
     mainSearchBtn?.addEventListener('click', () => {
         if (mainSearchBtn.innerHTML.includes('fa-xmark')) {
             searchInput.value = '';

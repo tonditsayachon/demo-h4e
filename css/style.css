@@ -180,7 +180,9 @@ a:hover {
     border-color: var(--primary-color);
 }
 .search-container-hero input {
-    border: none;
+    border: 1px solid var(--border-color);
+    border-radius: 50px;
+    margin-right: 8px;
     background: none;
     width: 100%;
     padding: 10px 20px;
@@ -1113,5 +1115,99 @@ body.admin-page {
     .admin-nav .container {
         flex-direction: column;
         align-items: flex-start;
+    }
+}
+
+/* css/style.css (Final Version with Hero Switcher & Full-width) */
+
+/* ... (All existing styles from your last version are correct and should be kept) ... */
+
+/* ADD THESE NEW STYLES TO THE END OF YOUR FILE */
+
+/* --- Full-width Toggle --- */
+.container.full-width {
+    max-width: 100%;
+    padding: 0 25px; /* Add some padding even in full-width */
+}
+
+/* --- Hero Switcher --- */
+.hero-switcher {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+.hero-switch-btn {
+    padding: 8px 20px;
+    border: 1px solid var(--border-color);
+    background-color: var(--card-bg-color);
+    color: var(--text-color);
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+}
+.hero-switch-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+/* --- Hero Wrapper & Visibility --- */
+.hero-wrapper .hero-google,
+.hero-wrapper .hero-light {
+    display: none; /* Hide both by default */
+}
+.hero-wrapper.show-dark .hero-google,
+.hero-wrapper.show-light .hero-light {
+    display: block; /* Show the active one */
+}
+.hero-wrapper { /* Set initial state */
+    display: contents;
+}
+.hero-wrapper.show-dark .hero-google { display: block; }
+
+/* --- Hero Layout 2 (Light Theme) --- */
+.hero-light {
+    display: flex !important;
+    align-items: center;
+    gap: 40px;
+    background-color: var(--card-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 40px;
+    margin: 40px 0;
+}
+.hero-light-text {
+    flex: 1;
+}
+.hero-light-text h1 {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: var(--secondary-color);
+    margin-top: 0;
+}
+.hero-light-text p {
+    color: var(--text-color);
+    margin-bottom: 30px;
+}
+.hero-light-image {
+    flex: 0 0 45%; /* Image takes up 45% of the space */
+    max-width: 45%;
+}
+.hero-light-image img {
+    width: 100%;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+/* Responsive adjustments for Hero Light */
+@media (max-width: 992px) {
+    .hero-light {
+        flex-direction: column;
+        text-align: center;
+    }
+    .hero-light-image {
+        max-width: 80%;
+        margin-top: 30px;
     }
 }
