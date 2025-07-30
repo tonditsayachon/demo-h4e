@@ -18,7 +18,7 @@
     --navbar-start-color: #6a11cb;
     --navbar-end-color: #2575fc;
     --button-accent-color: #f084ff;
-    --button-accent-dark-color: #feb47b;
+    --button-accent-dark-color: #e871a8;
     --admin-bg-color: #f4f7fc;
 
     /* NEW STATUS COLORS */
@@ -510,10 +510,6 @@ a:hover {
     color: var(--status-mashbooh-text);
 }
 
-.status.haram {
-    background-color: var(--status-haram-bg);
-    color: var(--status-haram-text);
-}
 
 .status.unidentified {
     background-color: var(--status-unidentified-bg);
@@ -535,10 +531,7 @@ body.dark-mode .status.mashbooh {
     color: #e3ca86;
 }
 
-body.dark-mode .status.haram {
-    background-color: rgba(198, 40, 40, 0.2);
-    color: #ef9a9a;
-}
+
 
 body.dark-mode .status.unidentified {
     background-color: rgba(117, 117, 117, 0.2);
@@ -565,9 +558,7 @@ body.dark-mode .status.unidentified {
     background-color: var(--status-mashbooh-text);
 }
 
-.card.haram .status-ribbon {
-    background-color: var(--status-haram-text);
-}
+
 
 .card.unidentified .status-ribbon {
     background-color: var(--status-unidentified-text);

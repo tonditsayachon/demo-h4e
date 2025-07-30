@@ -3,9 +3,9 @@
 const eNumbersData = [
     { id: "E100", name: "Curcumin", status: "halal-cert", type: "Food Color", subType: "Yellow and Orange Colors", usedBy: [1, 4, 7], description: "สารสกัดสีเหลืองจากขมิ้นชัน นิยมใช้ในผลิตภัณฑ์อาหารหลากหลายชนิด เช่น แกง, เครื่องดื่ม, และขนม" },
     // --- STATUS CHANGE ---
-    { id: "E101", name: "Riboflavin", status: "haram", type: "Food Color", subType: "Yellow and Orange Colors", usedBy: [2, 3, 8], description: "หรือที่รู้จักในชื่อวิตามินบี 2 เป็นสารให้สีเหลืองที่พบได้ตามธรรมชาติในอาหารหลายชนิด" },
+    { id: "E101", name: "Riboflavin", status: "halal-cert", type: "Food Color", subType: "Yellow and Orange Colors", usedBy: [2, 3, 8], description: "หรือที่รู้จักในชื่อวิตามินบี 2 เป็นสารให้สีเหลืองที่พบได้ตามธรรมชาติในอาหารหลายชนิด" },
     // --- STATUS CHANGE ---
-    { id: "E120", name: "Cochineal, Carminic acid", status: "haram", type: "Food Color", subType: "Red Colors", usedBy: [3, 7], description: "สีแดงที่สกัดจากแมลงโคชินีล สถานะฮาลาลขึ้นอยู่กับการตีความทางศาสนาของแต่ละองค์กร" },
+    { id: "E120", name: "Cochineal, Carminic acid", status: "halal-cert", type: "Food Color", subType: "Red Colors", usedBy: [3, 7], description: "สีแดงที่สกัดจากแมลงโคชินีล สถานะฮาลาลขึ้นอยู่กับการตีความทางศาสนาของแต่ละองค์กร" },
     { id: "E141", name: "Chlorophylls", status: "halal-cert", type: "Food Color", subType: "Green Colors", usedBy: [1, 4, 8], description: "สารให้สีเขียวที่สกัดได้จากพืช เป็นสารที่เกิดขึ้นตามธรรมชาติในกระบวนการสังเคราะห์ด้วยแสง" },
     { id: "E150a", name: "Plain caramel", status: "halal-fatwa", type: "Food Color", subType: "Brown and Black Colors", usedBy: [2, 3, 9], description: "สีคาราเมลที่เกิดจากการให้ความร้อนกับน้ำตาล มักใช้ในเครื่องดื่มโคล่าและผลิตภัณฑ์เบเกอรี่" },
     { id: "E160a", name: "Carotenes", status: "halal-cert", type: "Food Color", subType: "Yellow and Orange Colors", usedBy: [1, 6, 8], description: "กลุ่มสารสีที่พบในแครอทและพืชสีส้มเหลืองอื่นๆ เป็นแหล่งของวิตามินเอ" },
@@ -20,13 +20,13 @@ const eNumbersData = [
     { id: "E330", name: "Citric acid", status: "halal-cert", type: "Acidity Regulator", subType: "Citric Acid and Citrates", usedBy: [1, 2, 3, 4, 7], description: "กรดซิตริกหรือกรดมะนาว ใช้ปรับความเป็นกรดและเพิ่มรสเปรี้ยวในอาหาร" },
     { id: "E407", name: "Carrageenan", status: "halal-fatwa", type: "Thickener, Stabiliser", subType: "Natural Gums", usedBy: [5, 6], description: "สารสกัดจากสาหร่ายทะเลสีแดง ใช้ทำให้อาหารข้นและคงตัว เช่น ในนมและไอศกรีม" },
      // --- STATUS CHANGE ---
-    { id: "E415", name: "Xanthan gum", status: "haram", type: "Thickener, Stabiliser", subType: "Natural Gums", usedBy: [1, 5, 10], description: "ผลิตจากการหมักของแบคทีเรีย ใช้เป็นสารให้ความข้นหนืดในซอสและน้ำสลัด" },
+    { id: "E415", name: "Xanthan gum", status: "halal-cert", type: "Thickener, Stabiliser", subType: "Natural Gums", usedBy: [1, 5, 10], description: "ผลิตจากการหมักของแบคทีเรีย ใช้เป็นสารให้ความข้นหนืดในซอสและน้ำสลัด" },
     { id: "E422", name: "Glycerol", status: "mashbooh", type: "Humectant, Sweetener", subType: "Polyols", usedBy: [2, 4, 7], description: "ให้ความชุ่มชื้นและรสหวาน แหล่งที่มาอาจเป็นไขมันพืชหรือสัตว์ จึงต้องตรวจสอบ" },
     { id: "E440", name: "Pectins", status: "halal-fatwa", type: "Gelling Agent", subType: "Natural Gums", usedBy: [1, 6], description: "สกัดจากพืชตระกูลส้ม ใช้ทำแยมและเยลลี่ให้เกิดเป็นเจล" },
     { id: "E621", name: "Monosodium glutamate (MSG)", status: "halal-fatwa", type: "Flavour Enhancer", subType: "Glutamates", usedBy: [7, 9], description: "ผงชูรส ใช้เพื่อเพิ่มรสชาติ 'อูมามิ' ในอาหารแปรรูปต่างๆ" },
     { id: "E951", name: "Aspartame", status: "mashbooh", type: "Artificial Sweetener", subType: "Dipeptide-based", usedBy: [2, 3, 10], description: "สารให้ความหวานแทนน้ำตาล มีความหวานสูงแต่ให้พลังงานต่ำ" },
     // --- STATUS CHANGE ---
-    { id: "E967", name: "Xylitol", status: "haram", type: "Artificial Sweetener", subType: "Polyols", usedBy: [2, 8], description: "สารให้ความหวานที่สกัดจากพืช มักใช้ในหมากฝรั่งและผลิตภัณฑ์ดูแลช่องปาก" },
+    { id: "E967", name: "Xylitol", status: "halal-cert", type: "Artificial Sweetener", subType: "Polyols", usedBy: [2, 8], description: "สารให้ความหวานที่สกัดจากพืช มักใช้ในหมากฝรั่งและผลิตภัณฑ์ดูแลช่องปาก" },
     { id: "E999", name: "Quillaja extract", status: "unidentified", type: "Emulsifier", subType: "Saponins", usedBy: [11, 12], description: "สารสกัดจากเปลือกต้นสบู่ ใช้เป็นสารที่ทำให้เกิดฟองในเครื่องดื่ม" },
 ];
 

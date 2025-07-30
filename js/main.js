@@ -42,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
             case 'halal-cert': return { text: 'ฮาลาล (รับรอง)', className: 'status-orange' };
             case 'halal-fatwa': return { text: 'ฮาลาล (ฟัตวา)', className: 'status-green' };
             case 'mashbooh': return { text: 'มัชบูฮ์', className: 'status-red' };
-            case 'haram': return { text: 'ฮารอม', className: 'status-red' };
             case 'unidentified': return { text: 'ไม่ระบุ', className: 'status-grey' };
             default: return { text: 'ไม่ระบุ', className: 'status-grey' };
         }
