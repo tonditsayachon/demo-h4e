@@ -13,7 +13,7 @@
     --card-bg-color: #ffffff;
     --border-color: #d5d5d5;
     --font-family: 'Sarabun', sans-serif;
-    
+
     /* Navbar & Accent Colors */
     --navbar-start-color: #6a11cb;
     --navbar-end-color: #2575fc;
@@ -176,9 +176,11 @@ a:hover {
     border: 1px solid transparent;
     transition: border-color 0.2s;
 }
+
 .search-container-hero:focus-within {
     border-color: var(--primary-color);
 }
+
 .search-container-hero input {
     border: 1px solid var(--border-color);
     border-radius: 50px;
@@ -189,14 +191,17 @@ a:hover {
     font-size: 1em;
     color: var(--text-color);
 }
+
 .search-container-hero input:focus {
     outline: none;
 }
+
 .search-buttons {
     display: flex;
     gap: 5px;
     align-items: center;
 }
+
 .search-icon-btn {
     border: none;
     background-color: var(--primary-color-dark);
@@ -212,15 +217,19 @@ a:hover {
     transition: background-color 0.2s, opacity 0.2s;
     flex-shrink: 0;
 }
+
 .search-icon-btn:hover {
     background-color: var(--primary-color);
 }
+
 #advanced-search-btn {
     background-color: #777;
 }
+
 #advanced-search-btn:hover {
     background-color: #555;
 }
+
 #advanced-search-btn:disabled {
     background-color: #ccc;
     cursor: not-allowed;
@@ -236,6 +245,7 @@ a:hover {
     transition: all 0.4s ease-out;
     margin-top: -20px;
 }
+
 .search-filter-section.show {
 
     display: block;
@@ -249,8 +259,10 @@ a:hover {
 
 /* --- Results Wrapper --- */
 .results-wrapper {
-    display: none; /* Hidden by default */
+    display: none;
+    /* Hidden by default */
 }
+
 .results-meta {
     margin-bottom: 20px;
     font-weight: 500;
@@ -267,12 +279,14 @@ a:hover {
     animation: spin 1s linear infinite;
     margin: 100px auto;
 }
+
 .initial-message {
     text-align: center;
     color: var(--light-text-color);
     margin: 100px auto;
     font-size: 1.1em;
 }
+
 @keyframes spin {
     to {
         transform: rotate(360deg);
@@ -286,6 +300,7 @@ a:hover {
     grid-template-columns: 1fr 1fr;
     gap: 20px;
 }
+
 .filter-row select {
     border-radius: 6px;
     background-color: var(--bg-color);
@@ -295,6 +310,7 @@ a:hover {
     color: var(--text-color);
     font-size: 1em;
 }
+
 .filter-buttons {
     border-top: 1px solid var(--border-color);
     padding-top: 20px;
@@ -304,6 +320,7 @@ a:hover {
     gap: 10px;
     align-items: center;
 }
+
 .status-filter-btn,
 .view-switcher .icon-btn {
     background-color: var(--card-bg-color);
@@ -316,23 +333,27 @@ a:hover {
     font-size: 0.9em;
     transition: all 0.2s ease-in-out;
 }
+
 .status-filter-btn:hover,
 .view-switcher .icon-btn:hover {
     background-color: var(--bg-color);
     border-color: #ccc;
 }
+
 .status-filter-btn.active,
 .view-switcher .icon-btn.active {
     background-color: var(--primary-color);
     color: white;
     border-color: var(--primary-color);
 }
+
 .results-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 25px;
     min-height: 200px;
 }
+
 .card {
     background-color: var(--card-bg-color);
     border-radius: 12px;
@@ -343,6 +364,7 @@ a:hover {
     position: relative;
     overflow: hidden;
 }
+
 .card:hover {
     transform: translateY(-4px);
     border-color: #cccccc;
@@ -469,22 +491,27 @@ a:hover {
     font-size: 0.85em;
     font-weight: 500;
 }
+
 .status.status-orange {
     background-color: var(--status-orange-bg);
     color: var(--status-orange-text);
 }
+
 .status.status-green {
     background-color: var(--status-green-bg);
     color: var(--status-green-text);
 }
+
 .status.status-red {
     background-color: var(--status-red-bg);
     color: var(--status-red-text);
 }
+
 .status.status-grey {
     background-color: var(--status-grey-bg);
     color: var(--status-grey-text);
 }
+
 .status-ribbon {
     position: absolute;
     left: 0;
@@ -492,10 +519,22 @@ a:hover {
     bottom: 0;
     width: 8px;
 }
-.card.status-orange .status-ribbon { background-color: var(--status-orange-text); }
-.card.status-green .status-ribbon { background-color: var(--status-green-text); }
-.card.status-red .status-ribbon { background-color: var(--status-red-text); }
-.card.status-grey .status-ribbon { background-color: var(--status-grey-text); }
+
+.card.status-orange .status-ribbon {
+    background-color: var(--status-orange-text);
+}
+
+.card.status-green .status-ribbon {
+    background-color: var(--status-green-text);
+}
+
+.card.status-red .status-ribbon {
+    background-color: var(--status-red-text);
+}
+
+.card.status-grey .status-ribbon {
+    background-color: var(--status-grey-text);
+}
 
 .status.halal-cert {
     background-color: var(--status-cert-bg);
@@ -685,6 +724,7 @@ body.dark-mode .site-footer {
     align-items: center;
     margin-bottom: 20px;
 }
+
 .results-grid.list-view {
     grid-template-columns: repeat(2, 1fr);
 }
@@ -704,24 +744,31 @@ body.dark-mode .site-footer {
 .results-grid.compact-card-view {
     grid-template-columns: repeat(auto-fit, minmax(3, 1fr));
 }
+
 .results-grid.compact-card-view .card {
     padding: 20px;
     text-align: center;
     /* Background color will be set by status class below */
 }
+
 .results-grid.compact-card-view .card .status-ribbon {
-    display: none; /* Hide ribbon for compact view */
+    display: none;
+    /* Hide ribbon for compact view */
 }
+
 /* Set background color based on status */
 .results-grid.compact-card-view .card.status-orange {
     background-color: var(--status-orange-bg);
 }
+
 .results-grid.compact-card-view .card.status-green {
     background-color: var(--status-green-bg);
 }
+
 .results-grid.compact-card-view .card.status-red {
     background-color: var(--status-red-bg);
 }
+
 .results-grid.compact-card-view .card.status-grey {
     background-color: var(--status-grey-bg);
 }
@@ -730,42 +777,50 @@ body.dark-mode .site-footer {
 .results-grid.compact-card-view .card-main-content {
     display: none;
 }
+
 .card-view-compact-wrapper {
     display: none;
 }
+
 .results-grid.compact-card-view .card-view-compact-wrapper {
     display: flex;
     flex-direction: column;
     height: 100%;
 }
+
 .card-view-compact-header {
     position: relative;
     padding-bottom: 15px;
 }
+
 .card-view-compact-header .e-number-logo {
     font-size: 2.5em;
     font-weight: 700;
     color: var(--secondary-color);
     margin: 10px 0;
 }
+
 .card-view-compact-header .status {
     position: absolute;
     top: -10px;
     right: -10px;
     font-size: 0.8em;
-    background-color: var(--card-bg-color); 
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background-color: var(--card-bg-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
 .card-view-compact-body {
     flex-grow: 1;
     margin-bottom: 20px;
 }
+
 .card-view-compact-body .name {
     font-size: 1.25em;
     font-weight: 700;
     color: var(--secondary-color);
     margin: 0 0 5px 0;
 }
+
 .card-view-compact-body .type {
     color: var(--light-text-color);
     margin-bottom: 15px;
@@ -774,6 +829,7 @@ body.dark-mode .site-footer {
     justify-content: center;
     align-items: center;
 }
+
 .card-view-compact-body .description-compact {
     font-size: 0.9em;
     color: var(--text-color);
@@ -786,21 +842,25 @@ body.dark-mode .site-footer {
     justify-content: center;
     align-items: flex-start;
 }
+
 .card-view-compact-footer {
     display: flex;
     border-top: 1px solid var(--border-color);
     margin: auto -20px -20px -20px;
 }
-.card-view-compact-footer > * {
+
+.card-view-compact-footer>* {
     flex: 1;
     padding: 15px 10px;
     font-size: 0.9em;
     font-weight: 500;
 }
+
 .compact-footer-distributors {
     color: var(--text-color);
     border-right: 1px solid var(--border-color);
 }
+
 .compact-footer-distributors a {
     color: var(--text-color);
     text-decoration: none;
@@ -809,15 +869,18 @@ body.dark-mode .site-footer {
     justify-content: center;
     gap: 8px;
 }
+
 .compact-footer-distributors .icon {
     font-size: 1.2em;
 }
+
 .compact-footer-readmore a {
     display: block;
     color: var(--button-accent-color);
     text-decoration: none;
     font-weight: 700;
 }
+
 .compact-footer-readmore a:hover {
     color: var(--button-accent-dark-color);
 }
@@ -860,7 +923,7 @@ body.dark-mode .site-footer {
 
 .distributor-grid.card-style-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjusted min-width */
     gap: 25px;
 }
 
@@ -872,15 +935,18 @@ body.dark-mode .site-footer {
     flex-direction: column;
     text-align: center;
     transition: all 0.2s ease-in-out;
+    /* --- NEW STYLES ADDED --- */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .distributor-card-item:hover {
-    transform: translateY(-4px);
+    transform: translateY(-5px);
     border-color: #cccccc;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
 .dist-card-header {
-    padding: 20px;
+    padding: 25px 20px;
 }
 
 .dist-card-header img {
@@ -891,6 +957,7 @@ body.dark-mode .site-footer {
     background-color: #fff;
     padding: 5px;
     border: 1px solid var(--border-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .dist-card-body {
@@ -1124,6 +1191,7 @@ body.admin-page {
     max-width: 100%;
     border-radius: 0;
 }
+
 .hero-wrapper.full-width .hero-google,
 .hero-wrapper.full-width .hero-light {
     max-width: 100%;
@@ -1145,6 +1213,7 @@ body.admin-page {
     flex-direction: column;
     gap: 10px;
 }
+
 .fab-btn {
     width: 56px;
     height: 56px;
@@ -1154,30 +1223,60 @@ body.admin-page {
     color: white;
     font-size: 1.5em;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     transition: background-color 0.2s;
 }
+
 .fab-btn:hover {
     background-color: var(--navbar-end-color);
 }
 
-
+/* --- Breadcrumbs (NEW GLOBAL STYLE) --- */
+.breadcrumbs {
+    padding: 15px 20px;
+    margin: 16px 0;
+    background-color: var(--card-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.9em;
+}
+.breadcrumbs a {
+    color: var(--primary-color);
+    font-weight: 500;
+}
+.breadcrumbs a:hover {
+    text-decoration: underline;
+}
+.breadcrumbs span {
+    color: var(--light-text-color);
+    margin: 0 10px;
+}
+.breadcrumbs strong {
+    color: var(--secondary-color);
+    font-weight: 500;
+}
 /* --- Hero Wrapper & Visibility --- */
 .hero-wrapper .hero-google {
-    display: block; /* Show dark by default */
+    display: block;
+    /* Show dark by default */
     max-width: 1200px;
     margin: 40px auto;
 }
+
 .hero-wrapper .hero-light {
-    display: none; /* Hide light by default */
+    display: none;
+    /* Hide light by default */
     max-width: 1200px;
     margin: 40px auto;
 }
+
 .hero-wrapper.show-light .hero-google {
     display: none;
 }
+
 .hero-wrapper.show-light .hero-light {
-    display: flex; /* Use flex for the light hero layout */
+    display: flex;
+    /* Use flex for the light hero layout */
 }
 
 /* --- Hero Layout 2 (Light Theme) --- */
@@ -1190,23 +1289,28 @@ body.admin-page {
     padding: 40px;
     margin: 40px 0;
 }
+
 .hero-light-text {
     flex: 1;
 }
+
 .hero-light-text h1 {
     font-size: 2.5em;
     font-weight: 700;
     color: var(--secondary-color);
     margin-top: 0;
 }
+
 .hero-light-text p {
     color: var(--text-color);
     margin-bottom: 30px;
 }
+
 .hero-light-image {
     flex: 0 0 45%;
     max-width: 45%;
 }
+
 .hero-light-image img {
     width: 100%;
     border-radius: 12px;
@@ -1219,8 +1323,88 @@ body.admin-page {
         flex-direction: column;
         text-align: center;
     }
+
     .hero-light-image {
         max-width: 80%;
         margin-top: 30px;
     }
+}
+
+/* e-number-single.html - Detail Section Styling */
+.single-content .detail-card {
+    background-color: var(--card-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.single-content .detail-card .detail-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 15px;
+}
+.single-content .detail-card .detail-header h1 {
+margin-bottom: 5px;
+}
+.single-content .detail-card .detail-header .status {
+font-size: 1em;
+padding: 8px 12px;
+border-radius: 6px;
+font-weight: bold;
+}
+.single-content .detail-card .detail-body {
+padding-top: 15px;
+border-top: 1px solid var(--border-color); /* Add a subtle top border for the body */
+}
+.single-content .detail-card .detail-body h3 {
+margin-top: 0;
+margin-bottom: 15px;
+color: var(--secondary-color);
+font-weight: bold;
+font-size: 1.3em; /* Slightly reduce heading size */
+}
+
+.single-content .detail-card .detail-body h3 i {
+margin-right: 8px;
+}
+
+.single-content .detail-card .detail-body .detail-item {
+display: flex;
+align-items: flex-start;
+margin-bottom: 10px;
+}
+
+.single-content .detail-card .detail-body .detail-label {
+    font-weight: bold;
+    width: 120px;
+    /* ปรับความกว้าง Label ตามต้องการ */
+    margin-right: 10px;
+    color: var(--text-color-secondary);
+}
+
+.single-content .detail-card .detail-body .detail-label i {
+    margin-right: 5px;
+}
+
+.single-content .detail-card .detail-body .detail-value {
+    flex-grow: 1;
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.single-content .detail-card .detail-body .description-item {
+margin-bottom: 15px; /* Adjust bottom margin for description */
+}
+
+/* Optional: Add a divider after the detail section */
+.single-content .detail-card+.detail-card {
+    margin-top: 30px;
+}
+
+/* ADD to your existing style.css */
+.additive-details p .detail-icon {
+    flex-shrink: 0; /* Prevents icon from shrinking */
 }

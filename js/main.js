@@ -172,8 +172,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     heroSwitchBtn?.addEventListener('click', () => {
         heroWrapper.classList.toggle('show-light');
+        
+        // Move the search-filter-section to the currently active hero
+        if (heroWrapper.classList.contains('show-light')) {
+            const heroLightText = document.querySelector('.hero-light-text');
+            heroLightText.appendChild(searchFilterSection);
+        } else {
+            const heroGoogleContent = document.querySelector('.hero-google-content');
+            heroGoogleContent.appendChild(searchFilterSection);
+        }
     });
-
     searchInputs.forEach(input => {
         input.addEventListener('input', (e) => {
             const searchTerm = e.target.value;

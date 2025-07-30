@@ -6,82 +6,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>รายละเอียดสาร</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" href="assets/images/logo-h4e.svg" type="image/svg+xml">
-    <style>
-        /* Additional styles for single page */
-        .single-content {
-            padding: 40px 0;
-        }
-
-        .detail-card {
-            background-color: var(--card-bg-color);
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px var(--shadow-color);
-            margin-bottom: 40px;
-        }
-
-        .detail-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-        }
-
-        .distributor-list {
-            list-style: none;
-            padding: 0;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .distributor-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 15px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            transition: background-color 0.2s;
-        }
-
-        .distributor-item:hover {
-            background-color: var(--bg-color);
-        }
-
-        .distributor-item img {
-            height: 50px;
-            width: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .distributor-item span {
-            font-weight: 500;
-        }
-    </style>
+    <link rel="icon" href="assets/images/h4e-logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body>
-  <header class="top-bar">
+
+    <header class="top-bar">
         <div class="container top-bar-container">
-            <a href="index.html" class="logo">
-                <img src="assets/images/h4e-logo.png" alt="H4E Logo">
-            </a>
+            <a href="index.html" class="logo"><img src="assets/images/h4e-logo.png" alt="H4E Logo"></a>
             <nav class="top-nav">
                 <a href="distributors.html" class="nav-link">ผู้จัดจำหน่าย</a>
                 <a href="login.html" class="nav-link login-btn">เข้าสู่ระบบ</a>
-                <button id="lang-switcher-btn" class="icon-btn" title="เปลี่ยนภาษา">
-                    <img src="assets/images/th-flag.svg" alt="Thai Language">
-                </button>
+                <button id="lang-switcher-btn" class="icon-btn" title="เปลี่ยนภาษา"><img src="assets/images/th-flag.svg"
+                        alt="Thai Language"></button>
             </nav>
         </div>
     </header>
 
     <div class="container single-content">
+        <nav class="breadcrumbs">
+            <a href="index.html">หน้าหลัก</a>
+            <span>/</span>
+            <strong id="breadcrumb-current-page">...</strong>
+        </nav>
+
         <div class="detail-card">
             <div class="detail-header">
                 <div>
@@ -92,17 +41,26 @@
             </div>
 
             <div class="detail-body">
-                <h3>รายละเอียด</h3>
-                <p>Additive Type: <strong id="e-number-type">-</strong></p>
-                <p>Sub Additive Type: <strong id="e-number-sub-type">-</strong></p>
-                <p>คำอธิบาย: ส่วนนี้เป็นพื้นที่สำหรับคำอธิบายเพิ่มเติม...</p>
+                <h3><i class="fa-solid fa-info-circle"></i> รายละเอียด</h3>
+                <div class="detail-item">
+                    <span class="detail-label"><i class="fa-solid fa-tag"></i> ประเภท:</span>
+                    <span id="e-number-type" class="detail-value">-</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label"><i class="fa-regular fa-bookmark"></i> ประเภทย่อย:</span>
+                    <span id="e-number-sub-type" class="detail-value">-</span>
+                </div>
+                <div class="detail-item description-item">
+                    <span class="detail-label"><i class="fa-solid fa-file-lines"></i> คำอธิบาย:</span>
+                    <span id="e-number-description" class="detail-value">-</span>
+                </div>
             </div>
         </div>
 
         <div class="detail-card">
             <h3>ผู้จัดจำหน่ายที่ใช้งานสารนี้ (<span id="distributor-count">0</span>)</h3>
-            <ul id="distributor-list">
-            </ul>
+            <div id="distributor-grid" class="distributor-grid card-style-grid">
+            </div>
         </div>
     </div>
 
@@ -111,60 +69,74 @@
 
     <script src="js/mock-data.js"></script>
     <script>
-        // JS สำหรับหน้านี้โดยเฉพาะ
         document.addEventListener('DOMContentLoaded', () => {
-            // ในเว็บจริง จะดึง ID จาก URL parameter e.g., ?id=E100
-            // ใน Demo นี้ เราจะใช้ hash #E100 เพื่อความง่าย
             const eNumberId = window.location.hash.substring(1);
             if (!eNumberId) {
-                // Handle case where no ID is provided
-                document.getElementById('e-number-title').innerText = "ไม่พบข้อมูล";
+                document.getElementById('breadcrumb-current-page').innerText = "ไม่พบข้อมูล";
                 return;
             }
 
             const eNumber = eNumbersData.find(e => e.id === eNumberId);
             if (!eNumber) {
-                document.getElementById('e-number-title').innerText = "ไม่พบข้อมูลสาร " + eNumberId;
+                document.getElementById('breadcrumb-current-page').innerText = "ไม่พบข้อมูลสาร " + eNumberId;
                 return;
             }
 
-            // --- Populate E-Number Details ---
-            // e-number-single.html -> ภายใน <script>
+            // --- Get Status Info Function (Copied from main.js for consistency) ---
+            const getStatusInfo = (statusKey) => {
+                switch (statusKey) {
+                    case 'halal-cert': return { text: 'ฮาลาล (รับรอง)', className: 'status-orange' };
+                    case 'halal-fatwa': return { text: 'ฮาลาล (ฟัตวา)', className: 'status-green' };
+                    case 'mashbooh': return { text: 'มัชบูฮ์', className: 'status-red' };
+                    case 'haram': return { text: 'ฮารอม', className: 'status-red' };
+                    case 'unidentified': return { text: 'ไม่ระบุ', className: 'status-grey' };
+                    default: return { text: 'ไม่ระบุ', className: 'status-grey' };
+                }
+            };
 
             // --- Populate E-Number Details ---
+            document.title = `${eNumber.id} - ${eNumber.name}`;
+            document.getElementById('breadcrumb-current-page').innerText = eNumber.id;
             document.getElementById('e-number-title').innerText = eNumber.id;
             document.getElementById('e-number-name').innerText = eNumber.name;
-            document.getElementById('e-number-type').innerText = eNumber.type;
 
-            const statusInfo = {
-                'halal-cert': { text: 'ฮาลาล (รับรอง)', className: 'halal-cert' },
-                'halal-fatwa': { text: 'ฮาลาล (ฟัตวา)', className: 'halal-fatwa' },
-                'mashbooh': { text: 'มัชบูฮ์', className: 'mashbooh' }
-            }[eNumber.status] || { text: 'ไม่ระบุ', className: 'unidentified' };
-
+            const statusInfo = getStatusInfo(eNumber.status);
             const statusEl = document.getElementById('e-number-status');
             statusEl.textContent = statusInfo.text;
             statusEl.className = `status ${statusInfo.className}`;
 
-            // --- Populate Distributor List ---
-            const distributorListEl = document.getElementById('distributor-list');
+            document.getElementById('e-number-type').innerText = eNumber.type;
+            document.getElementById('e-number-sub-type').innerText = eNumber.subType || '-';
+            document.getElementById('e-number-description').innerText = eNumber.description;
+
+            // --- Populate Distributor List as Cards ---
+            const distributorGridEl = document.getElementById('distributor-grid');
             const distributorCountEl = document.getElementById('distributor-count');
             const usedByDistributors = distributorsData.filter(d => eNumber.usedBy.includes(d.id));
 
             distributorCountEl.innerText = usedByDistributors.length;
 
             if (usedByDistributors.length === 0) {
-                distributorListEl.innerHTML = '<li>ไม่พบข้อมูลโรงงานที่ใช้งานสารนี้</li>';
+                distributorGridEl.innerHTML = '<p>ไม่พบข้อมูลผู้จัดจำหน่ายที่ใช้งานสารนี้</p>';
             } else {
                 usedByDistributors.forEach(distributor => {
-                    const li = document.createElement('li');
-                    li.innerHTML = `
-                        <a href="distributor-single.html#${distributor.id}" class="distributor-item">
+                    const card = document.createElement('div');
+                    card.className = 'distributor-card-item';
+                    const locationText = distributor.location.country === 'Thailand' ? distributor.location.province : distributor.location.country;
+
+                    card.innerHTML = `
+                        <div class="dist-card-header">
                             <img src="${distributor.logo}" alt="${distributor.name} Logo">
-                            <span>${distributor.name}</span>
-                        </a>
+                        </div>
+                        <div class="dist-card-body">
+                            <h3>${distributor.name}</h3>
+                            <p class="location"><span class="detail-icon">📍</span>${locationText}</p>
+                        </div>
+                        <div class="dist-card-footer">
+                            <a href="distributor-single.html#${distributor.id}" class="btn-read-more">ดูรายละเอียด</a>
+                        </div>
                     `;
-                    distributorListEl.appendChild(li);
+                    distributorGridEl.appendChild(card);
                 });
             }
         });
