@@ -7,24 +7,18 @@
     <title>H4E Halal Checker - ตรวจสอบสถานะฮาลาลของวัตถุเจือปนอาหาร</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="assets/images/h4e-logo.png" type="image/x-icon">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
 </head>
 
 <body>
 
     <header class="top-bar">
         <div class="container top-bar-container">
-            <a href="index.html" class="logo">
-                <img src="assets/images/h4e-logo.png" alt="H4E Logo">
-            </a>
+            <a href="index.html" class="logo"><img src="assets/images/h4e-logo.png" alt="H4E Logo"></a>
             <nav class="top-nav">
                 <a href="distributors.html" class="nav-link">ผู้จัดจำหน่าย</a>
                 <a href="login.html" class="nav-link login-btn">เข้าสู่ระบบ</a>
-                <button id="lang-switcher-btn" class="icon-btn" title="เปลี่ยนภาษา">
-                    <img src="assets/images/th-flag.svg" alt="Thai Language">
-                </button>
+                <button id="lang-switcher-btn" class="icon-btn" title="เปลี่ยนภาษา"><img src="assets/images/th-flag.svg" alt="Thai Language"></button>
             </nav>
         </div>
     </header>
@@ -37,10 +31,8 @@
                 <div class="search-container-hero">
                     <input type="text" id="search-input" placeholder="ค้นหาด้วย E-number หรือชื่อวัตถุเจือปน...">
                     <div class="search-buttons">
-                        <button id="advanced-search-btn" class="search-icon-btn" title="ค้นหาขั้นสูง"><i
-                                class="fas fa-filter"></i></button>
-                        <button id="main-search-btn" class="search-icon-btn" title="ค้นหา"><i
-                                class="fa-solid fa-magnifying-glass"></i></button>
+                        <button id="advanced-search-btn" class="search-icon-btn" title="ค้นหาขั้นสูง" disabled><i class="fas fa-filter"></i></button>
+                        <button id="main-search-btn" class="search-icon-btn" title="ค้นหา"><i class="fa-solid fa-magnifying-glass"></i></button>
                     </div>
                 </div>
                 <section id="search-section" class="search-filter-section">
@@ -57,23 +49,20 @@
                         <button class="status-filter-btn" data-status="halal">ฮาลาล</button>
                         <button class="status-filter-btn" data-status="mashbooh">มัชบูฮ์</button>
                         <button class="status-filter-btn" data-status="haram">ฮารอม</button>
-
                     </div>
                 </section>
             </div>
         </section>
 
-
         <div id="results-wrapper" class="results-wrapper">
             <div class="result-bar">
                 <div id="results-meta" class="results-meta"></div>
-                <div class="view-switcher" style="margin-left: auto;">
+                <div class="view-switcher">
                     <button id="view-grid-btn" class="icon-btn" title="Grid View">Grid</button>
                     <button id="view-list-btn" class="icon-btn" title="List View">List</button>
                     <button id="view-compact-btn" class="icon-btn" title="Compact View">Compact</button>
                 </div>
             </div>
-
 
             <main id="results-grid" class="results-grid"></main>
             <nav class="pagination-container" aria-label="Pagination">
@@ -81,25 +70,24 @@
             </nav>
         </div>
 
-
         <section class="explanation-section">
             <h2>ทำความเข้าใจสถานะฮาลาล</h2>
             <div class="explanation-grid">
                 <div class="explanation-item">
-                    <span class="status halal-cert">ฮาลาล (รับรอง)</span>
+                    <span class="status status-orange">ฮาลาล (รับรอง)</span>
                     <p>วัตถุที่ผ่านการตรวจสอบและรับรองจากองค์กรศาสนาอิสลามที่เชื่อถือได้</p>
                 </div>
                 <div class="explanation-item">
-                    <span class="status halal-fatwa">ฮาลาล (ฟัตวา)</span>
+                    <span class="status status-green">ฮาลาล (ฟัตวา)</span>
                     <p>วัตถุที่ถูกวินิจฉัยตามหลักศาสนาว่าฮาลาล แต่ยังไม่ผ่านการรับรองอย่างเป็นทางการ</p>
                 </div>
                 <div class="explanation-item">
-                    <span class="status mashbooh">มัชบูฮ์</span>
-                    <p>วัตถุที่ยังมีความคลุมเครือหรือน่าสงสัยเกี่ยวกับที่มาหรือกระบวนการผลิต</p>
+                    <span class="status status-red">มัชบูฮ์ / ฮารอม</span>
+                    <p>วัตถุที่ยังมีความคลุมเครือ, น่าสงสัย หรือต้องห้ามตามหลักศาสนา ควรหลีกเลี่ยง</p>
                 </div>
                 <div class="explanation-item">
-                    <span class="status haram">ฮารอม</span>
-                    <p>วัตถุต้องห้ามตามหลักศาสนาอิสลาม ไม่สามารถบริโภคได้</p>
+                    <span class="status status-grey">ไม่ระบุ</span>
+                    <p>วัตถุที่ยังไม่ได้รับการตรวจสอบหรือจำแนกสถานะ</p>
                 </div>
             </div>
         </section>
@@ -125,5 +113,4 @@
     <script src="js/mock-data.js"></script>
     <script src="js/main.js"></script>
 </body>
-
 </html>

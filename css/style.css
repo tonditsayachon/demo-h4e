@@ -13,26 +13,23 @@
     --card-bg-color: #ffffff;
     --border-color: #e8e8e8;
     --font-family: 'Sarabun', sans-serif;
-
+    
     /* Navbar & Accent Colors */
     --navbar-start-color: #6a11cb;
     --navbar-end-color: #2575fc;
-    --button-accent-color: #ff7e5f;
+    --button-accent-color: #f084ff;
     --button-accent-dark-color: #feb47b;
     --admin-bg-color: #f4f7fc;
 
-    /* Status Colors */
-    --status-cert-text: #2575fc;
-    --status-fatwa-text: #9147ff;
-    --status-mashbooh-text: #d4a017;
-    --status-haram-text: #c62828;
-    --status-unidentified-text: #757575;
-
-    --status-cert-bg: #eaf3ff;
-    --status-fatwa-bg: #f3e8ff;
-    --status-mashbooh-bg: #fff8e1;
-    --status-haram-bg: #ffebee;
-    --status-unidentified-bg: #f5f5f5;
+    /* NEW STATUS COLORS */
+    --status-orange-bg: #fff8e1;
+    --status-orange-text: #e6a800;
+    --status-green-bg: #e7f5ec;
+    --status-green-text: #0b8744;
+    --status-red-bg: #ffebee;
+    --status-red-text: #c62828;
+    --status-grey-bg: #f5f5f5;
+    --status-grey-text: #757575;
 }
 
 body.dark-mode {
@@ -470,6 +467,33 @@ a:hover {
     font-size: 0.85em;
     font-weight: 500;
 }
+.status.status-orange {
+    background-color: var(--status-orange-bg);
+    color: var(--status-orange-text);
+}
+.status.status-green {
+    background-color: var(--status-green-bg);
+    color: var(--status-green-text);
+}
+.status.status-red {
+    background-color: var(--status-red-bg);
+    color: var(--status-red-text);
+}
+.status.status-grey {
+    background-color: var(--status-grey-bg);
+    color: var(--status-grey-text);
+}
+.status-ribbon {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 8px;
+}
+.card.status-orange .status-ribbon { background-color: var(--status-orange-text); }
+.card.status-green .status-ribbon { background-color: var(--status-green-text); }
+.card.status-red .status-ribbon { background-color: var(--status-red-text); }
+.card.status-grey .status-ribbon { background-color: var(--status-grey-text); }
 
 .status.halal-cert {
     background-color: var(--status-cert-bg);
@@ -687,60 +711,70 @@ body.dark-mode .site-footer {
 
 /* === COMPACT VIEW STYLES === */
 .results-grid.compact-card-view {
-    grid-template-columns: repeat(auto-fill, minmax(3, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(3, 1fr));
 }
-
 .results-grid.compact-card-view .card {
     padding: 20px;
     text-align: center;
+    /* Background color will be set by status class below */
+}
+.results-grid.compact-card-view .card .status-ribbon {
+    display: none; /* Hide ribbon for compact view */
+}
+/* Set background color based on status */
+.results-grid.compact-card-view .card.status-orange {
+    background-color: var(--status-orange-bg);
+}
+.results-grid.compact-card-view .card.status-green {
+    background-color: var(--status-green-bg);
+}
+.results-grid.compact-card-view .card.status-red {
+    background-color: var(--status-red-bg);
+}
+.results-grid.compact-card-view .card.status-grey {
+    background-color: var(--status-grey-bg);
 }
 
 .results-grid.compact-card-view .card-header,
 .results-grid.compact-card-view .card-main-content {
     display: none;
 }
-
 .card-view-compact-wrapper {
     display: none;
 }
-
 .results-grid.compact-card-view .card-view-compact-wrapper {
     display: flex;
     flex-direction: column;
     height: 100%;
 }
-
 .card-view-compact-header {
     position: relative;
     padding-bottom: 15px;
 }
-
 .card-view-compact-header .e-number-logo {
     font-size: 2.5em;
     font-weight: 700;
     color: var(--secondary-color);
     margin: 10px 0;
 }
-
 .card-view-compact-header .status {
     position: absolute;
     top: -10px;
     right: -10px;
     font-size: 0.8em;
+    background-color: var(--card-bg-color); 
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
-
 .card-view-compact-body {
     flex-grow: 1;
     margin-bottom: 20px;
 }
-
 .card-view-compact-body .name {
     font-size: 1.25em;
     font-weight: 700;
     color: var(--secondary-color);
     margin: 0 0 5px 0;
 }
-
 .card-view-compact-body .type {
     color: var(--light-text-color);
     margin-bottom: 15px;
@@ -749,7 +783,6 @@ body.dark-mode .site-footer {
     justify-content: center;
     align-items: center;
 }
-
 .card-view-compact-body .description-compact {
     font-size: 0.9em;
     color: var(--text-color);
@@ -762,25 +795,21 @@ body.dark-mode .site-footer {
     justify-content: center;
     align-items: flex-start;
 }
-
 .card-view-compact-footer {
     display: flex;
     border-top: 1px solid var(--border-color);
     margin: auto -20px -20px -20px;
 }
-
-.card-view-compact-footer>* {
+.card-view-compact-footer > * {
     flex: 1;
     padding: 15px 10px;
     font-size: 0.9em;
     font-weight: 500;
 }
-
 .compact-footer-distributors {
     color: var(--text-color);
     border-right: 1px solid var(--border-color);
 }
-
 .compact-footer-distributors a {
     color: var(--text-color);
     text-decoration: none;
@@ -789,18 +818,15 @@ body.dark-mode .site-footer {
     justify-content: center;
     gap: 8px;
 }
-
 .compact-footer-distributors .icon {
     font-size: 1.2em;
 }
-
 .compact-footer-readmore a {
     display: block;
     color: var(--button-accent-color);
     text-decoration: none;
     font-weight: 700;
 }
-
 .compact-footer-readmore a:hover {
     color: var(--button-accent-dark-color);
 }

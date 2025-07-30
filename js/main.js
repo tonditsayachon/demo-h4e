@@ -39,16 +39,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function getStatusInfo(statusKey) {
         switch (statusKey) {
-            case 'halal-cert': return { text: 'ฮาลาล (รับรอง)', className: 'halal-cert' };
-            case 'halal-fatwa': return { text: 'ฮาลาล (ฟัตวา)', className: 'halal-fatwa' };
-            case 'mashbooh': return { text: 'มัชบูฮ์', className: 'mashbooh' };
-            case 'haram': return { text: 'ฮารอม', className: 'haram' };
-            case 'unidentified': return { text: 'ไม่ระบุ', className: 'unidentified' };
-            default: return { text: 'ไม่ระบุ', className: 'unidentified' };
+            case 'halal-cert': return { text: 'ฮาลาล (รับรอง)', className: 'status-orange' };
+            case 'halal-fatwa': return { text: 'ฮาลาล (ฟัตวา)', className: 'status-green' };
+            case 'mashbooh': return { text: 'มัชบูฮ์', className: 'status-red' };
+            case 'haram': return { text: 'ฮารอม', className: 'status-red' };
+            case 'unidentified': return { text: 'ไม่ระบุ', className: 'status-grey' };
+            default: return { text: 'ไม่ระบุ', className: 'status-grey' };
         }
     }
 
-    function displayItems(page, data) {
+   function displayItems(page, data) {
         resultsGrid.innerHTML = '';
         page--;
         const start = itemsPerPage * page;
@@ -63,10 +63,11 @@ document.addEventListener('DOMContentLoaded', () => {
         for (const item of paginatedItems) {
             const statusInfo = getStatusInfo(item.status);
             const card = document.createElement('div');
-            card.className = `card ${statusInfo.className}`;
+            // Add status class directly to card for styling compact view
+            card.className = `card ${statusInfo.className}`; 
             const distributorQueryString = `?distributors=${item.usedBy.join(',')}&eNumberId=${item.id}`;
             card.innerHTML = `
-                <div class="status-ribbon"></div>
+                <div class="status-ribbon"></div> 
                 <div class="card-header">
                     <h2>${item.id}</h2>
                     <span class="status ${statusInfo.className}">${statusInfo.text}</span>
