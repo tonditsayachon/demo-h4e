@@ -88,23 +88,23 @@ document.addEventListener('DOMContentLoaded', () => {
                         <a href="e-number-single.html#${item.id}" class="btn-read-more">อ่านเพิ่มเติม</a>
                     </div>
                 </div>
-                <div class="card-view-new-wrapper">
-                    <div class="card-view-new-header">
+                <div class="card-view-compact-wrapper">
+                    <div class="card-view-compact-header">
                         <span class="status ${statusInfo.className}">${statusInfo.text}</span>
                         <div class="e-number-logo">${item.id}</div>
                     </div>
-                    <div class="card-view-new-body">
+                    <div class="card-view-compact-body">
                         <p class="name">${item.name}</p>
                         <p class="type"><span class="detail-icon">🧪</span>${item.type}</p>
-                        <p class="description-new"><span class="detail-icon">📖</span>${item.description}</p>
+                        <p class="description-compact"><span class="detail-icon">📖</span>${item.description}</p>
                     </div>
-                    <div class="card-view-new-footer">
-                        <div class="new-footer-distributors">
+                    <div class="card-view-compact-footer">
+                        <div class="compact-footer-distributors">
                              <a href="distributors.html${distributorQueryString}">
                                 <span class="icon">🏢</span> Distr. : ${item.usedBy.length}
                              </a>
                         </div>
-                        <div class="new-footer-readmore">
+                        <div class="compact-footer-readmore">
                             <a href="e-number-single.html#${item.id}">อ่านเพิ่มเติม</a>
                         </div>
                     </div>
@@ -218,8 +218,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // View Switcher Logic
     const viewGridBtn = document.getElementById('view-grid-btn');
     const viewListBtn = document.getElementById('view-list-btn');
-    const viewNewBtn = document.getElementById('view-new-btn');
-    const viewButtons = [viewGridBtn, viewListBtn, viewNewBtn];
+    const viewCompactBtn = document.getElementById('view-compact-btn');
+    const viewButtons = [viewGridBtn, viewListBtn, viewCompactBtn];
 
     function updateActiveButton(activeBtn) {
         viewButtons.forEach(btn => btn?.classList.remove('active'));
@@ -234,9 +234,9 @@ document.addEventListener('DOMContentLoaded', () => {
         resultsGrid.className = 'results-grid list-view'; 
         updateActiveButton(viewListBtn); 
     });
-    viewNewBtn?.addEventListener('click', () => { 
-        resultsGrid.className = 'results-grid new-card-view'; 
-        updateActiveButton(viewNewBtn); 
+    viewCompactBtn?.addEventListener('click', () => { 
+        resultsGrid.className = 'results-grid compact-card-view'; 
+        updateActiveButton(viewCompactBtn); 
     });
 
     // --- Initial Load ---

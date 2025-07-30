@@ -43,34 +43,38 @@
                                 class="fa-solid fa-magnifying-glass"></i></button>
                     </div>
                 </div>
-                     <section id="search-section" class="search-filter-section">
-            <div class="filter-row">
-                <select id="type-filter">
-                    <option value="">-- เลือกประเภท --</option>
-                </select>
-                <select id="sub-type-filter">
-                    <option value="">-- เลือกประเภทย่อย --</option>
-                </select>
+                <section id="search-section" class="search-filter-section">
+                    <div class="filter-row">
+                        <select id="type-filter">
+                            <option value="">-- เลือกประเภท --</option>
+                        </select>
+                        <select id="sub-type-filter">
+                            <option value="">-- เลือกประเภทย่อย --</option>
+                        </select>
+                    </div>
+                    <div class="filter-buttons">
+                        <button class="status-filter-btn" data-status="">ทั้งหมด</button>
+                        <button class="status-filter-btn" data-status="halal">ฮาลาล</button>
+                        <button class="status-filter-btn" data-status="mashbooh">มัชบูฮ์</button>
+                        <button class="status-filter-btn" data-status="haram">ฮารอม</button>
+
+                    </div>
+                </section>
             </div>
-            <div class="filter-buttons">
-                <button class="status-filter-btn" data-status="">ทั้งหมด</button>
-                <button class="status-filter-btn" data-status="halal">ฮาลาล</button>
-                <button class="status-filter-btn" data-status="mashbooh">มัชบูฮ์</button>
-                <button class="status-filter-btn" data-status="haram">ฮารอม</button>
+        </section>
+
+
+        <div id="results-wrapper" class="results-wrapper">
+            <div class="result-bar">
+                <div id="results-meta" class="results-meta"></div>
                 <div class="view-switcher" style="margin-left: auto;">
                     <button id="view-grid-btn" class="icon-btn" title="Grid View">Grid</button>
                     <button id="view-list-btn" class="icon-btn" title="List View">List</button>
-                    <button id="view-new-btn" class="icon-btn" title="Compact View">Compact</button>
+                    <button id="view-compact-btn" class="icon-btn" title="Compact View">Compact</button>
                 </div>
             </div>
-        </section>
-            </div>
-        </section>
 
-   
 
-        <div id="results-wrapper" class="results-wrapper">
-             <div id="results-meta" class="results-meta"></div>
             <main id="results-grid" class="results-grid"></main>
             <nav class="pagination-container" aria-label="Pagination">
                 <ul id="pagination" class="pagination"></ul>
