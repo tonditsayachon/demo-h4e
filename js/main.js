@@ -75,8 +75,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="card-body">
                         <p class="name">${item.name}</p>
                         <div class="additive-details">
-                            <p><span class="detail-icon">🧪</span><span>ประเภท:</span> ${item.type}</p>
-                            <p><span class="detail-icon">🧬</span><span>ประเภทย่อย:</span> ${item.subType || '-'}</p>
+                            <p><span class="detail-icon">🧪</span><span>ประเภท: </span> ${item.type}</p>
+                            <p><span class="detail-icon">🧬</span><span>ประเภทย่อย: </span> ${item.subType || '-'}</p>
                         </div>
                         <p class="description"><span class="detail-icon">📖</span>${item.description}</p>
                     </div>
