@@ -20,76 +20,91 @@
                 <a href="login.html" class="nav-link login-btn">เข้าสู่ระบบ</a>
                 <button id="lang-switcher-btn" class="icon-btn" title="เปลี่ยนภาษา"><img src="assets/images/th-flag.svg"
                         alt="Thai Language"></button>
-                <button id="full-width-toggle" class="icon-btn" title="ปรับขนาด"><i
-                        class="fas fa-expand-arrows-alt"></i></button>
             </nav>
         </div>
     </header>
 
-    <div class="container">
-        <div class="hero-switcher">
-            <button class="hero-switch-btn active" data-hero="dark">Layout 1</button>
-            <button class="hero-switch-btn" data-hero="light">Layout 2</button>
-        </div>
-
-        <div id="hero-wrapper" class="hero-wrapper">
-            <section class="hero-google">
-                <div class="hero-google-content">
-                    <h1>ฐานข้อมูลฮาลาลสำหรับวัตถุเจือปนอาหาร</h1>
-                    <p>ค้นหา ตรวจสอบ และทำความเข้าใจสถานะฮาลาลของส่วนผสม (E-Numbers) ที่คุณบริโภค</p>
-                    <div class="search-container-hero">
-                        <input type="text" class="main-search-input"
-                            placeholder="ค้นหาด้วย E-number หรือชื่อวัตถุเจือปน...">
-                        <div class="search-buttons">
-                            <button class="search-icon-btn advanced-search-btn" title="ค้นหาขั้นสูง" disabled><i
-                                    class="fas fa-filter"></i></button>
-                            <button class="search-icon-btn main-search-btn" title="ค้นหา"><i
-                                    class="fa-solid fa-magnifying-glass"></i></button>
-                        </div>
+    <div class="fab-container">
+        <button id="full-width-toggle" class="fab-btn" title="ปรับขนาด"><i
+                class="fas fa-expand-arrows-alt"></i></button>
+        <button id="hero-switch-btn" class="fab-btn" title="สลับ Layout"><i class="fas fa-layer-group"></i></button>
+    </div>
+    <div id="hero-wrapper" class="hero-wrapper show-dark">
+        <section class="hero-google">
+            <div class="hero-google-content">
+                <h1>ฐานข้อมูลฮาลาลสำหรับวัตถุเจือปนอาหาร</h1>
+                <p>ค้นหา ตรวจสอบ และทำความเข้าใจสถานะฮาลาลของส่วนผสม (E-Numbers) ที่คุณบริโภค</p>
+                <div class="search-container-hero">
+                    <input type="text" class="main-search-input"
+                        placeholder="ค้นหาด้วย E-number หรือชื่อวัตถุเจือปน...">
+                    <div class="search-buttons">
+                        <button id="advanced-search-btn" class="search-icon-btn advanced-search-btn"
+                            title="ค้นหาขั้นสูง" disabled><i class="fas fa-filter"></i></button>
+                        <button id="main-search-btn" class="search-icon-btn main-search-btn" title="ค้นหา"><i
+                                class="fa-solid fa-magnifying-glass"></i></button>
                     </div>
-                </div>
-            </section>
 
-            <section class="hero-light">
-                <div class="hero-light-text">
-                    <div class="hero-light-content">
-                    <h1>ฐานข้อมูลวัตถุเจือปนอาหาร</h1>
-                    <p>ค้นหา ตรวจสอบ และทำความเข้าใจสถานะฮาลาลของส่วนผสม (E-Numbers) ที่คุณบริโภค</p>
-                    </div>
-                    
-                    <div class="search-container-hero">
-                        <input type="text" class="main-search-input" placeholder="ค้นหาด้วย E-number หรือชื่อ...">
-                        <div class="search-buttons">
-                            <button class="search-icon-btn advanced-search-btn" title="ค้นหาขั้นสูง" disabled><i
-                                    class="fas fa-filter"></i></button>
-                            <button class="search-icon-btn main-search-btn" title="ค้นหา"><i
-                                    class="fa-solid fa-magnifying-glass"></i></button>
-                        </div>
-                    </div>
                 </div>
-                <div class="hero-light-image">
-                    <img src="https://as1.ftcdn.net/v2/jpg/05/79/48/52/1000_F_579485218_s2q2U3x20e9m2Z2bDA7AI2v299GHJb5k.jpg"
-                        alt="Food Quality Inspection">
-                </div>
-            </section>
-        </div>
-
-        <section id="search-section" class="search-filter-section">
-            <div class="filter-row">
-                <select id="type-filter">
-                    <option value="">-- เลือกประเภท --</option>
-                </select>
-                <select id="sub-type-filter">
-                    <option value="">-- เลือกประเภทย่อย --</option>
-                </select>
-            </div>
-            <div class="filter-buttons">
-                <button class="status-filter-btn" data-status="">ทั้งหมด</button>
-                <button class="status-filter-btn" data-status="halal">ฮาลาล</button>
-                <button class="status-filter-btn" data-status="mashbooh">มัชบูฮ์</button>
-                <button class="status-filter-btn" data-status="haram">ฮารอม</button>
+                <section id="search-section" class="search-filter-section">
+                    <div class="filter-row">
+                        <select id="type-filter">
+                            <option value="">-- เลือกประเภท --</option>
+                        </select>
+                        <select id="sub-type-filter">
+                            <option value="">-- เลือกประเภทย่อย --</option>
+                        </select>
+                    </div>
+                    <div class="filter-buttons">
+                        <button class="status-filter-btn" data-status="">ทั้งหมด</button>
+                        <button class="status-filter-btn" data-status="halal">ฮาลาล</button>
+                        <button class="status-filter-btn" data-status="mashbooh">มัชบูฮ์</button>
+                        <button class="status-filter-btn" data-status="haram">ฮารอม</button>
+                    </div>
+                </section>
             </div>
         </section>
+
+        <section class="hero-light">
+            <div class="hero-light-text">
+                <h1>ฐานข้อมูลวัตถุเจือปนอาหาร</h1>
+                <p>ค้นหา ตรวจสอบ และทำความเข้าใจสถานะฮาลาลของส่วนผสม (E-Numbers) ที่คุณบริโภค</p>
+                <div class="search-container-hero">
+                    <input type="text" class="main-search-input" placeholder="ค้นหาด้วย E-number หรือชื่อ...">
+                    <div class="search-buttons">
+                        <button id="advanced-search-btn" class="search-icon-btn advanced-search-btn"
+                            title="ค้นหาขั้นสูง" disabled><i class="fas fa-filter"></i></button>
+                        <button id="main-search-btn" class="search-icon-btn main-search-btn" title="ค้นหา"><i
+                                class="fa-solid fa-magnifying-glass"></i></button>
+                    </div>
+
+                </div>
+                <section id="search-section" class="search-filter-section">
+                    <div class="filter-row">
+                        <select id="type-filter">
+                            <option value="">-- เลือกประเภท --</option>
+                        </select>
+                        <select id="sub-type-filter">
+                            <option value="">-- เลือกประเภทย่อย --</option>
+                        </select>
+                    </div>
+                    <div class="filter-buttons">
+                        <button class="status-filter-btn" data-status="">ทั้งหมด</button>
+                        <button class="status-filter-btn" data-status="halal">ฮาลาล</button>
+                        <button class="status-filter-btn" data-status="mashbooh">มัชบูฮ์</button>
+                        <button class="status-filter-btn" data-status="haram">ฮารอม</button>
+                    </div>
+                </section>
+            </div>
+            <div class="hero-light-image">
+                <img src="assets/images/hero2-bg.jpg"
+                    alt="Food Quality Inspection">
+            </div>
+        </section>
+    </div>
+    <div class="container">
+
+
+
 
         <div id="results-wrapper" class="results-wrapper">
             <div class="result-bar">
@@ -105,8 +120,6 @@
                 <ul id="pagination" class="pagination"></ul>
             </nav>
         </div>
-
-
 
         <section class="explanation-section">
             <h2>ทำความเข้าใจสถานะฮาลาล</h2>

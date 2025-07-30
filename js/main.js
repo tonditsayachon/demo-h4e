@@ -1,23 +1,19 @@
-// js/main.js (Final Version with View Switcher Fix)
+// js/main.js (Final Corrected Version)
 
 document.addEventListener('DOMContentLoaded', () => {
-    const allContainers = document.querySelectorAll('.container');
+    // --- Element Selectors ---
     const fullWidthToggle = document.getElementById('full-width-toggle');
+    const heroSwitchBtn = document.getElementById('hero-switch-btn');
     const heroWrapper = document.getElementById('hero-wrapper');
-    const heroSwitchBtns = document.querySelectorAll('.hero-switch-btn');
     const searchInputs = document.querySelectorAll('.main-search-input');
     const mainSearchBtns = document.querySelectorAll('.main-search-btn');
     const advancedSearchBtns = document.querySelectorAll('.advanced-search-btn');
-    // --- Element Selectors ---
     const resultsWrapper = document.getElementById('results-wrapper');
     const resultsGrid = document.getElementById('results-grid');
     const paginationContainer = document.getElementById('pagination');
-    const searchInput = document.getElementById('search-input');
     const typeFilter = document.getElementById('type-filter');
     const subTypeFilter = document.getElementById('sub-type-filter');
     const statusFilterButtons = document.querySelectorAll('.status-filter-btn');
-    const mainSearchBtn = document.getElementById('main-search-btn');
-    const advancedSearchToggle = document.getElementById('advanced-search-btn');
     const searchFilterSection = document.getElementById('search-section');
     const resultsMeta = document.getElementById('results-meta');
 
@@ -25,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentPage = 1;
     const itemsPerPage = 10;
     let currentStatusFilter = '';
+    let currentSearchTerm = '';
 
     // --- Functions ---
     function populateFilters() {
@@ -34,13 +31,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const option = document.createElement('option');
             option.value = type;
             option.textContent = type;
-            typeFilter.appendChild(option);
+            if(typeFilter) typeFilter.appendChild(option);
         });
         subTypes.forEach(subType => {
             const option = document.createElement('option');
             option.value = subType;
             option.textContent = subType;
-            subTypeFilter.appendChild(option);
+            if(subTypeFilter) subTypeFilter.appendChild(option);
         });
     }
 
@@ -49,6 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
             case 'halal-cert': return { text: 'ฮาลาล (รับรอง)', className: 'status-orange' };
             case 'halal-fatwa': return { text: 'ฮาลาล (ฟัตวา)', className: 'status-green' };
             case 'mashbooh': return { text: 'มัชบูฮ์', className: 'status-red' };
+            case 'haram': return { text: 'ฮารอม', className: 'status-red' };
             case 'unidentified': return { text: 'ไม่ระบุ', className: 'status-grey' };
             default: return { text: 'ไม่ระบุ', className: 'status-grey' };
         }
@@ -62,14 +60,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const paginatedItems = data.slice(start, end);
 
         if (paginatedItems.length === 0) {
-            resultsGrid.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; margin: 40px 0;">ไม่พบข้อมูลที่ตรงกับเงื่อนไข</p>';
+            resultsGrid.innerHTML = '<p class="no-results-message">ไม่พบข้อมูลที่ตรงกับเงื่อนไข</p>';
             return;
         }
 
         for (const item of paginatedItems) {
             const statusInfo = getStatusInfo(item.status);
             const card = document.createElement('div');
-            // Add status class directly to card for styling compact view
             card.className = `card ${statusInfo.className}`; 
             const distributorQueryString = `?distributors=${item.usedBy.join(',')}&eNumberId=${item.id}`;
             card.innerHTML = `
@@ -129,13 +126,13 @@ document.addEventListener('DOMContentLoaded', () => {
             li.className = 'page-item';
             if (i === currentPage) li.classList.add('active');
             const link = document.createElement('a');
-            link.href = '#search-section';
+            link.href = '#results-wrapper';
             link.innerText = i;
             link.addEventListener('click', (e) => {
                 e.preventDefault();
                 currentPage = i;
                 performSearch(false);
-                document.getElementById('results-grid')?.scrollIntoView({ behavior: 'smooth' });
+                resultsWrapper.scrollIntoView({ behavior: 'smooth' });
             });
             li.appendChild(link);
             paginationContainer.appendChild(li);
@@ -144,21 +141,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function performSearch(isNewFilter = true) {
         if (isNewFilter) { currentPage = 1; }
-
-        const searchTerm = searchInput.value.toLowerCase();
-        const selectedType = typeFilter.value;
-        const selectedSubType = subTypeFilter.value;
-
         const filteredData = eNumbersData.filter(item => {
-            const matchesSearch = searchTerm === '' || item.id.toLowerCase().includes(searchTerm) || item.name.toLowerCase().includes(searchTerm);
-            const matchesType = selectedType === '' || item.type === selectedType;
-            const matchesSubType = selectedSubType === '' || item.subType === selectedSubType;
+            const matchesSearch = currentSearchTerm === '' || item.id.toLowerCase().includes(currentSearchTerm) || item.name.toLowerCase().includes(currentSearchTerm);
+            const matchesType = typeFilter.value === '' || item.type === typeFilter.value;
+            const matchesSubType = subTypeFilter.value === '' || item.subType === subTypeFilter.value;
             const matchesStatus = currentStatusFilter === '' || item.status.startsWith(currentStatusFilter);
             return matchesSearch && matchesType && matchesSubType && matchesStatus;
         });
-        
         resultsMeta.textContent = `พบผลลัพธ์ทั้งหมด ${filteredData.length} รายการ`;
-
         displayItems(currentPage, filteredData);
         setupPagination(filteredData, itemsPerPage);
     }
@@ -174,35 +164,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     // --- Event Listeners ---
-     fullWidthToggle?.addEventListener('click', () => {
-        allContainers.forEach(container => container.classList.toggle('full-width'));
+    fullWidthToggle?.addEventListener('click', () => {
+        heroWrapper.classList.toggle('full-width');
+        fullWidthToggle.querySelector('i').classList.toggle('fa-expand-arrows-alt');
+        fullWidthToggle.querySelector('i').classList.toggle('fa-compress-arrows-alt');
     });
 
-    // 2. Hero Switcher
-    heroSwitchBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            heroSwitchBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            const heroToShow = btn.dataset.hero;
-            heroWrapper.className = `hero-wrapper show-${heroToShow}`;
-        });
+    heroSwitchBtn?.addEventListener('click', () => {
+        heroWrapper.classList.toggle('show-light');
     });
+
     searchInputs.forEach(input => {
         input.addEventListener('input', (e) => {
             const searchTerm = e.target.value;
             currentSearchTerm = searchTerm.toLowerCase();
-            // Sync both search inputs
             searchInputs.forEach(si => si.value = searchTerm);
-
             const hasText = searchTerm.length > 0;
             advancedSearchBtns.forEach(btn => btn.disabled = !hasText);
-            
             mainSearchBtns.forEach(btn => {
                 btn.innerHTML = hasText ? '<i class="fa-solid fa-xmark"></i>' : '<i class="fa-solid fa-magnifying-glass"></i>';
                 btn.setAttribute('title', hasText ? 'ล้างข้อมูล' : 'ค้นหา');
             });
         });
-        
         input.addEventListener('keyup', (event) => {
             if (event.key === 'Enter') {
                 triggerSearchWithLoader();
@@ -210,40 +193,25 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    mainSearchBtn?.addEventListener('click', () => {
-        if (mainSearchBtn.innerHTML.includes('fa-xmark')) {
-            searchInput.value = '';
-            searchInput.dispatchEvent(new Event('input'));
-            resultsWrapper.style.display = 'none';
-            searchFilterSection.classList.remove('show');
-        } else {
-            triggerSearchWithLoader();
-        }
+    mainSearchBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (btn.innerHTML.includes('fa-xmark')) {
+                searchInputs.forEach(input => input.value = '');
+                searchInputs[0].dispatchEvent(new Event('input'));
+                resultsWrapper.style.display = 'none';
+                searchFilterSection.classList.remove('show');
+            } else {
+                triggerSearchWithLoader();
+            }
+        });
     });
 
-    searchInput?.addEventListener('input', () => {
-        const hasText = searchInput.value.length > 0;
-        advancedSearchToggle.disabled = !hasText;
-
-        if (hasText) {
-            mainSearchBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
-            mainSearchBtn.setAttribute('title', 'ล้างข้อมูล');
-        } else {
-            mainSearchBtn.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i>';
-            mainSearchBtn.setAttribute('title', 'ค้นหา');
-        }
-    });
-
-    searchInput?.addEventListener('keyup', (event) => {
-        if (event.key === 'Enter') {
-            triggerSearchWithLoader();
-        }
-    });
-
-    advancedSearchToggle?.addEventListener('click', () => {
-        if (!advancedSearchToggle.disabled) {
-            searchFilterSection.classList.toggle('show');
-        }
+    advancedSearchBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (!btn.disabled) {
+                searchFilterSection.classList.toggle('show');
+            }
+        });
     });
 
     typeFilter?.addEventListener('change', triggerSearchWithLoader);
@@ -256,8 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
             triggerSearchWithLoader();
         });
     });
-
-    // View Switcher Logic
+    
     const viewGridBtn = document.getElementById('view-grid-btn');
     const viewListBtn = document.getElementById('view-list-btn');
     const viewCompactBtn = document.getElementById('view-compact-btn');

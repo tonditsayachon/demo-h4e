@@ -141,7 +141,7 @@ a:hover {
 
 /* --- Hero Section --- */
 .hero-google {
-    padding: 80px 20px;
+    padding: 80px 0px;
     background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../assets/images/hero-bg.jpg');
     background-size: cover;
     background-position: center;
@@ -1118,57 +1118,70 @@ body.admin-page {
     }
 }
 
-/* css/style.css (Final Version with Hero Switcher & Full-width) */
+/* --- Full-width Toggle (MODIFIED) --- */
 
-/* ... (All existing styles from your last version are correct and should be kept) ... */
-
-/* ADD THESE NEW STYLES TO THE END OF YOUR FILE */
-
-/* --- Full-width Toggle --- */
-.container.full-width {
+.hero-wrapper.full-width .container {
     max-width: 100%;
-    padding: 0 25px; /* Add some padding even in full-width */
+    border-radius: 0;
+}
+.hero-wrapper.full-width .hero-google,
+.hero-wrapper.full-width .hero-light {
+    max-width: 100%;
+    border-radius: 0;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    width: 100vw;
+    margin-top: 0px;
+    margin-bottom: 40px;
 }
 
-/* --- Hero Switcher --- */
-.hero-switcher {
+/* --- Floating Action Buttons (FAB) --- */
+.fab-container {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 100;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     gap: 10px;
-    margin-bottom: 20px;
 }
-.hero-switch-btn {
-    padding: 8px 20px;
-    border: 1px solid var(--border-color);
-    background-color: var(--card-bg-color);
-    color: var(--text-color);
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 500;
-}
-.hero-switch-btn.active {
-    background-color: var(--primary-color);
+.fab-btn {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: none;
+    background-color: var(--navbar-start-color);
     color: white;
-    border-color: var(--primary-color);
+    font-size: 1.5em;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    transition: background-color 0.2s;
 }
+.fab-btn:hover {
+    background-color: var(--navbar-end-color);
+}
+
 
 /* --- Hero Wrapper & Visibility --- */
-.hero-wrapper .hero-google,
+.hero-wrapper .hero-google {
+    display: block; /* Show dark by default */
+    max-width: 1200px;
+    margin: 40px auto;
+}
 .hero-wrapper .hero-light {
-    display: none; /* Hide both by default */
+    display: none; /* Hide light by default */
+    max-width: 1200px;
+    margin: 40px auto;
 }
-.hero-wrapper.show-dark .hero-google,
+.hero-wrapper.show-light .hero-google {
+    display: none;
+}
 .hero-wrapper.show-light .hero-light {
-    display: block; /* Show the active one */
+    display: flex; /* Use flex for the light hero layout */
 }
-.hero-wrapper { /* Set initial state */
-    display: contents;
-}
-.hero-wrapper.show-dark .hero-google { display: block; }
 
 /* --- Hero Layout 2 (Light Theme) --- */
 .hero-light {
-    display: flex !important;
     align-items: center;
     gap: 40px;
     background-color: var(--card-bg-color);
@@ -1191,7 +1204,7 @@ body.admin-page {
     margin-bottom: 30px;
 }
 .hero-light-image {
-    flex: 0 0 45%; /* Image takes up 45% of the space */
+    flex: 0 0 45%;
     max-width: 45%;
 }
 .hero-light-image img {
