@@ -84,11 +84,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function getStatusInfo(statusKey) {
         switch (statusKey) {
-            case 'Halal Certified': return { text: 'ฮาลาล (รับรอง)', className: 'status-orange' };
-            case 'Halal Fatwa': return { text: 'ฮาลาล (ฟัตวา)', className: 'status-green' };
-            case 'Mashbooh': return { text: 'มัชบูฮ์', className: 'status-red' };
-            case 'Haram': return { text: 'ฮารอม', className: 'status-red' };
-            case 'Unidentified': return { text: 'ไม่ระบุ', className: 'status-grey' };
+            case 'halal-cert': return { text: 'ฮาลาล (รับรอง)', className: 'status-orange' };
+            case 'halal-fatwa': return { text: 'ฮาลาล (ฟัตวา)', className: 'status-green' };
+            case 'mashbooh': return { text: 'มัชบูฮ์', className: 'status-red' };
+            case 'haram': return { text: 'ฮารอม', className: 'status-red' };
+            case 'unidentified': return { text: 'ไม่ระบุ', className: 'status-grey' };
             default: return { text: 'ไม่ระบุ', className: 'status-grey' };
         }
     }
@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="card-footer">
                         <a href="distributors.html${distributorQueryString}" class="distributor-link-compact">
                             <span class="icon">🏢</span>
-                            <span>Distr. ${item.distributor_ids.length}</span>
+                            <span>ผู้จำหน่าย : ${item.distributor_ids.length}</span>
                         </a>
                         <a href="e-number-single.html#${item.e_code}" class="btn-read-more">อ่านเพิ่มเติม</a>
                     </div>
@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="card-view-compact-footer">
                         <div class="compact-footer-distributors">
                              <a href="distributors.html${distributorQueryString}">
-                                <span class="icon">🏢</span> Distr. : ${item.distributor_ids.length}
+                                <span class="icon">🏢</span> ผู้จำหน่าย : ${item.distributor_ids.length}
                              </a>
                         </div>
                         <div class="compact-footer-readmore">

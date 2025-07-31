@@ -82,10 +82,12 @@
             if (usedENumbers.length > 0) {
                 const getStatusInfo = (statusKey) => {
                     switch (statusKey) {
-                        case 'Halal Certified': return { text: 'ฮาลาล (รับรอง)', className: 'status-orange' };
-                        case 'Halal Fatwa': return { text: 'ฮาลาล (ฟัตวา)', className: 'status-green' };
-                        case 'Mashbooh': return { text: 'มัชบูฮ์', className: 'status-red' };
-                        default: return { text: 'ไม่ระบุ', className: 'status-grey' };
+                        case 'halal-cert': return { text: 'ฮาลาล (รับรอง)', className: 'status-orange' };
+            case 'halal-fatwa': return { text: 'ฮาลาล (ฟัตวา)', className: 'status-green' };
+            case 'mashbooh': return { text: 'มัชบูฮ์', className: 'status-red' };
+            case 'haram': return { text: 'ฮารอม', className: 'status-red' };
+            case 'unidentified': return { text: 'ไม่ระบุ', className: 'status-grey' };
+            default: return { text: 'ไม่ระบุ', className: 'status-grey' };
                     }
                 };
                 usedENumbers.forEach(eNumber => {
