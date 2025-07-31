@@ -10,19 +10,7 @@
 <body>
 
     <header class="top-bar">
-        <div class="container top-bar-container">
-            <a href="index.html" class="logo">
-                <img src="assets/images/h4e-logo.png" alt="H4E Logo">
-            </a>
-            <nav class="top-nav">
-                <a href="distributors.html" class="nav-link">ผู้จัดจำหน่าย</a>
-                <a href="login.html" class="nav-link login-btn">เข้าสู่ระบบ</a>
-                <button id="lang-switcher-btn" class="icon-btn" title="เปลี่ยนภาษา">
-                    <img src="assets/images/th-flag.svg" alt="Thai Language">
-                </button>
-            </nav>
-        </div>
-    </header>
+        </header>
 
     <div class="container single-content">
         <nav class="breadcrumbs">
@@ -36,14 +24,14 @@
             <div class="distributor-header">
                 <img id="distributor-logo" src="https://via.placeholder.com/150" alt="Company Logo">
                 <div>
-                    <h1 id="distributor-name">กำลังโหลด...</h1>
-                    <p id="distributor-description"></p>
+                    <h1 id="distributor-name">-</h1>
+                    <p id="distributor-description">-</p>
                 </div>
             </div>
-
             <div class="distributor-body">
                 <h3>ข้อมูลติดต่อ</h3>
                 <ul class="contact-info">
+                    <li><strong>ที่อยู่:</strong> <span id="distributor-address">-</span></li>
                     <li id="province-row"><strong>จังหวัด:</strong> <span id="distributor-province">-</span></li>
                     <li><strong>ประเทศ:</strong> <span id="distributor-country">-</span></li>
                     <li><strong>โทรศัพท์:</strong> <span id="distributor-phone">-</span></li>
@@ -51,11 +39,9 @@
                 </ul>
             </div>
         </div>
-
         <div class="detail-card">
-            <h3>สาร E-Number ที่ใช้งานในโรงงาน (<span id="e-number-count">0</span>)</h3>
-            <ul id="e-number-list" class="e-number-list">
-                </ul>
+            <h3>สาร E-Number ที่จัดจำหน่าย (<span id="e-number-count">0</span>)</h3>
+            <ul id="e-number-list" class="e-number-list"></ul>
         </div>
     </div>
     
@@ -66,60 +52,49 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const distributorId = parseInt(window.location.hash.substring(1));
-            if (!distributorId) {
-                // Handle error
-                return;
-            }
-
-            const distributor = distributorsData.find(d => d.id === distributorId);
-            if (!distributor) {
-                // Handle error
-                return;
-            }
+            if (!distributorId) { /* Handle error */ return; }
+            const distributor = distributorsData.find(d => d.distributor_id === distributorId);
+            if (!distributor) { /* Handle error */ return; }
 
             // --- Populate Distributor Details ---
-            document.title = distributor.name;
-            document.getElementById('breadcrumb-current-page').textContent = distributor.name;
+            document.title = distributor.company_name_th;
+            document.getElementById('breadcrumb-current-page').textContent = distributor.company_name_th;
             document.getElementById('distributor-logo').src = distributor.logo;
-            document.getElementById('distributor-name').textContent = distributor.name;
-            document.getElementById('distributor-description').textContent = distributor.description;
-            
-            document.getElementById('distributor-country').textContent = distributor.location.country;
+            document.getElementById('distributor-name').textContent = distributor.company_name_th;
+            document.getElementById('distributor-description').textContent = distributor.description_th;
+            document.getElementById('distributor-address').textContent = distributor.address_th || '-';
+            document.getElementById('distributor-country').textContent = distributor.country_th;
             const provinceRow = document.getElementById('province-row');
-            if (distributor.location.country === 'Thailand') {
+            if (distributor.country_th === 'ไทย') {
                 provinceRow.style.display = 'list-item';
-                document.getElementById('distributor-province').textContent = distributor.location.province;
+                document.getElementById('distributor-province').textContent = distributor.province_th;
             } else {
                 provinceRow.style.display = 'none';
             }
-
-            document.getElementById('distributor-phone').textContent = distributor.phone;
-            document.getElementById('distributor-email').textContent = distributor.email;
+            document.getElementById('distributor-phone').textContent = distributor.phone || '-';
+            document.getElementById('distributor-email').textContent = distributor.email || '-';
             
             // --- Populate E-Number List ---
-            const usedENumbers = eNumbersData.filter(e => e.usedBy.includes(distributorId));
+            const usedENumbers = eNumbersData.filter(e => e.distributor_ids.includes(distributorId));
             const eNumberListEl = document.getElementById('e-number-list');
             document.getElementById('e-number-count').textContent = usedENumbers.length;
             
             if (usedENumbers.length > 0) {
                 const getStatusInfo = (statusKey) => {
-                    // This function should be reused from main.js or defined here
                     switch (statusKey) {
-                        case 'halal-cert': return { text: 'ฮาลาล (รับรอง)', className: 'halal-cert' };
-                        case 'halal-fatwa': return { text: 'ฮาลาล (ฟัตวา)', className: 'halal-fatwa' };
-                        case 'mashbooh': return { text: 'มัชบูฮ์', className: 'mashbooh' };
-                        case 'unidentified': return { text: 'ไม่ระบุ', className: 'unidentified' };
-                        default: return { text: 'ไม่ระบุ', className: 'unidentified' };
+                        case 'Halal Certified': return { text: 'ฮาลาล (รับรอง)', className: 'status-orange' };
+                        case 'Halal Fatwa': return { text: 'ฮาลาล (ฟัตวา)', className: 'status-green' };
+                        case 'Mashbooh': return { text: 'มัชบูฮ์', className: 'status-red' };
+                        default: return { text: 'ไม่ระบุ', className: 'status-grey' };
                     }
                 };
-
                 usedENumbers.forEach(eNumber => {
                     const statusInfo = getStatusInfo(eNumber.status);
                     const li = document.createElement('li');
                     li.className = 'e-number-item';
                     li.innerHTML = `
-                        <a href="e-number-single.html#${eNumber.id}">
-                            <span class="e-number-item-info"><strong>${eNumber.id}</strong> - ${eNumber.name}</span>
+                        <a href="e-number-single.html#${eNumber.e_code}">
+                            <span class="e-number-item-info"><strong>${eNumber.e_code}</strong> - ${eNumber.name_th}</span>
                             <span class="status ${statusInfo.className}">${statusInfo.text}</span>
                         </a>
                     `;
