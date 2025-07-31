@@ -34,37 +34,49 @@
         <div class="detail-card">
             <div class="detail-header">
                 <div>
-                    <h1 id="e-number-title" style="margin:0;">-</h1>
-                    <p id="e-number-name" style="margin:0; font-size: 1.2em; opacity: 0.8;"></p>
+                    <h1 id="e-number-name-th" style="margin:0;">-</h1>
+                    <p id="e-number-name-en" style="margin:0; font-size: 1.2em; opacity: 0.8;"></p>
                 </div>
                 <span id="e-number-status" class="status">-</span>
             </div>
 
             <div class="detail-body">
-                <h3><i class="fa-solid fa-info-circle"></i> รายละเอียด</h3>
-                <div class="detail-item">
-                    <span class="detail-label"><i class="fa-solid fa-tag"></i> ประเภท:</span>
-                    <span id="e-number-type" class="detail-value">-</span>
-                </div>
-                <div class="detail-item">
-                    <span class="detail-label"><i class="fa-regular fa-bookmark"></i> ประเภทย่อย:</span>
-                    <span id="e-number-sub-type" class="detail-value">-</span>
-                </div>
-                <div class="detail-item description-item">
-                    <span class="detail-label"><i class="fa-solid fa-file-lines"></i> คำอธิบาย:</span>
-                    <span id="e-number-description" class="detail-value">-</span>
-                </div>
+                <h3><span class="detail-icon">🧪</span>รายละเอียด</h3>
+                <p><strong>ประเภท:</strong> <span id="e-number-type">-</span></p>
+                <p><strong>ประเภทย่อย:</strong> <span id="e-number-sub-type">-</span></p>
+                <p><strong>แหล่งที่มา:</strong> <span id="e-number-origin">-</span></p>
+                <p><strong>คำอธิบาย:</strong> <span id="e-number-description">-</span></p>
+            </div>
+
+            <div class="detail-certification">
+                <h3><span class="detail-icon">📜</span>ข้อมูลการรับรอง</h3>
+                <p><strong>หน่วยงานที่รับรอง:</strong> <span id="cert-body">-</span></p>
+                <p><strong>รหัสฮาลาล:</strong> <span id="halal-code">-</span></p>
+                <p><strong>วันหมดอายุ:</strong> <span id="cert-expiry">-</span></p>
             </div>
         </div>
 
         <div class="detail-card">
             <h3>ผู้จัดจำหน่ายที่ใช้งานสารนี้ (<span id="distributor-count">0</span>)</h3>
             <div id="distributor-grid" class="distributor-grid card-style-grid">
-            </div>
+                </div>
         </div>
     </div>
-
+    
     <footer class="site-footer">
+        <div class="container footer-container">
+            <div class="footer-about">
+                <h4>เกี่ยวกับ H4E Halal Checker</h4>
+                <p>โครงการนี้เป็น Demo เพื่อสาธิตการสร้างฐานข้อมูลวัตถุเจือปนอาหารฮาลาล</p>
+            </div>
+            <div class="footer-contact">
+                <h4>ติดต่อ ศูนย์วิทยาศาสตร์ฮาลาล จุฬาฯ</h4>
+                <p>ชั้น 11-12 อาคารวิจัยจุฬาฯ ถนนพญาไท ปทุมวัน กรุงเทพฯ 10330</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 H4E Halal Checker Demo. All Rights Reserved.</p>
+        </div>
     </footer>
 
     <script src="js/mock-data.js"></script>
@@ -76,64 +88,69 @@
                 return;
             }
 
-            const eNumber = eNumbersData.find(e => e.id === eNumberId);
+            const eNumber = eNumbersData.find(e => e.e_code === eNumberId);
             if (!eNumber) {
                 document.getElementById('breadcrumb-current-page').innerText = "ไม่พบข้อมูลสาร " + eNumberId;
                 return;
             }
 
-            // --- Get Status Info Function (Copied from main.js for consistency) ---
+            // --- Get Status Info Function ---
             const getStatusInfo = (statusKey) => {
                 switch (statusKey) {
-                    case 'halal-cert': return { text: 'ฮาลาล (รับรอง)', className: 'status-orange' };
-                    case 'halal-fatwa': return { text: 'ฮาลาล (ฟัตวา)', className: 'status-green' };
-                    case 'mashbooh': return { text: 'มัชบูฮ์', className: 'status-red' };
-                    case 'haram': return { text: 'ฮารอม', className: 'status-red' };
-                    case 'unidentified': return { text: 'ไม่ระบุ', className: 'status-grey' };
+                    case 'Halal Certified': return { text: 'ฮาลาล (รับรอง)', className: 'status-orange' };
+                    case 'Halal Fatwa': return { text: 'ฮาลาล (ฟัตวา)', className: 'status-green' };
+                    case 'Mashbooh': return { text: 'มัชบูฮ์', className: 'status-red' };
+                    case 'Haram': return { text: 'ฮารอม', className: 'status-red' };
+                    case 'Unidentified': return { text: 'ไม่ระบุ', className: 'status-grey' };
                     default: return { text: 'ไม่ระบุ', className: 'status-grey' };
                 }
             };
 
             // --- Populate E-Number Details ---
-            document.title = `${eNumber.id} - ${eNumber.name}`;
-            document.getElementById('breadcrumb-current-page').innerText = eNumber.id;
-            document.getElementById('e-number-title').innerText = eNumber.id;
-            document.getElementById('e-number-name').innerText = eNumber.name;
-
+            document.title = `${eNumber.e_code} - ${eNumber.name_th}`;
+            document.getElementById('breadcrumb-current-page').innerText = eNumber.e_code;
+            document.getElementById('e-number-name-th').innerText = eNumber.name_th;
+            document.getElementById('e-number-name-en').innerText = eNumber.name_en;
+            
             const statusInfo = getStatusInfo(eNumber.status);
             const statusEl = document.getElementById('e-number-status');
             statusEl.textContent = statusInfo.text;
             statusEl.className = `status ${statusInfo.className}`;
 
-            document.getElementById('e-number-type').innerText = eNumber.type;
-            document.getElementById('e-number-sub-type').innerText = eNumber.subType || '-';
-            document.getElementById('e-number-description').innerText = eNumber.description;
+            document.getElementById('e-number-type').innerText = eNumber.type_th;
+            document.getElementById('e-number-sub-type').innerText = eNumber.sub_type_th || '-';
+            document.getElementById('e-number-origin').innerText = eNumber.origin_th;
+            document.getElementById('e-number-description').innerText = eNumber.description_th;
+            
+            document.getElementById('cert-body').innerText = eNumber.certification_body_th || '-';
+            document.getElementById('halal-code').innerText = eNumber.halal_code || '-';
+            document.getElementById('cert-expiry').innerText = eNumber.certification_end_date || '-';
 
             // --- Populate Distributor List as Cards ---
             const distributorGridEl = document.getElementById('distributor-grid');
             const distributorCountEl = document.getElementById('distributor-count');
-            const usedByDistributors = distributorsData.filter(d => eNumber.usedBy.includes(d.id));
+            const usedByDistributors = distributorsData.filter(d => eNumber.distributor_ids.includes(d.distributor_id));
 
             distributorCountEl.innerText = usedByDistributors.length;
 
             if (usedByDistributors.length === 0) {
-                distributorGridEl.innerHTML = '<p>ไม่พบข้อมูลผู้จัดจำหน่ายที่ใช้งานสารนี้</p>';
+                distributorGridEl.innerHTML = '<p style="grid-column: 1 / -1; text-align: center;">ไม่พบข้อมูลผู้จัดจำหน่ายที่ใช้งานสารนี้</p>';
             } else {
                 usedByDistributors.forEach(distributor => {
                     const card = document.createElement('div');
                     card.className = 'distributor-card-item';
-                    const locationText = distributor.location.country === 'Thailand' ? distributor.location.province : distributor.location.country;
+                    const locationText = distributor.country_th === 'ไทย' ? distributor.province_th : distributor.country_th;
 
                     card.innerHTML = `
                         <div class="dist-card-header">
-                            <img src="${distributor.logo}" alt="${distributor.name} Logo">
+                            <img src="${distributor.logo}" alt="${distributor.company_name_th} Logo">
                         </div>
                         <div class="dist-card-body">
-                            <h3>${distributor.name}</h3>
-                            <p class="location"><span class="detail-icon">📍</span>${locationText}</p>
+                            <h3>${distributor.company_name_th}</h3>
+                            <p class="location"><span class="detail-icon">📍</span>${locationText || 'N/A'}</p>
                         </div>
                         <div class="dist-card-footer">
-                            <a href="distributor-single.html#${distributor.id}" class="btn-read-more">ดูรายละเอียด</a>
+                            <a href="distributor-single.html#${distributor.distributor_id}" class="btn-read-more">ดูรายละเอียด</a>
                         </div>
                     `;
                     distributorGridEl.appendChild(card);
@@ -142,5 +159,4 @@
         });
     </script>
 </body>
-
 </html>
