@@ -435,7 +435,7 @@ const distributorsData = [
         "email": "rungnirun_mai@vivgroup.com",
         "description_en": "Distributor of food additives and vitamins.",
         "description_th": "ผู้จัดจำหน่ายวัตถุเจือปนอาหารและวิตามิน",
-        "logo": "https://via.placeholder.com/150/27ae60/ffffff?text=VITA"
+        "logo": "assets/images/company-logo.jpg"
     },
     {
         "distributor_id": 2,
@@ -451,7 +451,7 @@ const distributorsData = [
         "email": "wanida@mps-foods.com",
         "description_en": "Importer and distributor of food ingredients.",
         "description_th": "ผู้นำเข้าและจัดจำหน่ายส่วนผสมอาหาร",
-        "logo": "https://via.placeholder.com/150/2980b9/ffffff?text=MPS"
+        "logo": "assets/images/company-logo.jpg"
     },
     {
         "distributor_id": 3,
@@ -467,7 +467,7 @@ const distributorsData = [
         "email": "qc@winsourcetech.com",
         "description_en": "Technology-driven source for food ingredients.",
         "description_th": "แหล่งวัตถุดิบอาหารที่ขับเคลื่อนด้วยเทคโนโลยี",
-        "logo": "https://via.placeholder.com/150/c0392b/ffffff?text=WST"
+        "logo": "assets/images/company-logo.jpg"
     },
     {
         "distributor_id": 4,
@@ -483,7 +483,7 @@ const distributorsData = [
         "email": "siamfcs@hotmail.com",
         "description_en": "Specialty food chemical supplier.",
         "description_th": "ผู้จัดจำหน่ายเคมีภัณฑ์อาหารชนิดพิเศษ",
-        "logo": "https://via.placeholder.com/150/f39c12/ffffff?text=FCS"
+        "logo": "assets/images/company-logo.jpg"
     },
     {
         "distributor_id": 5,
@@ -499,7 +499,7 @@ const distributorsData = [
         "email": null,
         "description_en": "Global market leader in chemical and ingredients distribution.",
         "description_th": "ผู้นำตลาดระดับโลกในการจัดจำหน่ายเคมีภัณฑ์และส่วนผสม",
-        "logo": "https://via.placeholder.com/150/8e44ad/ffffff?text=BREN"
+        "logo": "assets/images/company-logo.jpg"
     },
     {
         "distributor_id": 6,
@@ -515,7 +515,7 @@ const distributorsData = [
         "email": null,
         "description_en": "Importer and exporter of various goods.",
         "description_th": "ผู้นำเข้าและส่งออกสินค้าหลากหลายชนิด",
-        "logo": "https://via.placeholder.com/150/16a085/ffffff?text=SKT"
+        "logo": "assets/images/company-logo.jpg"
     },
     {
         "distributor_id": 7,
@@ -531,7 +531,7 @@ const distributorsData = [
         "email": "adith.a@connellworld.com",
         "description_en": "Marketer and distributor of specialty chemicals and ingredients.",
         "description_th": "ผู้ทำการตลาดและจัดจำหน่ายเคมีภัณฑ์และส่วนผสมพิเศษ",
-        "logo": "https://via.placeholder.com/150/d35400/ffffff?text=CB"
+        "logo": "assets/images/company-logo.jpg"
     },
     {
         "distributor_id": 8,
@@ -547,7 +547,7 @@ const distributorsData = [
         "email": null,
         "description_en": "Supplier of natural-based ingredients for food and other industries.",
         "description_th": "ผู้จัดจำหน่ายส่วนผสมจากธรรมชาติสำหรับอาหารและอุตสาหกรรมอื่นๆ",
-        "logo": "https://via.placeholder.com/150/2c3e50/ffffff?text=COK"
+        "logo": "assets/images/company-logo.jpg"
     },
     {
         "distributor_id": 9,
@@ -563,7 +563,7 @@ const distributorsData = [
         "email": "thanyanun@ingramchem.com",
         "description_en": "Chemical supplier for various industries.",
         "description_th": "ผู้จัดจำหน่ายเคมีภัณฑ์สำหรับอุตสาหกรรมต่างๆ",
-        "logo": "https://via.placeholder.com/150/7f8c8d/ffffff?text=ING"
+        "logo": "assets/images/company-logo.jpg"
     },
     {
         "distributor_id": 10,
@@ -579,7 +579,7 @@ const distributorsData = [
         "email": null,
         "description_en": "Asia-focused chemical distribution.",
         "description_th": "การจัดจำหน่ายเคมีภัณฑ์ที่มุ่งเน้นในเอเชีย",
-        "logo": "https://via.placeholder.com/150/34495e/ffffff?text=KEM"
+        "logo": "assets/images/company-logo.jpg"
     },
     {
         "distributor_id": 11,
@@ -595,7 +595,7 @@ const distributorsData = [
         "email": "natapat.h@behnmeyer.co.th",
         "description_en": "Part of the Behn Meyer Group, a specialty supplier.",
         "description_th": "ส่วนหนึ่งของกลุ่มบริษัท Behn Meyer ผู้จัดจำหน่ายสินค้าพิเศษ",
-        "logo": "https://via.placeholder.com/150/9b59b6/ffffff?text=BM"
+        "logo": "assets/images/company-logo.jpg"
     },
     {
         "distributor_id": 12,
@@ -611,7 +611,7 @@ const distributorsData = [
         "email": "sales@ips-international.com",
         "description_en": "International trading and services.",
         "description_th": "การค้าระหว่างประเทศและบริการ",
-        "logo": "https://via.placeholder.com/150/3498db/ffffff?text=IPS"
+        "logo": "assets/images/company-logo.jpg"
     },
     {
         "distributor_id": 13,
@@ -627,7 +627,7 @@ const distributorsData = [
         "email": "info@ramaproduction.co.th",
         "description_en": "Manufacturer of food ingredients and additives.",
         "description_th": "ผู้ผลิตส่วนผสมอาหารและวัตถุเจือปนอาหาร",
-        "logo": "https://via.placeholder.com/150/95a5a6/ffffff?text=RAMA"
+        "logo": "assets/images/company-logo.jpg"
     },
     {
         "distributor_id": 14,
@@ -643,7 +643,7 @@ const distributorsData = [
         "email": "contact@forefrontfood.com",
         "description_en": "Leading food technology solutions provider.",
         "description_th": "ผู้ให้บริการโซลูชั่นเทคโนโลยีอาหารชั้นนำ",
-        "logo": "https://via.placeholder.com/150/1abc9c/ffffff?text=FFT"
+        "logo": "assets/images/company-logo.jpg"
     },
     {
         "distributor_id": 15,
@@ -659,7 +659,7 @@ const distributorsData = [
         "email": "th-info@basf.com",
         "description_en": "We create chemistry for a sustainable future.",
         "description_th": "เราสร้างสรรค์เคมีเพื่ออนาคตที่ยั่งยืน",
-        "logo": "https://via.placeholder.com/150/2ecc71/ffffff?text=BASF"
+        "logo": "assets/images/company-logo.jpg"
     },
     {
         "distributor_id": 16,
@@ -675,7 +675,7 @@ const distributorsData = [
         "email": "info.th@imcdgroup.com",
         "description_en": "Distributor of speciality chemicals and food ingredients.",
         "description_th": "ผู้จัดจำหน่ายเคมีภัณฑ์ชนิดพิเศษและส่วนผสมอาหาร",
-        "logo": "https://via.placeholder.com/150/3498db/ffffff?text=IMCD"
+        "logo": "assets/images/company-logo.jpg"
     },
     {
         "distributor_id": 17,
@@ -691,7 +691,7 @@ const distributorsData = [
         "email": "sales@globalchemical.co.th",
         "description_en": "A leading chemical producer in Thailand.",
         "description_th": "ผู้ผลิตเคมีภัณฑ์ชั้นนำในประเทศไทย",
-        "logo": "https://via.placeholder.com/150/e67e22/ffffff?text=GC"
+        "logo": "assets/images/company-logo.jpg"
     },
     {
         "distributor_id": 18,
@@ -707,7 +707,7 @@ const distributorsData = [
         "email": "contact@ajinomoto.co.th",
         "description_en": "Eat Well, Live Well.",
         "description_th": "กินดี มีสุข",
-        "logo": "https://via.placeholder.com/150/e74c3c/ffffff?text=AJI"
+        "logo": "assets/images/company-logo.jpg"
     },
     {
         "distributor_id": 19,
@@ -723,7 +723,7 @@ const distributorsData = [
         "email": "sales@eiamheng.com",
         "description_en": "Leading manufacturer of tapioca starch.",
         "description_th": "ผู้ผลิตแป้งมันสำปะหลังชั้นนำ",
-        "logo": "https://via.placeholder.com/150/f1c40f/ffffff?text=EH"
+        "logo": "assets/images/company-logo.jpg"
     },
     {
         "distributor_id": 20,
@@ -739,7 +739,7 @@ const distributorsData = [
         "email": "info@siammodifiedstarch.com",
         "description_en": "Specializing in modified starch products.",
         "description_th": "เชี่ยวชาญด้านผลิตภัณฑ์แป้งดัดแปร",
-        "logo": "https://via.placeholder.com/150/16a085/ffffff?text=SMS"
+        "logo": "assets/images/company-logo.jpg"
     },
     {
         "distributor_id": 21,
@@ -755,6 +755,38 @@ const distributorsData = [
         "email": "contact@bangkokstarch.com",
         "description_en": "Producer of high-quality starch.",
         "description_th": "ผู้ผลิตแป้งคุณภาพสูง",
-        "logo": "https://via.placeholder.com/150/2c3e50/ffffff?text=BSI"
-    }
+        "logo": "assets/images/company-logo.jpg"
+    },
+    {
+    "distributor_id": 22,
+    "company_name_en": "Chem-Supply USA Inc.",
+    "company_name_th": "บริษัท เคม-ซัพพลาย ยูเอสเอ จำกัด",
+    "country_en": "USA",
+    "country_th": "สหรัฐอเมริกา",
+    "province_en": "California",
+    "province_th": "แคลิฟอร์เนีย",
+    "address_en": "123 Innovation Drive, Silicon Valley, CA 94304",
+    "address_th": "123 อินโนเวชั่นไดรฟ์, ซิลิคอนแวลลีย์, แคลิฟอร์เนีย 94304",
+    "phone": "+1-800-555-CHEM",
+    "email": "contact@chemsupply-usa.com",
+    "description_en": "Leading supplier of food grade chemicals on the West Coast.",
+    "description_th": "ซัพพลายเออร์เคมีภัณฑ์เกรดอาหารชั้นนำในแถบเวสต์โคสต์",
+    "logo": "assets/images/company-logo.jpg"
+},
+{
+    "distributor_id": 23,
+    "company_name_en": "Deutsche Ingredienz GmbH",
+    "company_name_th": "บริษัท ดอยช์ อินกรีเดียนส์ จำกัด",
+    "country_en": "Germany",
+    "country_th": "เยอรมนี",
+    "province_en": "Berlin",
+    "province_th": "เบอร์ลิน",
+    "address_en": "456 Industrie Park, Berlin, 10115",
+    "address_th": "456 อินดัสทรีพาร์ค, เบอร์ลิน, 10115",
+    "phone": "+49-30-12345678",
+    "email": "info@deutsche-ingredienz.de",
+    "description_en": "Specialty ingredients and custom solutions for the European market.",
+    "description_th": "ส่วนผสมพิเศษและโซลูชันที่กำหนดเองสำหรับตลาดยุโรป",
+    "logo": "assets/images/company-logo.jpg"
+}
 ];

@@ -100,4 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
         locationFilter.addEventListener('change', filterAndDisplay);
         provinceFilter.addEventListener('change', filterAndDisplay);
     }
+
+    
+   
 });
