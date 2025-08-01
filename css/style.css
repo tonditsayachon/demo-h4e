@@ -420,6 +420,7 @@ a:hover {
 
 .additive-details p span {
     color: var(--light-text-color);
+    margin-right: 4px;
 }
 
 .description {
@@ -1196,8 +1197,7 @@ body.admin-page {
 .hero-wrapper.full-width .hero-light {
     max-width: 100%;
     border-radius: 0;
-    margin-left: calc(-50vw + 50%);
-    margin-right: calc(-50vw + 50%);
+ 
     width: 100vw;
     margin-top: 0px;
     margin-bottom: 40px;
