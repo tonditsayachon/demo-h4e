@@ -2,9 +2,12 @@
 
 const translations = {
     'en': {
+        // Page Title
+        'page_title': 'H4E Halal Checker - Halal Food Additives Database',
         // Nav
         'nav_distributors': 'Distributors',
         'nav_login': 'Login',
+        'nav_home': 'E-Number',
         // Hero
         'hero_title_dark': 'Halal Food Additives Database',
         'hero_subtitle_dark': 'Search, check, and understand the Halal status of the E-Numbers you consume.',
@@ -25,6 +28,7 @@ const translations = {
         'view_list': 'List',
         'view_compact': 'Compact',
         // Card Details
+      
         'card_type': 'Type:',
         'card_subtype': 'Sub-Type:',
         'card_origin': 'Origin:',
@@ -48,9 +52,12 @@ const translations = {
         'footer_copyright': '© 2025 H4E Halal Checker Demo. All Rights Reserved.'
     },
     'th': {
+        // Page Title
+        'page_title': 'H4E Halal Checker - ฐานข้อมูลวัตถุเจือปนอาหารฮาลาล',
         // Nav
         'nav_distributors': 'ผู้จัดจำหน่าย',
         'nav_login': 'เข้าสู่ระบบ',
+        'nav_home': 'E-Number',
         // Hero
         'hero_title_dark': 'ฐานข้อมูลฮาลาลสำหรับวัตถุเจือปนอาหาร',
         'hero_subtitle_dark': 'ค้นหา ตรวจสอบ และทำความเข้าใจสถานะฮาลาลของส่วนผสม (E-Numbers) ที่คุณบริโภค',
@@ -71,7 +78,7 @@ const translations = {
         'view_list': 'รายการ',
         'view_compact': 'ย่อ',
         // Card Details
-        'card_type': 'ประเภท:',
+         'card_type': 'ประเภท:',
         'card_subtype': 'ประเภทย่อย:',
         'card_origin': 'แหล่งที่มา:',
         'card_distributors': (count) => `ผู้จัดจำหน่าย: ${count}`,

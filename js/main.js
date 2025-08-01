@@ -66,34 +66,40 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     function populateFilters() {
-        const types = [...new Set(eNumbersData.map(item => item.type_th))].sort();
-        const subTypes = [...new Set(eNumbersData.map(item => item.sub_type_th).filter(Boolean))].sort();
+        const typeKey = currentLanguage === 'en' ? 'type_en' : 'type_th';
+        const subTypeKey = currentLanguage === 'en' ? 'sub_type_en' : 'sub_type_th';
+        const types = [...new Set(eNumbersData.map(item => item[typeKey]))].sort();
+        const subTypes = [...new Set(eNumbersData.map(item => item[subTypeKey]).filter(Boolean))].sort();
+        
+        typeFilter.innerHTML = `<option value="">${translations[currentLanguage]['filter_type']}</option>`;
+        subTypeFilter.innerHTML = `<option value="">${translations[currentLanguage]['filter_subtype']}</option>`;
+
         types.forEach(type => {
             const option = document.createElement('option');
             option.value = type;
             option.textContent = type;
-            if(typeFilter) typeFilter.appendChild(option);
+            typeFilter.appendChild(option);
         });
         subTypes.forEach(subType => {
             const option = document.createElement('option');
             option.value = subType;
             option.textContent = subType;
-            if(subTypeFilter) subTypeFilter.appendChild(option);
+            subTypeFilter.appendChild(option);
         });
     }
 
     function getStatusInfo(statusKey) {
         switch (statusKey) {
-            case 'Halal Certified': return { text: 'ฮาลาล (รับรอง)', className: 'status-orange' };
-            case 'Halal Fatwa': return { text: 'ฮาลาล (ฟัตวา)', className: 'status-green' };
-            case 'Mashbooh': return { text: 'มัชบูฮ์', className: 'status-red' };
-            case 'Haram': return { text: 'ฮารอม', className: 'status-red' };
-            case 'Unidentified': return { text: 'ไม่ระบุ', className: 'status-grey' };
+            case 'halal-cert': return { text: 'ฮาลาล (รับรอง)', className: 'status-orange' };
+            case 'halal-fatwa': return { text: 'ฮาลาล (ฟัตวา)', className: 'status-green' };
+            case 'mashbooh': return { text: 'มัชบูฮ์', className: 'status-red' };
+            case 'haram': return { text: 'ฮารอม', className: 'status-red' };
+            case 'unidentified': return { text: 'ไม่ระบุ', className: 'status-grey' };
             default: return { text: 'ไม่ระบุ', className: 'status-grey' };
         }
     }
 
-   function displayItems(page, data) {
+    function displayItems(page, data) {
         resultsGrid.innerHTML = '';
         page--;
         const start = itemsPerPage * page;
@@ -104,6 +110,12 @@ document.addEventListener('DOMContentLoaded', () => {
             resultsGrid.innerHTML = '<p class="no-results-message">ไม่พบข้อมูลที่ตรงกับเงื่อนไข</p>';
             return;
         }
+
+        const nameKey = currentLanguage === 'en' ? 'name_en' : 'name_th';
+        const typeKey = currentLanguage === 'en' ? 'type_en' : 'type_th';
+        const subTypeKey = currentLanguage === 'en' ? 'sub_type_en' : 'sub_type_th';
+        const originKey = currentLanguage === 'en' ? 'origin_en' : 'origin_th';
+        const descKey = currentLanguage === 'en' ? 'description_en' : 'description_th';
 
         for (const item of paginatedItems) {
             const statusInfo = getStatusInfo(item.status);
@@ -118,19 +130,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <div class="card-main-content">
                     <div class="card-body">
-                        <p class="name">${item.name_th}</p>
+                        <p class="name">${item[nameKey]}</p>
                         <div class="additive-details">
-                            <p><span class="detail-icon">🧪</span><span>ประเภท: </span> ${item.type_th}</p>
-                            <p><span class="detail-icon">🧬</span><span>ประเภทย่อย:</span> ${item.sub_type_th || '-'}</p>
+                            <p><span class="detail-icon">🧪</span><span class="lang-text" data-key="card_type">ประเภท:</span> ${item[typeKey]}</p>
+                            <p><span class="detail-icon">🧬</span><span class="lang-text" data-key="card_subtype">ประเภทย่อย:</span> ${item[subTypeKey] || '-'}</p>
+                            <p><span class="detail-icon">🔬</span><span class="lang-text" data-key="card_origin">แหล่งที่มา:</span> ${item[originKey]}</p>
                         </div>
-                        <p class="description"><span class="detail-icon">📖</span>${item.description_th}</p>
+                        <p class="description"><span class="detail-icon">📖</span>${item[descKey]}</p>
                     </div>
                     <div class="card-footer">
                         <a href="distributors.html${distributorQueryString}" class="distributor-link-compact">
                             <span class="icon">🏢</span>
-                            <span>Distr. ${item.distributor_ids.length}</span>
+                            <span class="lang-text" data-key="card_distributors">${translations[currentLanguage]['card_distributors'](item.distributor_ids.length)}</span>
                         </a>
-                        <a href="e-number-single.html#${item.e_code}" class="btn-read-more">อ่านเพิ่มเติม</a>
+                        <a href="e-number-single.html#${item.e_code}" class="btn-read-more lang-text" data-key="card_readmore">อ่านเพิ่มเติม</a>
                     </div>
                 </div>
                 <div class="card-view-compact-wrapper">
@@ -139,18 +152,19 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="e-number-logo">${item.e_code}</div>
                     </div>
                     <div class="card-view-compact-body">
-                        <p class="name">${item.name_th}</p>
-                        <p class="type"><span class="detail-icon">🔬</span>${item.origin_th}</p>
-                        <p class="description-compact"><span class="detail-icon">📖</span>${item.description_th}</p>
+                        <p class="name">${item[nameKey]}</p>
+                        <p class="type"><span class="detail-icon">🔬</span>${item[originKey]}</p>
+                        <p class="description-compact"><span class="detail-icon">📖</span>${item[descKey]}</p>
                     </div>
                     <div class="card-view-compact-footer">
                         <div class="compact-footer-distributors">
                              <a href="distributors.html${distributorQueryString}">
-                                <span class="icon">🏢</span> Distr. : ${item.distributor_ids.length}
+                                <span class="icon">🏢</span>
+                                <span class="lang-text" data-key="card_distributors">${translations[currentLanguage]['card_distributors'](item.distributor_ids.length)}</span>
                              </a>
                         </div>
                         <div class="compact-footer-readmore">
-                            <a href="e-number-single.html#${item.e_code}">อ่านเพิ่มเติม</a>
+                            <a href="e-number-single.html#${item.e_code}" class="lang-text" data-key="card_readmore">อ่านเพิ่มเติม</a>
                         </div>
                     </div>
                 </div>
@@ -182,26 +196,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function performSearch(isNewFilter = true) {
         if (isNewFilter) { currentPage = 1; }
-        
-        const filteredData = eNumbersData.filter(item => {
-            const itemECode = item.e_code || '';
-            const itemNameEn = item.name_en || '';
-            const itemNameTh = item.name_th || '';
-            const itemTypeTh = item.type_th || '';
-            const itemSubTypeTh = item.sub_type_th || '';
-            const itemStatus = item.status || '';
+        const typeKey = currentLanguage === 'en' ? 'type_en' : 'type_th';
+        const subTypeKey = currentLanguage === 'en' ? 'sub_type_en' : 'sub_type_th';
 
-            const matchesSearch = currentSearchTerm === '' || 
-                                  itemECode.toLowerCase().includes(currentSearchTerm) || 
-                                  itemNameEn.toLowerCase().includes(currentSearchTerm) || 
-                                  itemNameTh.includes(currentSearchTerm);
-            const matchesType = typeFilter.value === '' || itemTypeTh === typeFilter.value;
-            const matchesSubType = subTypeFilter.value === '' || itemSubTypeTh === subTypeFilter.value;
-            const matchesStatus = currentStatusFilter === '' || itemStatus.toLowerCase().replace(" certified", "").startsWith(currentStatusFilter);
+        const filteredData = eNumbersData.filter(item => {
+            const matchesSearch = currentSearchTerm === '' || (item.e_code || '').toLowerCase().includes(currentSearchTerm) || (item.name_en || '').toLowerCase().includes(currentSearchTerm) || (item.name_th || '').includes(currentSearchTerm);
+            const matchesType = typeFilter.value === '' || item[typeKey] === typeFilter.value;
+            const matchesSubType = subTypeFilter.value === '' || item[subTypeKey] === subTypeFilter.value;
+            const matchesStatus = currentStatusFilter === '' || (item.status || '').toLowerCase().replace(" certified", "").replace(" fatwa", "").startsWith(currentStatusFilter);
             return matchesSearch && matchesType && matchesSubType && matchesStatus;
         });
-        
-        resultsMeta.textContent = `พบผลลัพธ์ทั้งหมด ${filteredData.length} รายการ`;
+        resultsMeta.innerHTML = `<span class="lang-text" data-key="results_found">${translations[currentLanguage]['results_found'](filteredData.length)}</span>`;
         displayItems(currentPage, filteredData);
         setupPagination(filteredData, itemsPerPage);
     }
@@ -307,7 +312,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Initial Load ---
     if(resultsGrid) {
-         const savedLang = localStorage.getItem('language') || 'en';
+        const savedLang = localStorage.getItem('language') || 'en';
         setLanguage(savedLang);
         populateFilters();
         updateActiveButton(viewGridBtn);
