@@ -227,9 +227,12 @@ document.addEventListener('DOMContentLoaded', () => {
         setLanguage(newLang);
     });
     fullWidthToggle?.addEventListener('click', () => {
-        heroWrapper.parentElement.classList.toggle('full-width');
-        fullWidthToggle.querySelector('i').classList.toggle('fa-expand-arrows-alt');
-        fullWidthToggle.querySelector('i').classList.toggle('fa-compress-arrows-alt');
+        heroWrapper.classList.toggle('full-width');
+        const icon = fullWidthToggle.querySelector('i');
+        if (icon) {
+            icon.classList.toggle('fa-expand-arrows-alt');
+            icon.classList.toggle('fa-compress-arrows-alt');
+        }
     });
 
     heroSwitchBtn?.addEventListener('click', () => {
