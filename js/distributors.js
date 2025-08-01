@@ -1,4 +1,4 @@
-// js/distributors.js (Final Version - July 2025)
+// js/distributors.js (Final Version with Corrected Data Structure)
 
 document.addEventListener('DOMContentLoaded', () => {
     // --- Element Selectors ---
@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Functions ---
     function populateProvinces() {
-        const provinces = [...new Set(distributorsData.filter(d => d.location.country === 'Thailand' && d.location.province).map(d => d.location.province))].sort();
+        const provinces = [...new Set(distributorsData.filter(d => d.country_th === 'ไทย' && d.province_th).map(d => d.province_th))].sort();
         provinces.forEach(province => {
             const option = document.createElement('option');
             option.value = province;
@@ -21,10 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // NEW displayDistributors function for card-like layout
     function displayDistributors(data) {
         grid.innerHTML = ''; 
-        grid.className = 'distributor-grid card-style-grid'; // Use a new class for styling
+        grid.className = 'distributor-grid card-style-grid';
 
         if (data.length === 0) {
             grid.innerHTML = '<p style="grid-column: 1 / -1; text-align: center;">ไม่พบข้อมูลที่ตรงกับเงื่อนไข</p>';
@@ -33,20 +32,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
         data.forEach(distributor => {
             const card = document.createElement('div');
-            card.className = 'distributor-card-item'; // New class for individual cards
-
-            const locationText = distributor.location.country === 'Thailand' ? distributor.location.province : distributor.location.country;
+            card.className = 'distributor-card-item';
+            const locationText = distributor.country_th === 'ไทย' ? distributor.province_th : distributor.country_th;
 
             card.innerHTML = `
                 <div class="dist-card-header">
-                    <img src="${distributor.logo}" alt="${distributor.name} Logo">
+                    <img src="${distributor.logo}" alt="${distributor.company_name_th} Logo">
                 </div>
                 <div class="dist-card-body">
-                    <h3>${distributor.name}</h3>
-                    <p class="location"><span class="detail-icon">📍</span>${locationText}</p>
+                    <h3>${distributor.company_name_th}</h3>
+                    <p class="location"><span class="detail-icon">📍</span>${locationText || 'N/A'}</p>
                 </div>
                 <div class="dist-card-footer">
-                    <a href="distributor-single.html#${distributor.id}" class="btn-read-more">ดูรายละเอียด</a>
+                    <a href="distributor-single.html#${distributor.distributor_id}" class="btn-read-more">ดูรายละเอียด</a>
                 </div>
             `;
             grid.appendChild(card);
@@ -62,9 +60,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if(provinceFilter.disabled) provinceFilter.value = '';
 
         const filteredData = distributorsData.filter(d => {
-            const matchesName = d.name.toLowerCase().includes(nameQuery);
-            const matchesLocation = locationQuery === '' || (locationQuery === 'Thailand' && d.location.country === 'Thailand') || (locationQuery === 'International' && d.location.country !== 'Thailand');
-            const matchesProvince = provinceQuery === '' || d.location.province === provinceQuery;
+            const matchesName = (d.company_name_th.toLowerCase().includes(nameQuery) || d.company_name_en.toLowerCase().includes(nameQuery));
+            const matchesLocation = locationQuery === '' || (locationQuery === 'Thailand' && d.country_th === 'ไทย') || (locationQuery === 'International' && d.country_th !== 'ไทย');
+            const matchesProvince = provinceQuery === '' || d.province_th === provinceQuery;
             return matchesName && matchesLocation && matchesProvince;
         });
         displayDistributors(filteredData);
@@ -79,11 +77,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (distributorIdsFromUrl) {
         const idsToShow = distributorIdsFromUrl.split(',').map(Number);
-        const preFilteredData = distributorsData.filter(d => idsToShow.includes(d.id));
+        const preFilteredData = distributorsData.filter(d => idsToShow.includes(d.distributor_id));
         
         displayDistributors(preFilteredData);
 
-        // Update UI to show context
         if(eNumberIdFromUrl) {
             pageHeader.textContent = `ผู้จัดจำหน่ายสำหรับสาร: ${eNumberIdFromUrl}`;
         }
@@ -95,12 +92,9 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
     } else {
-        filterAndDisplay(); // Initial display for all distributors
+        filterAndDisplay();
         nameSearch.addEventListener('input', filterAndDisplay);
         locationFilter.addEventListener('change', filterAndDisplay);
         provinceFilter.addEventListener('change', filterAndDisplay);
     }
-
-    
-   
 });
