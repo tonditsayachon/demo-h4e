@@ -132,15 +132,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="card-body">
                         <p class="name">${item[nameKey]}</p>
                         <div class="additive-details">
-                            <p><span class="detail-icon">🧪</span><span class="lang-text" data-key="card_type">ประเภท:</span> ${item[typeKey]}</p>
-                            <p><span class="detail-icon">🧬</span><span class="lang-text" data-key="card_subtype">ประเภทย่อย:</span> ${item[subTypeKey] || '-'}</p>
-                            <p><span class="detail-icon">🔬</span><span class="lang-text" data-key="card_origin">แหล่งที่มา:</span> ${item[originKey]}</p>
+                            <p><span class="detail-icon"><i class="fa-solid fa-flask"></i></span><span class="lang-text" data-key="card_type">ประเภท:</span> ${item[typeKey]}</p>
+                            <p><span class="detail-icon"><i class="fa-solid fa-plus"></i></span><span class="lang-text" data-key="card_subtype">ประเภทย่อย:</span> ${item[subTypeKey] || '-'}</p>
+                            <p><span class="detail-icon"><i class="fa-solid fa-industry"></i></span><span class="lang-text" data-key="card_origin">แหล่งที่มา:</span> ${item[originKey]}</p>
                         </div>
-                        <p class="description"><span class="detail-icon">📖</span>${item[descKey]}</p>
+                        <p class="description"><span class="detail-icon"><i class="fa-solid fa-circle-info"></i></span>${item[descKey]}</p>
                     </div>
                     <div class="card-footer">
                         <a href="distributors.html${distributorQueryString}" class="distributor-link-compact">
-                            <span class="icon">🏢</span>
+                            <span class="icon"><i class="fa-solid fa-house"></i></span>
                             <span class="lang-text" data-key="card_distributors">${translations[currentLanguage]['card_distributors'](item.distributor_ids.length)}</span>
                         </a>
                         <a href="e-number-single.html#${item.e_code}" class="btn-read-more lang-text" data-key="card_readmore">อ่านเพิ่มเติม</a>
@@ -153,13 +153,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                     <div class="card-view-compact-body">
                         <p class="name">${item[nameKey]}</p>
-                        <p class="type"><span class="detail-icon">🔬</span>${item[originKey]}</p>
-                        <p class="description-compact"><span class="detail-icon">📖</span>${item[descKey]}</p>
+                        <p class="type"><span class="detail-icon"><i class="fa-solid fa-industry"></i></span>${item[originKey]}</p>
+                        <p class="description-compact"><span class="detail-icon"><i class="fa-solid fa-circle-info"></i></span>${item[descKey]}</p>
                     </div>
                     <div class="card-view-compact-footer">
                         <div class="compact-footer-distributors">
                              <a href="distributors.html${distributorQueryString}">
-                                <span class="icon">🏢</span>
+                                <span class="icon"><i class="fa-solid fa-house"></i></span>
                                 <span class="lang-text" data-key="card_distributors">${translations[currentLanguage]['card_distributors'](item.distributor_ids.length)}</span>
                              </a>
                         </div>
