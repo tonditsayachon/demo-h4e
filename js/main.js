@@ -134,7 +134,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="additive-details">
                             <p><span class="detail-icon"><i class="fa-solid fa-flask"></i></span><span class="lang-text" data-key="card_type">ประเภท:</span> ${item[typeKey]}</p>
                             <p><span class="detail-icon"><i class="fa-solid fa-plus"></i></span><span class="lang-text" data-key="card_subtype">ประเภทย่อย:</span> ${item[subTypeKey] || '-'}</p>
-                            <p><span class="detail-icon"><i class="fa-solid fa-industry"></i></span><span class="lang-text" data-key="card_origin">แหล่งที่มา:</span> ${item[originKey]}</p>
                         </div>
                         <p class="description"><span class="detail-icon"><i class="fa-solid fa-circle-info"></i></span>${item[descKey]}</p>
                     </div>

@@ -17,19 +17,22 @@
     /* Navbar & Accent Colors */
     --navbar-start-color: #6a11cb;
     --navbar-end-color: #2575fc;
-    --button-accent-color: #cd2da2;
+    --button-accent-color: #e871a8c4;
     --button-accent-dark-color: #e871a8;
     --admin-bg-color: #f4f7fc;
 
     /* NEW STATUS COLORS */
-    --status-orange-bg: #fff8e18a;
-    --status-orange-text: #e6a800;
-    --status-green-bg: #e7f5ec6e;
-    --status-green-text: #0b8744;
-    --status-red-bg: #ffeee3;
-    --status-red-text: #c62828;
-    --status-grey-bg: #ededed;
-    --status-grey-text: #757575;
+    --status-orange-ribbon: #ffe692d0;
+    --status-green-ribbon: #56ff913a;
+    --status-red-ribbon: #ff9e97d5;
+    --status-grey-ribbon: #ededed67;
+
+
+
+        --status-orange-bg: #e6a800;
+          --status-green-bg: #0b8744;
+        --status-red-bg: #c62828;
+    --status-grey-bg: #757575;
 
 
 }
@@ -66,12 +69,15 @@ a {
 }
 
 a:hover {
-    color: var(--primary-color-dark);
+    color: #fff;
 }
 
 /* --- Top Bar --- */
 .top-bar {
-    background: linear-gradient(90deg, var(--navbar-start-color) 0%, var(--navbar-end-color) 100%);
+    /* draft-1 */
+    /* background: linear-gradient(90deg, var(--navbar-start-color) 0%, var(--navbar-end-color) 100%); */
+
+    background: linear-gradient(90deg, #cd2da2 0%, #6a11cb 100%);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     padding: 10px 0;
     position: sticky;
@@ -168,6 +174,7 @@ a:hover {
 .hero-google p {
     color: #e0e0e0;
     margin-bottom: 30px;
+    font-size: 20px;
 }
 
 .search-container-hero {
@@ -190,7 +197,9 @@ a:hover {
     background: none;
     width: 100%;
     padding: 10px 20px;
-    font-size: 1em;
+    /* draft-1 */
+    /* font-size: 1em; */ 
+    font-size: 28px;
     color: var(--text-color);
 }
 
@@ -211,7 +220,7 @@ a:hover {
     border-radius: 50%;
     width: 48px;
     height: 48px;
-    font-size: 1.2em;
+    font-size: 28px;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -269,6 +278,7 @@ a:hover {
     margin-bottom: 20px;
     font-weight: 500;
     color: var(--text-color);
+    font-size: 20px;
 }
 
 /* --- Loading Spinner & Initial Message --- */
@@ -377,7 +387,8 @@ a:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 25px 25px 0 25px;
+    padding: 0px 25px 0 25px;
+    margin-top: 20px;
 }
 
 .card-main-content {
@@ -394,6 +405,7 @@ a:hover {
     color: var(--secondary-color);
     margin-right: auto;
     margin-bottom: 0;
+    margin-top: 0;
 }
 
 .card-body {
@@ -411,11 +423,12 @@ a:hover {
     padding-bottom: 15px;
     margin-bottom: 15px;
     border-bottom: 1px solid var(--border-color);
+    color: var(--secondary-color);
 }
 
 .additive-details p {
     margin: 4px 0;
-    font-size: 0.95em;
+    font-size: 16px;
     display: flex;
     align-items: flex-start;
 }
@@ -426,8 +439,8 @@ a:hover {
 }
 
 .description {
-    font-size: 0.9em;
-    color: var(--light-text-color);
+    font-size: 16px;
+    color: var(--secondary-color);
     display: flex;
     align-items: flex-start;
 }
@@ -442,11 +455,11 @@ a:hover {
 }
 
 .btn-read-more {
-    background-color: var(--button-accent-color);
+    background-color: #d9d9d9c4;
     border: none;
-    color: white;
-    border-radius: 6px;
-    padding: 10px 20px;
+    color: var(--text-color);
+    border-radius: 20px;
+    padding: 8px 16px;
     font-weight: 500;
     font-size: 0.95em;
     transition: background-color 0.2s;
@@ -490,29 +503,29 @@ a:hover {
 /* --- Status Tag & Ribbon --- */
 .status {
     padding: 5px 12px;
-    border-radius: 15px;
+    border-radius: 20px;
     font-size: 0.85em;
     font-weight: 500;
 }
 
 .status.status-orange {
     background-color: var(--status-orange-bg);
-    color: var(--status-orange-text);
+    color: #fff;
 }
 
 .status.status-green {
     background-color: var(--status-green-bg);
-    color: var(--status-green-text);
+    color: #fff;
 }
 
 .status.status-red {
     background-color: var(--status-red-bg);
-    color: var(--status-red-text);
+   color: #fff;
 }
 
 .status.status-grey {
     background-color: var(--status-grey-bg);
-    color: var(--status-grey-text);
+   color: #fff;
 }
 
 .status-ribbon {
@@ -524,40 +537,40 @@ a:hover {
 }
 
 .card.status-orange .status-ribbon {
-    background-color: var(--status-orange-text);
+    background-color: var(--status-orange-ribbon);
 }
 
 .card.status-green .status-ribbon {
-    background-color: var(--status-green-text);
+    background-color: var(--status-green-ribbon);
 }
 
 .card.status-red .status-ribbon {
-    background-color: var(--status-red-text);
+    background-color: var(--status-red-ribbon);
 }
 
 .card.status-grey .status-ribbon {
-    background-color: var(--status-grey-text);
+    background-color: var(--status-grey-ribbon);
 }
 
 .status.halal-cert {
     background-color: var(--status-cert-bg);
-    color: var(--status-cert-text);
+    /* color: var(--status-cert-text); */
 }
 
 .status.halal-fatwa {
     background-color: var(--status-fatwa-bg);
-    color: var(--status-fatwa-text);
+    /* color: var(--status-fatwa-text); */
 }
 
 .status.mashbooh {
     background-color: var(--status-mashbooh-bg);
-    color: var(--status-mashbooh-text);
+    /* color: var(--status-mashbooh-text); */
 }
 
 
 .status.unidentified {
     background-color: var(--status-unidentified-bg);
-    color: var(--status-unidentified-text);
+    /* color: var(--status-unidentified-text); */
 }
 
 body.dark-mode .status.halal-cert {
@@ -645,45 +658,75 @@ body.dark-mode .status.unidentified {
     color: #fff;
     font-weight: bold;
 }
-
+/* --- Explanation Section (UPDATED) --- */
 .explanation-section {
-    margin-bottom: 40px;
+    padding-bottom: 40px;
     text-align: center;
 }
-
 .explanation-section h2 {
     font-size: 2.2em;
     margin-bottom: 40px;
     color: var(--secondary-color);
 }
-
 .explanation-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
+    gap: 30px;
     text-align: left;
 }
-
 .explanation-item {
     background-color: var(--card-bg-color);
-    padding: 25px;
-    border-radius: 8px;
+    border-radius: 12px;
     border: 1px solid var(--border-color);
+    padding: 0; /* Remove padding to allow header to be full-width */
+    overflow: hidden; /* Hide overflowing parts of the header image */
+    position: relative;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+.explanation-header {
+    height: 250px; /* Set a fixed height for the header */
+    box-shadow: 0 -60px 60px -10px rgb(37 37 37 / 85%) inset;
+    background-size: cover;
+    background-position: center;
+}
+/* Background images for each status */
+.explanation-item.status-orange .explanation-header {
+    background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80'); /* โรงงานอุตสาหกรรม */
+}
+.explanation-item.status-green .explanation-header {
+    background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80'); /* ตรวจสอบมาตรฐาน/คุณภาพ */
+}
+.explanation-item.status-red .explanation-header {
+    background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80'); /* โรงงาน/เตือนภัย */
+}
+.explanation-item.status-grey .explanation-header {
+    background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?auto=format&fit=crop&w=800&q=80'); /* เครื่องมือวัด/มาตรฐาน */
 }
 
-.explanation-item .status {
+.explanation-detail {
+   
+    padding: 20px;
+    border-radius: 8px;
+    margin: -40px 15px 15px 15px; /* Negative top margin to float over the header */
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 -4px 15px rgba(0,0,0,0.08); /* Shadow for floating effect */
+   
+}
+.explanation-detail .status {
     margin-bottom: 12px;
+    display: inline-block;
 }
-
-.explanation-item p {
-    padding: 5px 0;
+.explanation-detail p {
     font-size: 0.95em;
+    margin: 0;
+    padding: 0;
 }
 
 .site-footer {
     background-color: var(--card-bg-color);
     color: #666;
-    padding: 40px 0 20px 0;
+    padding-top: 40px;
     border-top: 1px solid var(--border-color);
     margin-top: 20px;
 }
@@ -698,6 +741,12 @@ body.dark-mode .site-footer {
     gap: 30px;
     flex-wrap: wrap;
     margin-bottom: 30px;
+    column-gap: 80px;
+    padding-top: 5%;
+    padding-right: 15%;
+    padding-bottom: 5%;
+    padding-left: 15%;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
 }
 
 .footer-about,
@@ -710,14 +759,20 @@ body.dark-mode .site-footer {
     color: var(--secondary-color);
     margin-top: 0;
     margin-bottom: 15px;
+    font-size: 28px;
 }
 
 .footer-bottom {
     text-align: center;
     border-top: 1px solid var(--border-color);
-    padding-top: 20px;
-    font-size: 0.9em;
+    background-color: #e871a8;
+    font-size: 16px;
     color: #7f8c8d;
+}
+.footer-bottom p {
+    margin: 0;
+    padding: 10px 0;
+    color: #fff;
 }
 
 /* === LIST VIEW (2-COLUMN) STYLES === */
@@ -762,18 +817,22 @@ body.dark-mode .site-footer {
 /* Set background color based on status */
 .results-grid.compact-card-view .card.status-orange {
     background-color: var(--status-orange-bg);
+    color: #FFF;
 }
 
 .results-grid.compact-card-view .card.status-green {
     background-color: var(--status-green-bg);
+     color: #FFF;
 }
 
 .results-grid.compact-card-view .card.status-red {
     background-color: var(--status-red-bg);
+     color: #FFF;
 }
 
 .results-grid.compact-card-view .card.status-grey {
     background-color: var(--status-grey-bg);
+     color: #FFF;
 }
 
 .results-grid.compact-card-view .card-header,

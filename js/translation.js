@@ -49,7 +49,7 @@ const translations = {
         'footer_about_desc': 'This project is a demo to showcase the creation of an accessible Halal food additives database for everyone.',
         'footer_contact_title': 'Contact The Halal Science Center Chulalongkorn University',
         'footer_contact_address': '11-12th Fl., Chulalongkorn University Research Building, Phayathai Rd., Pathum Wan, Bangkok 10330',
-        'footer_copyright': '© 2025 H4E Halal Checker Demo. All Rights Reserved.'
+        'footer_copyright': 'Copyrights ©2022 The Halal Science Center. All Right Reserved.'
     },
     'th': {
         // Page Title
