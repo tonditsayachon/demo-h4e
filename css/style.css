@@ -420,6 +420,7 @@ a:hover {
 
 .additive-details p span {
     color: var(--light-text-color);
+    margin-right: 4px;
 }
 
 .description {
