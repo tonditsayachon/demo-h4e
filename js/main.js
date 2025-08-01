@@ -203,7 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const matchesSearch = currentSearchTerm === '' || (item.e_code || '').toLowerCase().includes(currentSearchTerm) || (item.name_en || '').toLowerCase().includes(currentSearchTerm) || (item.name_th || '').includes(currentSearchTerm);
             const matchesType = typeFilter.value === '' || item[typeKey] === typeFilter.value;
             const matchesSubType = subTypeFilter.value === '' || item[subTypeKey] === subTypeFilter.value;
-            const matchesStatus = currentStatusFilter === '' || (item.status || '').toLowerCase().replace(" certified", "").replace(" fatwa", "").startsWith(currentStatusFilter);
+            const matchesStatus = currentStatusFilter === '' || (item.status || '').startsWith(currentStatusFilter);
             return matchesSearch && matchesType && matchesSubType && matchesStatus;
         });
         resultsMeta.innerHTML = `<span class="lang-text" data-key="results_found">${translations[currentLanguage]['results_found'](filteredData.length)}</span>`;
@@ -226,13 +226,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const newLang = currentLanguage === 'en' ? 'th' : 'en';
         setLanguage(newLang);
     });
-  fullWidthToggle?.addEventListener('click', () => {
-        heroWrapper.classList.toggle('full-width');
-        const icon = fullWidthToggle.querySelector('i');
-        if (icon) {
-            icon.classList.toggle('fa-expand-arrows-alt');
-            icon.classList.toggle('fa-compress-arrows-alt');
-        }
+    fullWidthToggle?.addEventListener('click', () => {
+        heroWrapper.parentElement.classList.toggle('full-width');
+        fullWidthToggle.querySelector('i').classList.toggle('fa-expand-arrows-alt');
+        fullWidthToggle.querySelector('i').classList.toggle('fa-compress-arrows-alt');
     });
 
     heroSwitchBtn?.addEventListener('click', () => {
