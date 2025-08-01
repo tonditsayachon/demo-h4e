@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const card = document.createElement('div');
             card.className = 'distributor-card-item';
             const locationText = distributor.country_th === 'ไทย' ? distributor.province_th : distributor.country_th;
+            const certifiedCount = eNumbersData.filter(e => e.distributor_ids.includes(distributor.distributor_id)).length;
 
             card.innerHTML = `
                 <div class="dist-card-header">
@@ -42,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="dist-card-body">
                     <h3>${distributor.company_name_th}</h3>
                     <p class="location"><span class="detail-icon">📍</span>${locationText || 'N/A'}</p>
+                     <p class="certified-count"><i class="fas fa-flask"></i> ${certifiedCount} products</p> 
                 </div>
                 <div class="dist-card-footer">
                     <a href="distributor-single.html#${distributor.distributor_id}" class="btn-read-more">ดูรายละเอียด</a>
