@@ -1415,7 +1415,7 @@ margin-bottom: 15px; /* Adjust bottom margin for description */
 
 .dist-card-body .certified-count {
     font-size: 0.9em;
-    color: var(--primary-color);
+    color: var(--light-text-color);
     font-weight: 500;
     margin-top: 15px;
 }
