@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultsMeta = document.getElementById('results-meta');
 
     // --- State Variables ---
-     let currentLanguage = 'en'; // Default language
+    let currentLanguage = 'en'; // Default language
     let currentPage = 1;
     const itemsPerPage = 10;
     let currentStatusFilter = '';
@@ -56,10 +56,10 @@ document.addEventListener('DOMContentLoaded', () => {
             flagIcon.alt = 'Thai Language';
             document.documentElement.lang = 'th';
         }
-        
+
         // Re-populate filters with the correct language
         populateFilters();
-        
+
         // Re-render results if they are already displayed
         if (document.getElementById('results-wrapper').style.display === 'block') {
             performSearch(false); // false to keep current page
@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const subTypeKey = currentLanguage === 'en' ? 'sub_type_en' : 'sub_type_th';
         const types = [...new Set(eNumbersData.map(item => item[typeKey]))].sort();
         const subTypes = [...new Set(eNumbersData.map(item => item[subTypeKey]).filter(Boolean))].sort();
-        
+
         typeFilter.innerHTML = `<option value="">${translations[currentLanguage]['filter_type']}</option>`;
         subTypeFilter.innerHTML = `<option value="">${translations[currentLanguage]['filter_subtype']}</option>`;
 
@@ -101,6 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function displayItems(page, data) {
         resultsGrid.innerHTML = '';
+        const currentView = resultsGrid.className;
         page--;
         const start = itemsPerPage * page;
         const end = start + itemsPerPage;
@@ -120,14 +121,15 @@ document.addEventListener('DOMContentLoaded', () => {
         for (const item of paginatedItems) {
             const statusInfo = getStatusInfo(item.status);
             const card = document.createElement('div');
-            card.className = `card ${statusInfo.className}`; 
+            card.className = `card ${statusInfo.className}`;
             const distributorQueryString = `?distributors=${item.distributor_ids.join(',')}&eNumberId=${item.e_code}`;
-            card.innerHTML = `
-                <div class="status-ribbon"></div> 
+               card.innerHTML = `
+      
                 <div class="card-header">
                     <h2>${item.e_code}</h2>
-                    <span class="status ${statusInfo.className}">${statusInfo.text}</span>
+                     <span class="status ${statusInfo.className}">${statusInfo.text}</span>
                 </div>
+                          <div class="status-ribbon"></div> 
                 <div class="card-main-content">
                     <div class="card-body">
                         <p class="name">${item[nameKey]}</p>
@@ -147,12 +149,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <div class="card-view-compact-wrapper">
                     <div class="card-view-compact-header">
-                        <span class="status ${statusInfo.className}">${statusInfo.text}</span>
+           
                         <div class="e-number-logo">${item.e_code}</div>
                     </div>
                     <div class="card-view-compact-body">
                         <p class="name">${item[nameKey]}</p>
-                        <p class="type"><span class="detail-icon"><i class="fa-solid fa-industry"></i></span>${item[originKey]}</p>
+                        <p class="sub-additive"><span class="detail-icon"><i class="fa-solid fa-plus"></i></span><span class="lang-text" data-key="card_subtype">ประเภทย่อย:</span> ${item[subTypeKey] || '-'}</p>
+                                                <span class="status ${statusInfo.className}">${statusInfo.text}</span>
+
                         <p class="description-compact"><span class="detail-icon"><i class="fa-solid fa-circle-info"></i></span>${item[descKey]}</p>
                     </div>
                     <div class="card-view-compact-footer">
@@ -168,6 +172,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>
             `;
+            
+            
+            
+
             resultsGrid.appendChild(card);
         }
     }
@@ -209,7 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
         displayItems(currentPage, filteredData);
         setupPagination(filteredData, itemsPerPage);
     }
-    
+
     function triggerSearchWithLoader() {
         resultsWrapper.style.display = 'block';
         resultsGrid.innerHTML = '<div class="loader"></div>';
@@ -219,13 +227,13 @@ document.addEventListener('DOMContentLoaded', () => {
             performSearch(true);
         }, 500);
     }
-    
+
     // --- Event Listeners ---
     langSwitcherBtn?.addEventListener('click', () => {
         const newLang = currentLanguage === 'en' ? 'th' : 'en';
         setLanguage(newLang);
     });
-   fullWidthToggle?.addEventListener('click', () => {
+    fullWidthToggle?.addEventListener('click', () => {
         heroWrapper.classList.toggle('full-width');
         const icon = fullWidthToggle.querySelector('i');
         if (icon) {
@@ -288,7 +296,7 @@ document.addEventListener('DOMContentLoaded', () => {
             triggerSearchWithLoader();
         });
     });
-    
+
     const viewGridBtn = document.getElementById('view-grid-btn');
     const viewListBtn = document.getElementById('view-list-btn');
     const viewCompactBtn = document.getElementById('view-compact-btn');
@@ -298,22 +306,22 @@ document.addEventListener('DOMContentLoaded', () => {
         viewButtons.forEach(btn => btn?.classList.remove('active'));
         activeBtn?.classList.add('active');
     }
-    
-    viewGridBtn?.addEventListener('click', () => { 
-        resultsGrid.className = 'results-grid'; 
-        updateActiveButton(viewGridBtn); 
+
+    viewGridBtn?.addEventListener('click', () => {
+        resultsGrid.className = 'results-grid';
+        updateActiveButton(viewGridBtn);
     });
-    viewListBtn?.addEventListener('click', () => { 
-        resultsGrid.className = 'results-grid list-view'; 
-        updateActiveButton(viewListBtn); 
+    viewListBtn?.addEventListener('click', () => {
+        resultsGrid.className = 'results-grid list-view';
+        updateActiveButton(viewListBtn);
     });
-    viewCompactBtn?.addEventListener('click', () => { 
-        resultsGrid.className = 'results-grid compact-card-view'; 
-        updateActiveButton(viewCompactBtn); 
+    viewCompactBtn?.addEventListener('click', () => {
+        resultsGrid.className = 'results-grid compact-card-view';
+        updateActiveButton(viewCompactBtn);
     });
 
     // --- Initial Load ---
-    if(resultsGrid) {
+    if (resultsGrid) {
         const savedLang = localStorage.getItem('language') || 'en';
         setLanguage(savedLang);
         populateFilters();

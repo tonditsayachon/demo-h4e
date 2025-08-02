@@ -423,7 +423,7 @@ a:hover {
     padding-bottom: 15px;
     margin-bottom: 15px;
     border-bottom: 1px solid var(--border-color);
-    color: var(--secondary-color);
+    color: var(--text-color)
 }
 
 .additive-details p {
@@ -775,7 +775,7 @@ body.dark-mode .site-footer {
     color: #fff;
 }
 
-/* === LIST VIEW (2-COLUMN) STYLES === */
+/* === result-bar === */
 .result-bar {
     display: flex;
     justify-content: space-between;
@@ -783,20 +783,79 @@ body.dark-mode .site-footer {
     margin-bottom: 20px;
 }
 
+/* === LIST VIEW STYLES (UPDATED) === */
+
 .results-grid.list-view {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr); /* Set to 2 columns */
+    gap: 25px;
 }
+.results-grid.list-view .card {
 
+    flex-direction: row; /* Arrange items horizontally */
+    align-items: stretch;
+    padding: 0;
+    border-radius: 20px; /* New border radius */
+    overflow: hidden;
+}
 .results-grid.list-view .card:hover {
-    transform: none;
+    transform: none; /* Disable hover effect for list view */
+}
+.results-grid.list-view .card-header {
+     
+    flex: 0 0 120px; /* Give a fixed width to the header part */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
 }
 
-.results-grid.list-view .card-header,
+.results-grid.list-view  .card-header h2{
+    margin-right: inherit;
+}
+.results-grid.list-view .card.status-orange {
+    background-color: #fff;
+    
+}
+.results-grid.list-view .status-ribbon {
+   
+       position: relative;
+    width: 8px;
+    height: auto;
+    margin: 20px 0;
+    border-radius: 20px;
+    padding: 5px;
+   box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+}
 .results-grid.list-view .card-main-content {
-    padding-left: 40px;
+   
+   
+    padding: 20px;
+    flex-basis: min-content;
+}
+/* Set background color based on status */
+.results-grid.list-view .card.status-orange .status-ribbon {
+ 
+    background-color:#ffe89b;
+
 }
 
+.results-grid.list-view .card.status-green .status-ribbon {
+    background-color: #0b874469;
+ 
+}
 
+.results-grid.list-view .card.status-red .status-ribbon {
+    background-color:#ffb2acd5;
+
+ 
+}
+
+.results-grid.list-view .card.status-grey .status-ribbon {
+    background-color: #bbbbbb;
+ 
+}
 
 /* === COMPACT VIEW STYLES === */
 .results-grid.compact-card-view {
@@ -816,22 +875,24 @@ body.dark-mode .site-footer {
 
 /* Set background color based on status */
 .results-grid.compact-card-view .card.status-orange {
-    background-color: var(--status-orange-bg);
+ 
+    background-color:#fffaea;
     color: #FFF;
 }
 
 .results-grid.compact-card-view .card.status-green {
-    background-color: var(--status-green-bg);
+    background-color: #0b874414;
      color: #FFF;
 }
 
 .results-grid.compact-card-view .card.status-red {
-    background-color: var(--status-red-bg);
+    background-color:#ffe1df70;
+
      color: #FFF;
 }
 
 .results-grid.compact-card-view .card.status-grey {
-    background-color: var(--status-grey-bg);
+    background-color: #5b5b5b1c;
      color: #FFF;
 }
 
@@ -859,21 +920,39 @@ body.dark-mode .site-footer {
     font-size: 2.5em;
     font-weight: 700;
     color: var(--secondary-color);
-    margin: 10px 0;
+ 
 }
 
 .card-view-compact-header .status {
-    position: absolute;
-    top: -10px;
-    right: -10px;
-    font-size: 0.8em;
+    position: relative;
+
+    font-size: 16px;
     background-color: var(--card-bg-color);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
+.card-view-compact-header .status.status-orange {
+    background-color: var(--status-orange-bg);
+    color: #FFF;
+}
+.card-view-compact-header .status.status-green {
+    background-color: var(--status-green-bg);
+    color: #FFF;
+}
+.card-view-compact-header .status.status-red {
+    background-color: var(--status-red-bg);
+    color: #FFF;
+}
+.card-view-compact-header .status.status-grey {
+    background-color: var(--status-grey-bg);
+    color: #FFF;
+}
 .card-view-compact-body {
     flex-grow: 1;
     margin-bottom: 20px;
+}
+.card-view-compact-body .status {
+    display: inline-block; /* Make it an inline block to apply margin */
+    margin-bottom: 15px; /* Add space below the status */
 }
 
 .card-view-compact-body .name {
@@ -883,8 +962,8 @@ body.dark-mode .site-footer {
     margin: 0 0 5px 0;
 }
 
-.card-view-compact-body .type {
-    color: var(--light-text-color);
+.card-view-compact-body .sub-additive {
+    color: var(--secondary-color);
     margin-bottom: 15px;
     font-size: 0.95em;
     display: flex;
@@ -903,6 +982,7 @@ body.dark-mode .site-footer {
     display: flex;
     justify-content: center;
     align-items: flex-start;
+    margin:0;
 }
 
 .card-view-compact-footer {
@@ -960,7 +1040,7 @@ body.dark-mode .site-footer {
 }
 
 .distributor-filters {
-    padding: 30px;
+    padding: 20px;
     background-color: var(--card-bg-color);
     border-radius: 12px;
     border: 1px solid var(--border-color);
@@ -985,7 +1065,7 @@ body.dark-mode .site-footer {
 
 .distributor-grid.card-style-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjusted min-width */
+    grid-template-columns: repeat(3, 1fr);
     gap: 25px;
 }
 
@@ -1464,10 +1544,6 @@ margin-bottom: 10px;
 margin-bottom: 15px; /* Adjust bottom margin for description */
 }
 
-/* Optional: Add a divider after the detail section */
-.single-content .detail-card+.detail-card {
-    margin-top: 30px;
-}
 
 
 .additive-details p .detail-icon {
@@ -1476,10 +1552,133 @@ margin-bottom: 15px; /* Adjust bottom margin for description */
 
 .dist-card-body .certified-count {
     font-size: 0.9em;
-    color: var(--light-text-color);
+    color: var(--text-color);
     font-weight: 500;
     margin-top: 15px;
 }
 .dist-card-body .certified-count i {
+    margin-right: 5px;
+}
+
+/* ADD THESE STYLES TO YOUR style.css FILE */
+
+/* --- Distributor Single Page --- */
+.distributor-profile-header {
+    background-color: var(--card-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 40px;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+.distributor-profile-header img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: contain;
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    flex-shrink: 0;
+}
+.distributor-profile-info h1 {
+    margin: 0 0 10px 0;
+    font-size: 2.2em;
+    color: var(--secondary-color);
+}
+.distributor-profile-info p {
+    margin: 0;
+    font-size: 1.1em;
+    color: var(--light-text-color);
+}
+
+/* --- Distributor Single Page --- */
+/* ... (distributor-profile-header styles remain the same) ... */
+
+.detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.detail-card {
+    background-color: var(--card-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+.detail-card h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--secondary-color);
+    font-size: 1.3em;
+}
+.detail-card h3 i {
+    margin-right: 10px;
+    color: var(--primary-color);
+}
+
+/* NEW Table Styles for Contact Info */
+.contact-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1em;
+}
+.contact-table td {
+    padding: 12px 5px;
+    border-bottom: 1px solid var(--border-color);
+}
+.contact-table tr:last-child td {
+    border-bottom: none;
+}
+.contact-table td:first-child {
+    width: 90px; /* Fixed width for labels */
+    font-weight: 500;
+    color: var(--light-text-color);
+}
+
+
+/* --- E-Number List Styling --- */
+.e-number-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.e-number-item a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    transition: all 0.2s;
+}
+.e-number-item a:hover {
+    border-color: var(--primary-color);
+    background-color: var(--card-bg-color);
+}
+.e-number-item-info {
+    font-weight: 500;
+    color: var(--text-color);
+}
+.e-number-item a .certification-info {
+    font-size: 0.85em;
+    color: var(--status-green-text);
+    margin-left: 15px;
+    white-space: nowrap; /* Prevent wrapping */
+    flex-shrink: 0;
+}
+.e-number-item a .certification-info i {
     margin-right: 5px;
 }

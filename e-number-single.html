@@ -8,6 +8,80 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="assets/images/h4e-logo.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* NEW STYLES FOR DISTRIBUTOR LIST VIEW */
+        .distributor-list-view {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding: 0;
+            list-style-type: none;
+        }
+
+        .distributor-list-item {
+            display: block;
+            background-color: var(--card-bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            transition: all 0.2s ease-in-out;
+            text-decoration: none;
+            color: var(--text-color);
+        }
+
+        .distributor-list-item:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .distributor-list-item-link {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .distributor-list-item .logo {
+            flex-shrink: 0;
+            width: 60px;
+            height: 60px;
+            margin-right: 20px;
+            border-radius: 50%;
+            object-fit: contain;
+            background-color: #fff;
+            padding: 5px;
+            border: 1px solid var(--border-color);
+        }
+
+        .distributor-list-item .info {
+            flex-grow: 1;
+        }
+
+        .distributor-list-item .info h4 {
+            margin: 0 0 5px 0;
+            font-size: 1.1em;
+            color: var(--secondary-color);
+        }
+
+        .distributor-list-item .info p {
+            margin: 0;
+            font-size: 0.9em;
+            color: var(--light-text-color);
+        }
+
+        .distributor-list-item .certification {
+            flex-shrink: 0;
+            text-align: right;
+            font-size: 0.9em;
+            font-weight: 500;
+            color: var(--status-green-text);
+        }
+
+        .distributor-list-item .certification i {
+            margin-right: 8px;
+        }
+    </style>
 </head>
 
 <body>
@@ -16,8 +90,9 @@
         <div class="container top-bar-container">
             <a href="index.html" class="logo"><img src="assets/images/h4e-logo.png" alt="H4E Logo"></a>
             <nav class="top-nav">
-                <a href="distributors.html" class="nav-link">ผู้จัดจำหน่าย</a>
-                <a href="login.html" class="nav-link login-btn">เข้าสู่ระบบ</a>
+                <a href="index.html" class="nav-link lang-text" data-key="nav_home">E-Number</a>
+                <a href="distributors.html" class="nav-link lang-text" data-key="nav_distributors">Distributors</a>
+                <a href="login.html" class="nav-link login-btn lang-text" data-key="nav_login">Login</a>
                 <button id="lang-switcher-btn" class="icon-btn" title="เปลี่ยนภาษา"><img src="assets/images/th-flag.svg"
                         alt="Thai Language"></button>
             </nav>
@@ -41,41 +116,51 @@
             </div>
 
             <div class="detail-body">
-                <h3><span class="detail-icon">🧪</span>รายละเอียด</h3>
-                <p><strong>ประเภท:</strong> <span id="e-number-type">-</span></p>
-                <p><strong>ประเภทย่อย:</strong> <span id="e-number-sub-type">-</span></p>
-                <p><strong>แหล่งที่มา:</strong> <span id="e-number-origin">-</span></p>
-                <p><strong>คำอธิบาย:</strong> <span id="e-number-description">-</span></p>
-            </div>
-
-            <div class="detail-certification">
-                <h3><span class="detail-icon">📜</span>ข้อมูลการรับรอง</h3>
-                <p><strong>หน่วยงานที่รับรอง:</strong> <span id="cert-body">-</span></p>
-                <p><strong>รหัสฮาลาล:</strong> <span id="halal-code">-</span></p>
-                <p><strong>วันหมดอายุ:</strong> <span id="cert-expiry">-</span></p>
+                <h3><span class="detail-icon"><i class="fa-solid fa-circle-info"></i></span>รายละเอียด</h3>
+                <p><strong><i class="fa-solid fa-flask"></i> ประเภท:</strong> <span id="e-number-type">-</span></p>
+                <p><strong><i class="fa-solid fa-plus"> </i> ประเภทย่อย:</strong> <span id="e-number-sub-type">-</span>
+                </p>
+                <p><strong><i class="fa-solid fa-house"></i> แหล่งที่มา:</strong> <span id="e-number-origin">-</span>
+                </p>
+                <p><strong><i class="fa-solid fa-circle-info"></i> คำอธิบาย:</strong> <span
+                        id="e-number-description">-</span></p>
             </div>
         </div>
 
         <div class="detail-card">
-            <h3>ผู้จัดจำหน่ายที่ใช้งานสารนี้ (<span id="distributor-count">0</span>)</h3>
-            <div id="distributor-grid" class="distributor-grid card-style-grid">
-                </div>
+            <h3>ผู้จัดจำหน่าย (<span id="distributor-count">0</span>)</h3>
+            <ul id="distributor-list" class="distributor-list-view">
+            </ul>
         </div>
     </div>
-    
+
     <footer class="site-footer">
         <div class="container footer-container">
             <div class="footer-about">
-                <h4>เกี่ยวกับ H4E Halal Checker</h4>
-                <p>โครงการนี้เป็น Demo เพื่อสาธิตการสร้างฐานข้อมูลวัตถุเจือปนอาหารฮาลาล</p>
+
+                <h4>Connect With Us</h4>
+                <h5>ศูนย์วิทยาศาสตร์ฮาลาล จุฬาลงกรณ์มหาวิทยาลัย</h5>
+                <p>254 อาคารวิจัยจุฬาลงกรณ์มหาวิทยาลัย ชั้น 11-13 ถนนพญาไท แขวงวังใหม่ เขตปทุมวัน กรุงเทพฯ 10330
+                </p>
+                <h5>อีเมล</h5>
+                <p>info.hsc.cu@gmail.com</p>
+                <h5>โทรศัพท์</h5>
+                <p>02-218-1054</p>
+
             </div>
             <div class="footer-contact">
-                <h4>ติดต่อ ศูนย์วิทยาศาสตร์ฮาลาล จุฬาฯ</h4>
-                <p>ชั้น 11-12 อาคารวิจัยจุฬาฯ ถนนพญาไท ปทุมวัน กรุงเทพฯ 10330</p>
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.5983950843292!2d100.52421707509005!3d13.742747386648173!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29ed4f6e235b3%3A0xe23aff93db3c0ccf!2z4Lio4Li54LiZ4Lii4LmM4Lin4Li04LiX4Lii4Liy4Lio4Liy4Liq4LiV4Lij4LmM4Liu4Liy4Lil4Liy4LilIOC4iOC4uOC4rOC4suC4peC4h-C4geC4o-C4k-C5jOC4oeC4q-C4suC4p-C4tOC4l-C4ouC4suC4peC4seC4oiAoVGhlIEhhbGFsIFNjaWVuY2UgQ2VudGVyLCBDVSk!5e0!3m2!1sen!2sth!4v1754020291256!5m2!1sen!2sth"
+                    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </div>
+
+
+        </div>
         <div class="footer-bottom">
-            <p>&copy; 2025 H4E Halal Checker Demo. All Rights Reserved.</p>
+            <p class="lang-text" data-key="footer_copyright">Copyrights ©2022 The Halal Science Center. All Right
+                Reserved.</p>
         </div>
     </footer>
 
@@ -98,11 +183,11 @@
             const getStatusInfo = (statusKey) => {
                 switch (statusKey) {
                     case 'halal-cert': return { text: 'ฮาลาล (รับรอง)', className: 'status-orange' };
-            case 'halal-fatwa': return { text: 'ฮาลาล (ฟัตวา)', className: 'status-green' };
-            case 'mashbooh': return { text: 'มัชบูฮ์', className: 'status-red' };
-            case 'haram': return { text: 'ฮารอม', className: 'status-red' };
-            case 'unidentified': return { text: 'ไม่ระบุ', className: 'status-grey' };
-            default: return { text: 'ไม่ระบุ', className: 'status-grey' };
+                    case 'halal-fatwa': return { text: 'ฮาลาล (ฟัตวา)', className: 'status-green' };
+                    case 'mashbooh': return { text: 'มัชบูฮ์', className: 'status-red' };
+                    case 'haram': return { text: 'ฮารอม', className: 'status-red' };
+                    case 'unidentified': return { text: 'ไม่ระบุ', className: 'status-grey' };
+                    default: return { text: 'ไม่ระบุ', className: 'status-grey' };
                 }
             };
 
@@ -111,7 +196,7 @@
             document.getElementById('breadcrumb-current-page').innerText = eNumber.e_code;
             document.getElementById('e-number-name-th').innerText = eNumber.name_th;
             document.getElementById('e-number-name-en').innerText = eNumber.name_en;
-            
+
             const statusInfo = getStatusInfo(eNumber.status);
             const statusEl = document.getElementById('e-number-status');
             statusEl.textContent = statusInfo.text;
@@ -121,42 +206,50 @@
             document.getElementById('e-number-sub-type').innerText = eNumber.sub_type_th || '-';
             document.getElementById('e-number-origin').innerText = eNumber.origin_th;
             document.getElementById('e-number-description').innerText = eNumber.description_th;
-            
-            document.getElementById('cert-body').innerText = eNumber.certification_body_th || '-';
-            document.getElementById('halal-code').innerText = eNumber.halal_code || '-';
-            document.getElementById('cert-expiry').innerText = eNumber.certification_end_date || '-';
 
             // --- Populate Distributor List as Cards ---
-            const distributorGridEl = document.getElementById('distributor-grid');
+            // --- Populate Distributor List as a LIST VIEW ---
+            const distributorListEl = document.getElementById('distributor-list');
             const distributorCountEl = document.getElementById('distributor-count');
             const usedByDistributors = distributorsData.filter(d => eNumber.distributor_ids.includes(d.distributor_id));
 
             distributorCountEl.innerText = usedByDistributors.length;
 
             if (usedByDistributors.length === 0) {
-                distributorGridEl.innerHTML = '<p style="grid-column: 1 / -1; text-align: center;">ไม่พบข้อมูลผู้จัดจำหน่ายที่ใช้งานสารนี้</p>';
+                distributorListEl.innerHTML = '<li><p style="text-align: center;">ไม่พบข้อมูลผู้จัดจำหน่ายที่ใช้งานสารนี้</p></li>';
             } else {
+                distributorListEl.innerHTML = ''; // Clear previous content
                 usedByDistributors.forEach(distributor => {
-                    const card = document.createElement('div');
-                    card.className = 'distributor-card-item';
-                    const locationText = distributor.country_th === 'ไทย' ? distributor.province_th : distributor.country_th;
+                    const listItem = document.createElement('li'); // Create <li> element
+                    listItem.className = 'distributor-list-item';
 
-                    card.innerHTML = `
-                        <div class="dist-card-header">
-                            <img src="${distributor.logo}" alt="${distributor.company_name_th} Logo">
-                        </div>
-                        <div class="dist-card-body">
-                            <h3>${distributor.company_name_th}</h3>
-                            <p class="location"><span class="detail-icon">📍</span>${locationText || 'N/A'}</p>
-                        </div>
-                        <div class="dist-card-footer">
-                            <a href="distributor-single.html#${distributor.distributor_id}" class="btn-read-more">ดูรายละเอียด</a>
-                        </div>
+                    const locationText = distributor.country_th === 'ไทย' ? distributor.province_th : distributor.country_th;
+                    
+                    let certificationInfo = '';
+                    if (eNumber.certification_body_th) {
+                        certificationInfo = `
+                            <div class="certification">
+                                <i class="fas fa-check-circle"></i>
+                                <span class="author">${eNumber.certification_body_th}</span>
+                            </div>
+                        `;
+                    }
+
+                    listItem.innerHTML = `
+                        <a href="distributor-single.html#${distributor.distributor_id}" class="distributor-list-item-link">
+                            <img src="${distributor.logo}" alt="${distributor.company_name_th} Logo" class="logo">
+                            <div class="info">
+                                <h4>${distributor.company_name_th}</h4>
+                                <p>${locationText || 'N/A'}</p>
+                            </div>
+                            ${certificationInfo}
+                        </a>
                     `;
-                    distributorGridEl.appendChild(card);
+                    distributorListEl.appendChild(listItem);
                 });
             }
         });
     </script>
 </body>
+
 </html>

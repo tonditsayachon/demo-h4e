@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="dist-card-body">
                     <h3>${distributor.company_name_th}</h3>
                     <p class="location"><span class="detail-icon">📍</span>${locationText || 'N/A'}</p>
-                     <p class="certified-count"><i class="fas fa-flask"></i> ${certifiedCount} products</p> 
+                     <p class="certified-count">สารที่ได้รับการรับรอง ${certifiedCount} รายการ</p> 
                 </div>
                 <div class="dist-card-footer">
                     <a href="distributor-single.html#${distributor.distributor_id}" class="btn-read-more">ดูรายละเอียด</a>
